@@ -173,7 +173,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
         <div class="stat"><b>3 Inselflüge</b><span>zwei davon direkt</span></div>
       </div>
     </div>
-    <div class="arch"><img src="images/nihi_hotel.jpg" alt="Küste von West-Sumba"></div>
+    <div class="arch"><img src="bilder/nihi_hotel.jpg" alt="Küste von West-Sumba"></div>
   </div>
 </header>
 
@@ -413,8 +413,8 @@ function hotelCard(s,h){
     }).join("")+'</div>' : '';
   var other = v.nr ? (state.nr ? 'Flexibel: '+chf(v.flex) : 'Nicht erstattbar: '+chf(v.nr)) : '';
   return '<label class="opt'+(on?' sel':'')+'" for="h-'+h.id+'"><input class="pick" type="radio" name="h-'+s.id+'" id="h-'+h.id+'" data-s="'+s.id+'" value="'+h.id+'"'+(on?' checked':'')+'>'+
-    '<div class="ph"><figure><img src="images/'+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
-    '<figure><img src="images/'+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
+    '<div class="ph"><figure><img src="bilder/'+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
+    '<figure><img src="bilder/'+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
     '<div class="ob"><div class="otop"><span class="olabel">'+esc(h.label)+'</span>'+(h.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
     '<h3>'+esc(h.name)+'</h3><div class="room">'+esc(v.n)+'</div>'+vars+
     '<div class="price"><b>'+(h.approx?'ca. ':'')+chf(p)+'</b><span>≈ '+chf(p/s.nights).replace("CHF ","")+' pro Nacht</span></div>'+
