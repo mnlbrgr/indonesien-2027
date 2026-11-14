@@ -29,6 +29,13 @@ h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
 .kawung{height:26px;background-color:var(--indigo);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='26' viewBox='0 0 52 26'%3E%3Cg fill='none' stroke='%23E8C98A' stroke-width='1.4'%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(45 13 13)'/%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(-45 13 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(45 39 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(-45 39 13)'/%3E%3C/g%3E%3Cg fill='%23E8C98A'%3E%3Ccircle cx='13' cy='13' r='1.6'/%3E%3Ccircle cx='39' cy='13' r='1.6'/%3E%3Ccircle cx='26' cy='13' r='1.1'/%3E%3Ccircle cx='0' cy='13' r='1.1'/%3E%3Ccircle cx='52' cy='13' r='1.1'/%3E%3C/g%3E%3C/svg%3E");background-size:52px 26px}
 .ikat{height:14px;margin:0 auto;max-width:220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 7 L7 1 L14 7 L7 13 Z' fill='none' stroke='%23A9482A' stroke-width='1.3'/%3E%3Cpath d='M14 7 L21 1 L28 7 L21 13 Z' fill='none' stroke='%23D7A23D' stroke-width='1.3'/%3E%3Ccircle cx='7' cy='7' r='1.4' fill='%23A9482A'/%3E%3Ccircle cx='21' cy='7' r='1.4' fill='%23D7A23D'/%3E%3C/svg%3E");background-size:28px 14px}
 
+/* Umschalter */
+.switch{display:flex;gap:8px;padding-top:18px}
+.switch a{font-weight:700;font-size:14px;text-decoration:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink);background:var(--paper)}
+.switch a[aria-current]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.map .hub{fill:var(--paper);stroke:var(--terra);stroke-width:2}
+.map .hn{font:600 11px var(--body);fill:var(--soft)}
+
 /* Kopf */
 .hero{padding:44px 0 34px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:center}
@@ -161,6 +168,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 <body>
 <div class="kawung" aria-hidden="true"></div>
 
+<nav class="switch wrap" aria-label="Reisevarianten"><a href="./" aria-current="page">Indonesien</a><a href="philippinen/">Philippinen</a></nav>
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -237,7 +245,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
       </div>
     </div>
     <div class="notes">
-      <p>Alle Preise gelten für 2 Erwachsene und den ganzen Aufenthalt, inklusive Steuern und Gebühren. Live geprüft am 14.11.2026; Preise und Verfügbarkeit ändern sich täglich. Die Booking-Preise wurden mit angemeldetem Konto abgerufen und können Konto-Rabatte enthalten.</p>
+      <p>Alle Preise gelten für 2 Erwachsene und den ganzen Aufenthalt, inklusive Steuern und Gebühren. Live geprüft am 14.11.2026; Preise und Verfügbarkeit ändern sich täglich. Die Booking-Preise sind mit eurem Konto (Genius-Stufe 2) abgerufen und enthalten dessen Rabatte.</p>
       <p>Nicht eingerechnet: Essen ausser Frühstück, Visum (e-VoA, rund CHF 30 pro Person), Touristenabgabe für Bali. Auf Sumba esst ihr fast immer im Resort.</p>
       <p>Fotos: die jeweiligen Hotels. Sie zeigen ein Zimmer des Hauses, nicht immer genau die gewählte Kategorie.</p>
     </div>
@@ -257,18 +265,17 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 <script>
 (function(){
 "use strict";
-var bk=function(slug,ci,co){return "https://www.booking.com/hotel/id/"+slug+".de.html?checkin="+ci+"&checkout="+co+"&group_adults=2&no_rooms=1&group_children=0&selected_currency=CHF";};
+var bk=function(slug,ci,co,c){return "https://www.booking.com/hotel/"+(c||"id")+"/"+slug+".de.html?checkin="+ci+"&checkout="+co+"&group_adults=2&no_rooms=1&group_children=0&selected_currency=CHF";};
 var gf=function(a,b,d){return "https://www.google.com/travel/flights?q=Flights+from+"+a+"+to+"+b+"+on+"+d+"+one+way+for+2+adults&curr=CHF&hl=de&gl=ch";};
-var KAYAK="https://www.kayak.ch/flights/ZRH-DPS/2027-05-01/2027-05-22/2adults?sort=bestflight_a&fs=airlines=SQ";
-
 var LONG=[
- {id:"abend",title:"Singapore Airlines, Rückflug am Abend",flex:2167,pick:true,
+ {id:"abend",title:"Singapore Airlines, Rückflug am Abend",flex:2167,pick:true,u:"https://www.kayak.ch/flights/ZRH-DPS/2027-05-01/2027-05-22/2adults?sort=bestflight_a&fs=airlines=SQ",
   route:"Hin Sa 1.5.: Zürich 11:40 → Singapur → Bali So 11:00.<br>Zurück Sa 22.5.: Bali 21:40 → Singapur → Zürich So 08:15.",
   note:"Ein Stopp, 1 Std. 10 Min. Umsteigezeit auf dem Rückweg."},
- {id:"mittag",title:"Singapore Airlines, Rückflug am Mittag",flex:2097,
+ {id:"mittag",title:"Singapore Airlines, Rückflug am Mittag",flex:2097,u:"https://www.kayak.ch/flights/ZRH-DPS/2027-05-01/2027-05-22/2adults?sort=bestflight_a&fs=airlines=SQ",
   route:"Hin wie oben.<br>Zurück Sa 22.5.: Bali 13:20 → Singapur → Zürich So 08:15.",
   note:"CHF 70 günstiger, dafür 9 Std. 20 Min. Aufenthalt in Singapur."}
 ];
+var KEY="indonesien2027-auswahl-v4", TITLE="Indonesien 2027", IMG="bilder/", EXTRAS=780, DOMSUM="Alle drei Inselflüge";
 var DOM=[
  {d:"Fr 7. Mai",r:"Bali → Sumba (Tambolaka)",f:"Batik Air · 09:10–10:20 · direkt",p:128,u:gf("DPS","TMC","2027-05-07")},
  {d:"Mi 12. Mai",r:"Sumba → Lombok",f:"Batik Air + Wings Air · 11:05–16:30 · via Bali",p:202,u:gf("TMC","LOP","2027-05-12")},
@@ -280,7 +287,7 @@ var ST=[
   todo:[["Sonnenaufgang am Vulkan","Früh auf den Mount Batur oder den ruhigeren Mount Abang durch Bergwald."],["Reisterrassen und Tempel","Spaziergang durch Subak Juwuk Manis, Wassertempel Tirta Empul, ein Nachmittag im Spa."],["Essen","Locavore NXT, Hujan Locale, Desserts im Room4Dessert. Früh reservieren."]],
   hotels:[
    {id:"adiwana",label:"Preis-Leistung",name:"Adiwana Bisma",pick:true,url:bk("adiwana-bisma-suites","2027-05-02","2027-05-07"),
-    vars:[{n:"Zimmer Bisma",flex:807,nr:679},{n:"Reisfeldblick",flex:865,nr:727},{n:"Dschungelblick",flex:968,nr:814,def:true}],
+    vars:[{n:"Zimmer Bisma",flex:798,nr:670},{n:"Reisfeldblick",flex:841,nr:704},{n:"Dschungelblick",flex:957,nr:804,def:true}],
     pts:["Frühstück und kurze Massage inklusive","Kostenlos stornierbar bis 27. April 2027","Dachpool über den Baumwipfeln, 10 Minuten zu Fuss ins Zentrum"]},
    {id:"bisma8",label:"Design",name:"Bisma Eight",url:bk("bisma-eight","2027-05-02","2027-05-07"),
     vars:[{n:"Suite Canopy",flex:1094,def:true},{n:"Garten-Suite",flex:1111},{n:"Forest Suite",flex:1207},{n:"Villa",flex:1570}],
@@ -289,10 +296,10 @@ var ST=[
     vars:[{n:"Zimmer King",flex:914,nr:763,def:true},{n:"Deluxe",flex:1058,nr:897}],
     pts:["Kostenlos stornierbar bis 25. April 2027","Booking-Note 9,0. Berühmter Pool über dem Ayung-Tal","Rund 15 Minuten ausserhalb von Ubud, sehr ruhig"]},
    {id:"komaneka",label:"Erste Liga",name:"Komaneka at Bisma",url:bk("komaneka-at-bisma","2027-05-02","2027-05-07"),
-    vars:[{n:"Suite Bisma",flex:2242,nr:1903,def:true},{n:"Pool-Villa",flex:4810,nr:4083}],
+    vars:[{n:"Suite Bisma",flex:2017,nr:1713,def:true},{n:"Pool-Villa",flex:4329,nr:3675}],
     pts:["Frühstück inklusive","Kostenlos stornierbar bis 18. April 2027","Eines der besten Häuser Ubuds, langer Pool, sehr ruhig"]}
   ],
-  reco:["Adiwana Bisma, Zimmer mit Dschungelblick",["Bisma Eight ist die stilvollere Variante an derselben Strasse und kostet CHF 126 mehr; wer Wert auf Design legt, nimmt die Suite Canopy. Alila Ubud ist das ruhigste Haus, dafür seid ihr für jedes Abendessen auf den Shuttle angewiesen.","Komaneka bleibt das schönste Haus, kostet für fünf Nächte aber gut CHF 1'270 mehr als das Adiwana, und tagsüber seid ihr meist unterwegs."]]},
+  reco:["Adiwana Bisma, Zimmer mit Dschungelblick",["Bisma Eight ist die stilvollere Variante an derselben Strasse und kostet CHF 137 mehr; wer Wert auf Design legt, nimmt die Suite Canopy. Alila Ubud ist das ruhigste Haus, dafür seid ihr für jedes Abendessen auf den Shuttle angewiesen.","Komaneka bleibt das schönste Haus, kostet für fünf Nächte aber gut CHF 1'060 mehr als das Adiwana, und tagsüber seid ihr meist unterwegs."]]},
  {id:"sumba",no:2,name:"West-Sumba",dates:"Fr 7. – Mi 12. Mai",nights:5,tag:"Leerer Strand, Dörfer, Lagunen",
   facts:[["Anreise","Tambolaka an 10:20, dann 2 Std. Fahrt"],["Weiterreise","Mi 12. Mai, Abfahrt gegen 08:00, Flug 11:05"],["Transfers","Über das Resort buchen"]],
   todo:[["Tagestour Nordwest","Salzwasserlagune Weekuri und das Megalith-Dorf Ratenggaro."],["Tagestour Inland","Wanderung zum Lapopu-Wasserfall, Hügeldorf Praijing."],["Dazwischen","Surfen, Stand-up-Paddling, Ausritt am Strand bei Ebbe."]],
@@ -319,29 +326,29 @@ var ST=[
   todo:[["Surfen in Selong Belanak","Sichelförmige Sandbucht mit sanften Wellen auf Sandboden, ideal für entspannte Surfstunden."],["Mawun und Tanjung Aan","Ruhige Badebuchten. Zum Sonnenuntergang auf die Grashügel von Bukit Merese."],["Essen in Kuta","El Bazar, Ashtari mit Panoramablick, KRNK."]],
   hotels:[
    {id:"somewhere",label:"Aussicht",name:"Somewhere Lombok",pick:true,url:bk("somewhere-lombok","2027-05-12","2027-05-17"),
-    vars:[{n:"Villa mit Tauchbecken",flex:1175,nr:1038,def:true}],
+    vars:[{n:"Villa mit Tauchbecken",flex:1058,nr:934,def:true}],
     pts:["Frühstück inklusive","Kostenlos stornierbar bis 28. April 2027","Am Hang über der Surfbucht Are Guling, 10 Minuten ausserhalb von Kuta"]},
    {id:"rascals",label:"Nur Erwachsene",name:"Rascals Hotel",url:bk("rascals","2027-05-12","2027-05-17"),
     vars:[{n:"Zimmer mit Terrasse",flex:459},{n:"Deluxe mit Balkon",flex:483},{n:"Superior Suite",flex:506,def:true}],
     pts:["Frühstück inklusive","Kostenlos stornierbar bis 28. April 2027","Booking-Note 9,6. Boutique-Hotel nur für Erwachsene in Kuta"]},
    {id:"origin",label:"Garten",name:"Origin Lombok",url:bk("origin-resort","2027-05-12","2027-05-17"),
-    vars:[{n:"Signature Garten",flex:414,nr:322},{n:"Garden Pavilion",flex:478,nr:372},{n:"Pool Access Pavilion",flex:557,nr:434,def:true}],
+    vars:[{n:"Signature Garten",flex:372,nr:290},{n:"Garden Pavilion",flex:430,nr:335},{n:"Pool Access Pavilion",flex:502,nr:390,def:true}],
     pts:["Kostenlos stornierbar bis 28. April 2027","Booking-Note 9,3. Pavillons um einen langen Pool, vom Zimmer direkt ins Wasser"]},
    {id:"jivana",label:"Mittendrin",name:"Jivana Resort",url:bk("jivana-resort","2027-05-12","2027-05-17"),
     vars:[{n:"Deluxe Suite",flex:414,def:true}],
     pts:["Frühstück inklusive","Kostenlos stornierbar","Die Villa mit privatem Pool ist für diese Daten nicht mehr frei","Ruhige Gartenanlage in Kuta, Cafés und Restaurants zu Fuss"]}
   ],
-  reco:["Somewhere Lombok, flexible Rate",["Blick über die Bucht, eigenes Becken, Restaurant im Haus. Vorher klären: Booking beschreibt die Villa mit 51 m² und Garten- oder Bergblick. Fragt nach einer Villa in der oberen Reihe.","Rascals ist die beste Alternative, wenn ihr abends zu Fuss essen gehen wollt: sehr gut bewertet und fast CHF 670 günstiger. Origin lohnt sich wegen der Zimmer mit direktem Poolzugang."]]},
+  reco:["Somewhere Lombok, flexible Rate",["Blick über die Bucht, eigenes Becken, Restaurant im Haus. Vorher klären: Booking beschreibt die Villa mit 51 m² und Garten- oder Bergblick. Fragt nach einer Villa in der oberen Reihe.","Rascals ist die beste Alternative, wenn ihr abends zu Fuss essen gehen wollt: sehr gut bewertet und gut CHF 550 günstiger. Origin lohnt sich wegen der Zimmer mit direktem Poolzugang."]]},
  {id:"uluwatu",no:4,name:"Uluwatu",dates:"Mo 17. – Sa 22. Mai",nights:5,tag:"Klippen, Buchten, Ausklang",
   facts:[["Anreise","Bali an Mo 12:10, dann 1 Std. Fahrt"],["Rückflug","Sa 22. Mai, 21:40"],["Letzter Tag","Late Check-out vorab anfragen"]],
   todo:[["Buchten","Bingin Beach, Thomas Beach und das weite Nyang Nyang; Surfer beobachten von den Klippen."],["Uluwatu-Tempel","Am späten Nachmittag. Taschen und Brillen vor den Affen sichern."],["Essen","The Loft, frischer Fisch am Strand von Bingin, zum Abschluss Mason oder Yuki."]],
   hotels:[
    {id:"svanata",label:"Klippe",name:"Svanata Uluwatu",pick:true,url:bk("anantara-bali-uluwatu-resort","2027-05-17","2027-05-22"),
-    vars:[{n:"Suite mit Meerblick",flex:1440,def:true},{n:"Pool-Suite Gartenblick",flex:1920},{n:"Suite am Meer",flex:2559}],
+    vars:[{n:"Suite mit Meerblick",flex:1399,def:true},{n:"Pool-Suite Gartenblick",flex:1920},{n:"Suite am Meer",flex:2486}],
     pts:["Ehemals Anantara Uluwatu","Frühstück inklusive","Kostenlos stornierbar bis 17. April 2027","Infinity-Pool an der Klippenkante über Impossibles"]},
    {id:"seascape",label:"Neu und gross",name:"Seascape Resort Uluwatu",url:bk("seascape-luxury-resort-amp-spa-uluwatu-by-ini-vie-hospitality","2027-05-17","2027-05-22"),
-    vars:[{n:"Suite",flex:986,nr:484,def:true},{n:"Grand Suite",flex:1171,nr:574},{n:"Loft Cabana mit Infinity-Pool",flex:1787,nr:877}],
-    pts:["Kostenlos stornierbar bis 26. April 2027","Nicht erstattbar nur rund die Hälfte","Resort mit mehreren Lagunenpools"]},
+    vars:[{n:"Suite",flex:838,nr:484,def:true},{n:"Grand Suite",flex:995,nr:574},{n:"Loft Cabana mit Infinity-Pool",flex:1519,nr:877}],
+    pts:["Kostenlos stornierbar bis 26. April 2027","Nicht erstattbar gut 40 % günstiger","Resort mit mehreren Lagunenpools"]},
    {id:"gravity",label:"Nur Erwachsene",name:"Gravity Eco Boutique Hotel",url:bk("gravity","2027-05-17","2027-05-22"),
     vars:[{n:"Standard Bungalow",flex:526,nr:427},{n:"Superior Bungalow",flex:569,nr:462,def:true},{n:"Premier Bungalow",flex:595,nr:483}],
     pts:["Kostenlos stornierbar bis 17. April 2027","Bungalows mit Strohdach, nur für Erwachsene","Ruhige Lage, Strände und Restaurants per Roller oder Fahrer"]},
@@ -349,13 +356,13 @@ var ST=[
     vars:[{n:"Queen Double",flex:560},{n:"King Double",flex:622,def:true}],
     pts:["Direktpreis des Hauses","Frühstück und Storno beim Buchen prüfen","Bingin, Salzwasserpool im Garten, 10 Minuten zu Fuss zum Strand"]}
   ],
-  reco:["Svanata Uluwatu, Suite mit Meerblick",["Für den Ausklang lohnt sich die Klippe: Sonnenuntergang von der Suite aus. Das Resort trägt den neuen Namen erst seit September 2026; lest vor der Reise Bewertungen aus der Zeit danach.","Bei fünf Nächten fällt der Preis stärker ins Gewicht. Gravity ist die charmante, günstige Variante für CHF 569. Seascape ist nicht erstattbar ab CHF 484 ein Schnäppchen, flexibel aber doppelt so teuer. Mule Malu ist sympathisch, aber ein einfaches Zimmer ohne eigenen Pool."]]}
+  reco:["Svanata Uluwatu, Suite mit Meerblick",["Für den Ausklang lohnt sich die Klippe: Sonnenuntergang von der Suite aus. Das Resort trägt den neuen Namen erst seit September 2026; lest vor der Reise Bewertungen aus der Zeit danach.","Bei fünf Nächten fällt der Preis stärker ins Gewicht. Gravity ist die charmante, günstige Variante für CHF 569. Seascape kostet flexibel CHF 838, nicht erstattbar sogar nur CHF 484. Mule Malu ist sympathisch, aber ein einfaches Zimmer ohne eigenen Pool."]]}
 ];
 
 
 // ---------- Zustand
-var KEY="indonesien2027-auswahl-v3";
-var state={long:"abend",nr:false,extras:false,h:{},v:{}};
+
+var state={long:(LONG.filter(function(l){return l.pick;})[0]||LONG[0]).id,nr:false,extras:false,h:{},v:{}};
 ST.forEach(function(s){
   s.hotels.forEach(function(h){
     if(h.pick) state.h[s.id]=h.id;
@@ -385,7 +392,7 @@ function totals(){
   var lh=LONG.filter(function(l){return l.id===state.long;})[0].flex;
   var dom=DOM.reduce(function(a,d){return a+d.p;},0);
   var hot=ST.reduce(function(a,s){return a+vprice(vsel(hsel(s)));},0);
-  var ex=state.extras?780:0;
+  var ex=(state.extras&&EXTRAS)?EXTRAS:0;
   return {lh:lh,dom:dom,hot:hot,ex:ex,all:lh+dom+hot+ex};
 }
 
@@ -397,14 +404,14 @@ function renderLong(){
       '<div class="ob"><div class="otop"><span class="olabel">Langstrecke</span>'+(l.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
       '<h3>'+esc(l.title)+'</h3><div class="route">'+l.route+'</div><div class="room">'+esc(l.note)+'</div>'+
       '<div class="price"><b>'+chf(l.flex)+'</b><span>für 2 · '+chf(l.flex/2)+' pro Person</span></div>'+
-      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(KAYAK)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></div></div></label>';
+      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(l.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></div></div></label>';
   }).join("");
 }
 function renderDom(){
   var sum=DOM.reduce(function(a,d){return a+d.p;},0);
   document.getElementById("domestic").innerHTML=DOM.map(function(d){
     return '<tr><td><b>'+d.d+'</b></td><td>'+d.r+'</td><td>'+d.f+'</td><td class="n"><b>'+d.p+'</b></td><td class="n"><a class="tlink" href="'+esc(d.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></td></tr>';
-  }).join("")+'<tr><td></td><td><b>Alle drei Inselflüge</b></td><td></td><td class="n"><b>'+sum+'</b></td><td></td></tr>';
+  }).join("")+'<tr><td></td><td><b>'+DOMSUM+'</b></td><td></td><td class="n"><b>'+sum+'</b></td><td></td></tr>';
 }
 function hotelCard(s,h){
   var on=state.h[s.id]===h.id, v=vsel(h), p=vprice(v);
@@ -413,8 +420,8 @@ function hotelCard(s,h){
     }).join("")+'</div>' : '';
   var other = v.nr ? (state.nr ? 'Flexibel: '+chf(v.flex) : 'Nicht erstattbar: '+chf(v.nr)) : '';
   return '<label class="opt'+(on?' sel':'')+'" for="h-'+h.id+'"><input class="pick" type="radio" name="h-'+s.id+'" id="h-'+h.id+'" data-s="'+s.id+'" value="'+h.id+'"'+(on?' checked':'')+'>'+
-    '<div class="ph"><figure><img src="bilder/'+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
-    '<figure><img src="bilder/'+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
+    '<div class="ph"><figure><img src="'+IMG+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
+    '<figure><img src="'+IMG+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
     '<div class="ob"><div class="otop"><span class="olabel">'+esc(h.label)+'</span>'+(h.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
     '<h3>'+esc(h.name)+'</h3><div class="room">'+esc(v.n)+'</div>'+vars+
     '<div class="price"><b>'+(h.approx?'ca. ':'')+chf(p)+'</b><span>≈ '+chf(p/s.nights).replace("CHF ","")+' pro Nacht</span></div>'+
@@ -424,7 +431,7 @@ function hotelCard(s,h){
 function renderStations(){
   document.getElementById("stations").innerHTML=ST.map(function(s){
     return '<div class="ikat" aria-hidden="true"></div><section id="'+s.id+'"><div class="wrap">'+
-      '<div class="st-head"><div class="st-no" aria-hidden="true">'+s.no+'</div><div><div class="eyebrow">Station '+s.no+' von 5</div><h2>'+esc(s.name)+'</h2>'+
+      '<div class="st-head"><div class="st-no" aria-hidden="true">'+s.no+'</div><div><div class="eyebrow">Station '+s.no+' von '+ST.length+'</div><h2>'+esc(s.name)+'</h2>'+
       '<div class="st-meta"><b>'+s.dates+'</b> · '+s.nights+' Nächte · '+esc(s.tag)+'</div></div></div>'+
       '<ul class="facts">'+s.facts.map(function(f){return '<li><b>'+f[0]+'</b>'+esc(f[1])+'</li>';}).join("")+'</ul>'+
       '<div class="todo">'+s.todo.map(function(t){return '<div><b>'+esc(t[0])+'</b>'+esc(t[1])+'</div>';}).join("")+'</div>'+
@@ -436,17 +443,17 @@ function renderStations(){
 function renderSum(){
   var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
   var rows='<tr><td>Langstrecke</td><td>'+esc(l.title)+'</td><td class="n">'+chf(t.lh).replace("CHF ","")+'</td></tr>'+
-           '<tr><td>Inselflüge</td><td>3 Flüge</td><td class="n">'+t.dom+'</td></tr>';
+           '<tr><td>Inselflüge</td><td>'+DOM.length+' Flüge</td><td class="n">'+t.dom+'</td></tr>';
   ST.forEach(function(s){ var h=hsel(s), v=vsel(h);
     rows+='<tr><td>'+s.no+' · '+esc(s.name)+'</td><td>'+esc(h.name)+', '+esc(v.n)+((state.nr&&v.nr)?' (nicht erstattbar)':'')+'</td><td class="n">'+chf(vprice(v)).replace("CHF ","")+'</td></tr>'; });
-  if(state.extras) rows+='<tr><td>Transfers und Ausflüge</td><td>Schätzung aus dem Dossier</td><td class="n">780</td></tr>';
+  if(state.extras&&EXTRAS) rows+='<tr><td>Transfers und Ausflüge</td><td>Schätzung aus dem Dossier</td><td class="n">'+EXTRAS+'</td></tr>';
   rows+='<tr class="tot"><td colspan="2">Total für 2 Personen</td><td class="n">'+chf(t.all)+'</td></tr>'+
         '<tr class="pp"><td colspan="2">Pro Person</td><td class="n">'+chf(t.all/2)+'</td></tr>';
   document.getElementById("sumrows").innerHTML=rows;
   document.getElementById("bar-total").textContent=chf(t.all);
   document.getElementById("bar-pp").textContent="für 2 · "+chf(t.all/2)+" pro Person";
   document.getElementById("rate-nr").checked=state.nr;
-  document.getElementById("extras").checked=state.extras;
+  var exb=document.getElementById("extras"); if(exb) exb.checked=state.extras;
 }
 function renderAll(){ renderLong(); renderStations(); renderSum(); }
 
@@ -466,9 +473,9 @@ document.addEventListener("click",function(e){ var a=e.target.closest && e.targe
 
 document.getElementById("copy").addEventListener("click",function(){
   var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
-  var lines=["Indonesien 2027 – unsere Auswahl","Langstrecke: "+l.title+" – "+chf(t.lh),"Inselflüge: "+chf(t.dom)];
+  var lines=[TITLE+" – unsere Auswahl","Langstrecke: "+l.title+" – "+chf(t.lh),"Inselflüge: "+chf(t.dom)];
   ST.forEach(function(s){ var h=hsel(s), v=vsel(h); lines.push(s.name+" ("+s.dates+"): "+h.name+", "+v.n+((state.nr&&v.nr)?", nicht erstattbar":"")+" – "+chf(vprice(v))); });
-  if(state.extras) lines.push("Transfers und Ausflüge (Schätzung): CHF 780");
+  if(state.extras&&EXTRAS) lines.push("Transfers und Ausflüge (Schätzung): "+chf(EXTRAS));
   lines.push("Total für 2: "+chf(t.all)+" · pro Person: "+chf(t.all/2));
   var out=document.getElementById("copied"), text=lines.join("\n");
   var done=function(){ out.textContent="Kopiert. Füg die Auswahl im Chat ein, dann mache ich daraus das A4-Dossier."; };

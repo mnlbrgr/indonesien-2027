@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Philippinen 2027 Reiseplaner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Boho, Indonesien: Sandpapier, Terrakotta, Ocker, Oliv, Indigo wie Batik. Eine Spalte, Fotos in Bogenform. */
+  --sand:#F4EADB; --paper:#FBF6EC; --ink:#3B2A21; --soft:#6E5A4C; --line:#DFCFB6;
+  --terra:#A9482A; --terra-soft:#F1D9C7; --ochre:#D7A23D; --olive:#646B3F; --indigo:#2C3F5B;
+  --display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --body:'Karla', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+img{max-width:100%;display:block}
+a{color:var(--terra)}
+a:hover{color:#7E3219}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--terra)}
+.kawung{height:26px;background-color:var(--indigo);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='26' viewBox='0 0 52 26'%3E%3Cg fill='none' stroke='%23E8C98A' stroke-width='1.4'%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(45 13 13)'/%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(-45 13 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(45 39 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(-45 39 13)'/%3E%3C/g%3E%3Cg fill='%23E8C98A'%3E%3Ccircle cx='13' cy='13' r='1.6'/%3E%3Ccircle cx='39' cy='13' r='1.6'/%3E%3Ccircle cx='26' cy='13' r='1.1'/%3E%3Ccircle cx='0' cy='13' r='1.1'/%3E%3Ccircle cx='52' cy='13' r='1.1'/%3E%3C/g%3E%3C/svg%3E");background-size:52px 26px}
+.ikat{height:14px;margin:0 auto;max-width:220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 7 L7 1 L14 7 L7 13 Z' fill='none' stroke='%23A9482A' stroke-width='1.3'/%3E%3Cpath d='M14 7 L21 1 L28 7 L21 13 Z' fill='none' stroke='%23D7A23D' stroke-width='1.3'/%3E%3Ccircle cx='7' cy='7' r='1.4' fill='%23A9482A'/%3E%3Ccircle cx='21' cy='7' r='1.4' fill='%23D7A23D'/%3E%3C/svg%3E");background-size:28px 14px}
+
+/* Umschalter */
+.switch{display:flex;gap:8px;padding-top:18px}
+.switch a{font-weight:700;font-size:14px;text-decoration:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink);background:var(--paper)}
+.switch a[aria-current]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.map .hub{fill:var(--paper);stroke:var(--terra);stroke-width:2}
+.map .hn{font:600 11px var(--body);fill:var(--soft)}
+
+/* Kopf */
+.hero{padding:44px 0 34px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:center}
+.hero h1{font-size:clamp(46px,8vw,84px);line-height:.98;letter-spacing:-.02em;margin:10px 0 14px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero p{margin:0;max-width:52ch;color:var(--soft);font-size:17px}
+.arch{border-radius:999px 999px 18px 18px;overflow:hidden;border:6px solid var(--paper);box-shadow:0 0 0 1.5px var(--line);aspect-ratio:4/5;background:var(--line)}
+.arch img{width:100%;height:100%;object-fit:cover}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:24px}
+.stat b{display:block;font-family:var(--display);font-weight:500;font-size:26px;line-height:1.1}
+.stat span{font-size:13.5px;color:var(--soft)}
+
+/* Karte */
+.panel{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:22px}
+.mapbox{overflow-x:auto}
+.map{display:block;width:100%;min-width:560px;height:auto;background:#E9E0CC;border-radius:14px}
+.map .isl{fill:#C9C39A;stroke:#9A9A68;stroke-width:1;stroke-linejoin:round}
+.map .isn{font:600 10px var(--body);letter-spacing:1.4px;fill:#6B6B43;text-anchor:middle}
+.map .sea{font:italic 11px var(--display);fill:#8D8266;text-anchor:middle}
+.map .rt{fill:none;stroke:var(--terra);stroke-width:2;stroke-dasharray:2 6;stroke-linecap:round}
+.map .dot{fill:var(--terra);stroke:var(--paper);stroke-width:2.5}
+.map .dn{font:700 12px var(--body);fill:#FFF;text-anchor:middle}
+.map .sn{font:700 12.5px var(--body);fill:var(--ink)}
+.map .sm{font:10.5px var(--body);fill:var(--soft)}
+.legs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.legs li{font-size:14px;border-top:1.5px solid var(--line);padding-top:8px}
+.legs b{display:block}
+.legs span{color:var(--soft)}
+
+section{padding:34px 0}
+.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.sec-head h2{font-size:clamp(30px,5vw,42px);line-height:1.05;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--soft);max-width:66ch}
+
+/* Station */
+.st-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;margin-bottom:18px}
+.st-no{width:74px;height:92px;border-radius:999px 999px 12px 12px;background:var(--terra);color:#FFF;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;font-family:var(--display);font-size:38px;line-height:1}
+.st-head h2{font-size:clamp(32px,5.4vw,46px);line-height:1.02}
+.st-meta{color:var(--soft);font-size:15.5px;margin-top:4px}
+.st-meta b{color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 18px;padding:0;list-style:none}
+.facts li{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14.5px}
+.facts b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--olive)}
+.todo{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:0 0 22px}
+.todo div{border-top:2px solid var(--ink);padding-top:9px;font-size:14.5px;color:var(--soft)}
+.todo b{display:block;font-family:var(--display);font-weight:500;font-size:18px;color:var(--ink);margin-bottom:2px}
+
+/* Optionskarten */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.opt{position:relative;display:flex;flex-direction:column;background:var(--paper);border:1.5px solid var(--line);border-radius:26px 26px 18px 18px;overflow:hidden;cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.opt:hover{border-color:var(--ochre)}
+.opt.sel{border-color:var(--terra);box-shadow:0 0 0 2.5px var(--terra)}
+.opt input.pick{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input.pick:focus-visible){outline:3px solid var(--indigo);outline-offset:2px}
+.ph{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:3px;height:176px;background:var(--line)}
+.ph figure{margin:0;position:relative;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:8px;bottom:8px;background:var(--paper);color:var(--ink);font-size:12px;font-weight:600;padding:2px 9px;border-radius:10px}
+.ob{padding:15px 17px 17px;display:flex;flex-direction:column;gap:9px;flex-grow:1}
+.otop{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:24px}
+.olabel{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--soft)}
+.badge{font-size:12px;font-weight:700;background:var(--ochre);color:var(--ink);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.opt h3{font-size:24px;line-height:1.1}
+.room{font-size:14.5px;color:var(--soft)}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font-family:var(--display);font-weight:500;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.price span{font-size:13.5px;color:var(--soft)}
+.opt ul{margin:0;padding-left:18px;font-size:14px}
+.opt li{margin-bottom:2px}
+.vars{display:flex;flex-wrap:wrap;gap:6px}
+.vars label{font-size:13px;border:1.5px solid var(--line);border-radius:14px;padding:4px 10px;cursor:pointer;background:#FFF9EE}
+.vars input{position:absolute;opacity:0;pointer-events:none}
+.vars label:has(input:checked){background:var(--indigo);border-color:var(--indigo);color:#FFF}
+.vars label:has(input:focus-visible){outline:3px solid var(--indigo);outline-offset:2px}
+.ofoot{margin-top:auto;padding-top:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.state{font-size:13.5px;font-weight:700;color:var(--soft)}
+.opt.sel .state{color:var(--terra)}
+.btn{display:inline-block;background:var(--ink);color:#FFF;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:18px;text-decoration:none}
+.btn:hover{background:var(--terra);color:#FFF}
+.tlink{font-size:13.5px;font-weight:600}
+.reco{margin-top:18px;background:var(--terra-soft);border-radius:18px;padding:16px 18px;display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 22px}
+.reco h3{font-size:21px;line-height:1.15}
+.reco p{margin:0 0 7px;font-size:14.5px}
+.reco p:last-child{margin-bottom:0}
+
+/* Flüge */
+.flights{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.fl .ob{gap:7px}
+.fl h3{font-size:21px}
+.route{font-size:14.5px}
+.tblwrap{overflow-x:auto;margin-top:18px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--soft);border-bottom:2px solid var(--ink);padding:7px 8px}
+td{border-bottom:1.5px solid var(--line);padding:8px;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+
+/* Zusammenfassung */
+.sum{background:var(--indigo);color:#FFF;border-radius:22px;padding:24px}
+.sum h2{color:#FFF}
+.sum table{min-width:0;color:#FFF}
+.sum th{color:#C9D3E2;border-bottom-color:#C9D3E2}
+.sum td{border-bottom-color:#4A5D7A}
+.sum .tot td{border-bottom:0;font-family:var(--display);font-size:24px;padding-top:14px}
+.sum .pp td{border-bottom:0;color:#E8C98A;padding-top:0}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:16px 0 4px;font-size:14.5px}
+.ctrl label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ctrl input{width:18px;height:18px;accent-color:var(--ochre)}
+.copy{background:var(--ochre);color:var(--ink);border:0;font:700 14.5px var(--body);padding:10px 16px;border-radius:20px;cursor:pointer}
+.copy:hover{background:#E6B552}
+.copied{font-size:14px;color:#E8C98A}
+.notes{font-size:14px;color:var(--soft);display:grid;gap:8px;margin-top:18px}
+.notes p{margin:0}
+
+/* Leiste unten */
+.bar{position:sticky;bottom:0;background:var(--ink);color:#FFF;z-index:5}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.bar b{font-family:var(--display);font-weight:500;font-size:22px;font-variant-numeric:tabular-nums}
+.bar span{font-size:13.5px;color:#DCCDB8}
+.bar a{color:#FFF;font-size:13.5px;font-weight:600}
+
+@media (max-width:720px){
+  .hero-grid{grid-template-columns:1fr}
+  .arch{max-width:300px}
+  .reco{grid-template-columns:1fr}
+  .ph{height:150px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.opt{transition:none}}
+</style>
+</head>
+<body>
+<div class="kawung" aria-hidden="true"></div>
+
+<nav class="switch wrap" aria-label="Reisevarianten"><a href="../">Indonesien</a><a href="./" aria-current="page">Philippinen</a></nav>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Manuel &amp; Vera · 1.–23. Mai 2027</div>
+      <h1>Philippinen, <em>Bucht für Bucht</em></h1>
+      <p>Die Alternative zu Indonesien, mit denselben Daten: drei Stationen von Palawan bis Siargao. Klickt pro Station euer Hotel und eure Zimmerkategorie an, die Summe rechnet mit.</p>
+      <div class="stats">
+        <div class="stat"><b>23 Tage</b><span>ab und bis Zürich</span></div>
+        <div class="stat"><b>20 Nächte</b><span>an 3 Stationen</span></div>
+        <div class="stat"><b>4 Inlandflüge</b><span>Drehkreuz Cebu</span></div>
+      </div>
+    </div>
+    <div class="arch"><img src="../bilder/discovery_hotel.jpg" alt="Insel Dimakya bei Coron"></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="panel">
+    <div class="mapbox"><svg viewBox="0 0 698 423" role="img" aria-label="Karte der Route: Cebu, Coron, El Nido, Siargao" class="map"><polygon points="14.5,382.9 40.0,363.2 80.0,328.2 123.6,291.7 152.7,262.6 176.0,231.9 197.8,196.9 190.5,167.7 171.6,156.8 160.0,175.0 145.4,204.2 123.6,240.7 105.4,255.3 83.6,277.1 61.8,299.0 29.1,335.5 8.7,364.7" class="isl"></polygon><polygon points="207.2,105.0 225.4,94.8 244.3,102.1 237.0,120.3 218.1,126.9 207.2,119.6" class="isl"></polygon><polygon points="214.5,128.4 226.9,131.3 225.4,142.9 213.8,138.6" class="isl"></polygon><polygon points="239.9,10.9 265.4,5.8 290.8,13.1 327.2,32.1 331.6,72.9 319.9,102.1 298.1,97.7 279.9,75.8 261.7,46.7 243.6,24.8" class="isl"></polygon><polygon points="359.9,127.6 385.4,119.6 414.4,144.4 445.0,148.8 436.3,175.0 401.3,211.5 370.8,226.1 359.9,195.5 363.5,160.4" class="isl"></polygon><polygon points="426.1,192.5 450.8,192.5 477.0,226.1 458.1,258.9 447.2,291.7 455.2,324.5 436.3,331.8 407.2,306.3 396.3,275.7 407.2,240.7 429.0,218.8" class="isl"></polygon><polygon points="505.3,167.7 513.3,186.0 513.3,222.4 501.7,248.0 481.3,280.1 465.3,302.7 458.1,291.7 469.7,258.9 484.2,226.1 498.8,193.3" class="isl"></polygon><polygon points="490.8,262.6 516.2,250.9 549.7,258.2 549.7,280.8 523.5,291.7 498.1,288.1" class="isl"></polygon><polygon points="530.8,148.8 556.9,160.4 585.3,175.0 581.7,214.4 596.2,243.6 581.7,262.6 564.2,251.6 564.2,218.8 542.4,199.8 535.1,175.0" class="isl"></polygon><polygon points="527.9,75.8 567.1,75.8 603.5,94.8 632.6,124.0 636.9,175.0 610.8,186.0 585.3,175.0 556.9,160.4 538.0,131.3 527.1,98.5" class="isl"></polygon><polygon points="356.3,423.0 370.8,408.4 399.9,407.0 436.3,371.9 472.6,360.3 494.4,379.2 523.5,393.8 538.0,364.7 564.2,338.4 596.2,335.5 615.1,280.1 629.7,299.0 654.4,316.5 666.0,342.8 676.2,379.2 684.9,423.0" class="isl"></polygon><polygon points="618.0,229.0 632.6,233.4 629.7,258.9 618.0,265.5" class="isl"></polygon><polygon points="651.5,265.5 661.6,258.2 668.9,272.8 665.3,281.5 654.4,280.1" class="isl"></polygon><text x="98.2" y="313.6" class="isn">PALAWAN</text><text x="290.8" y="47.4" class="isn">MINDORO</text><text x="399.9" y="171.4" class="isn">PANAY</text><text x="432.6" y="273.5" class="isn">NEGROS</text><text x="523.5" y="302.7" class="isn">BOHOL</text><text x="570.8" y="207.9" class="isn">LEYTE</text><text x="592.6" y="113.0" class="isn">SAMAR</text><text x="552.6" y="404.8" class="isn">MINDANAO</text><text x="261.7" y="320.9" class="sea">Sulusee</text><text x="72.7" y="72.9" class="sea">Südchinesisches Meer</text><path d="M 507.5 239.9 Q 370.1 118.3 232.7 116.7" class="rt"></path><path d="M 232.7 116.7 Q 203.6 146.6 174.5 176.5" class="rt"></path><path d="M 174.5 176.5 Q 341.0 278.2 507.5 239.9" class="rt"></path><path d="M 507.5 239.9 Q 584.5 216.7 661.6 273.5" class="rt"></path><circle cx="507.5" cy="239.9" r="6" class="hub"></circle><text x="517.5" y="231.9" text-anchor="start" class="hn">Cebu</text><circle cx="232.7" cy="116.7" r="11.5" class="dot"></circle><text x="232.7" y="120.7" class="dn">1</text><text x="246.7" y="94.7" text-anchor="start" class="sn">Coron</text><text x="246.7" y="107.7" text-anchor="start" class="sm">5 Nächte</text><circle cx="174.5" cy="176.5" r="11.5" class="dot"></circle><text x="174.5" y="180.5" class="dn">2</text><text x="158.5" y="180.5" text-anchor="end" class="sn">El Nido</text><text x="158.5" y="193.5" text-anchor="end" class="sm">7 Nächte</text><circle cx="661.6" cy="273.5" r="11.5" class="dot"></circle><text x="661.6" y="277.5" class="dn">3</text><text x="645.6" y="299.5" text-anchor="end" class="sn">Siargao</text><text x="645.6" y="312.5" text-anchor="end" class="sm">8 Nächte</text></svg></div>
+    <ul class="legs">
+      <li><b>1 · Coron</b><span>So 2. – Fr 7. Mai</span></li>
+      <li><b>2 · El Nido</b><span>Fr 7. – Fr 14. Mai</span></li>
+      <li><b>3 · Siargao</b><span>Fr 14. – Sa 22. Mai</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="fluege">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Anreise und Inselwechsel</div>
+      <h2>Flüge</h2>
+      <p>Ihr fliegt nach Cebu statt nach Manila: Von dort geht es noch am Ankunftstag weiter nach Coron, und Siargao liegt gleich nebenan. Jeder Link öffnet die Suche mit euren Daten.</p>
+    </div>
+    <div class="flights" id="longhaul" role="radiogroup" aria-label="Langstreckenflug"></div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Datum</th><th>Strecke</th><th>Flug</th><th class="n">CHF für 2</th><th></th></tr></thead>
+        <tbody id="domestic"></tbody>
+      </table>
+    </div>
+    <div class="reco">
+      <div><div class="eyebrow">Meine Empfehlung</div><h3>Über Cebu statt Manila</h3></div>
+      <div>
+        <p>Nach Manila wäre derselbe Cathay-Flug rund CHF 135 günstiger, aber am Ankunftstag gibt es keinen Anschluss mehr nach Coron, und die kleinen Maschinen starten inzwischen meist ab Clark, zwei Stunden ausserhalb. Über Cebu kommt ihr am selben Tag an.</p>
+        <p>Achtung: Langstrecke und Inlandflüge sind getrennte Tickets. Am 2. Mai habt ihr in Cebu knapp drei Stunden für Einreise, Gepäck und Check-in, am 22. Mai fast sechs Stunden. Bei Cebgo 20 kg Gepäck dazubuchen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="stations"></div>
+
+<section id="auswahl">
+  <div class="wrap">
+    <div class="sum">
+      <div class="eyebrow" style="color:#E8C98A">Eure Auswahl</div>
+      <h2 style="font-size:clamp(30px,5vw,42px);margin:4px 0 6px">Was die Reise kostet</h2>
+      <div class="ctrl">
+        <label for="rate-nr"><input type="checkbox" id="rate-nr"> Mit den günstigeren, nicht erstattbaren Raten rechnen</label>
+        
+      </div>
+      <div class="tblwrap" style="margin-top:8px">
+        <table>
+          <thead><tr><th>Posten</th><th>Auswahl</th><th class="n">CHF für 2</th></tr></thead>
+          <tbody id="sumrows"></tbody>
+        </table>
+      </div>
+      <div class="ctrl">
+        <button type="button" class="copy" id="copy">Auswahl kopieren</button>
+        <span class="copied" id="copied" role="status"></span>
+      </div>
+    </div>
+    <div class="notes">
+      <p>Alle Preise gelten für 2 Erwachsene und den ganzen Aufenthalt, inklusive Steuern und Gebühren. Live geprüft am 14.11.2026 mit eurem Booking-Konto (Genius-Stufe 2); Preise und Verfügbarkeit ändern sich täglich. Flugpreise von Google Flüge, ohne Aufgabegepäck bei Cebgo.</p>
+      <p>Nicht eingerechnet: Essen, Transfers zwischen Flughafen und Hotel, Bootstouren sowie die Umwelt- und Eintrittsgebühren in Coron und El Nido. Für die Einreise die kostenlose eTravel-Registrierung ausfüllen.</p>
+      <p>Fotos: die jeweiligen Hotels. Sie zeigen ein Zimmer des Hauses, nicht immer genau die gewählte Kategorie.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="bar" aria-live="polite">
+  <div class="wrap">
+    <div><b id="bar-total"></b> <span id="bar-pp"></span></div>
+    <a href="#auswahl">Zur Aufstellung</a>
+  </div>
+</div>
+
+<div class="kawung" aria-hidden="true"></div>
+
+<script>
+(function(){
+"use strict";
+var bk=function(slug,ci,co,c){return "https://www.booking.com/hotel/"+(c||"id")+"/"+slug+".de.html?checkin="+ci+"&checkout="+co+"&group_adults=2&no_rooms=1&group_children=0&selected_currency=CHF";};
+var gf=function(a,b,d){return "https://www.google.com/travel/flights?q=Flights+from+"+a+"+to+"+b+"+on+"+d+"+one+way+for+2+adults&curr=CHF&hl=de&gl=ch";};
+var KEY="philippinen2027-auswahl-v1", TITLE="Philippinen 2027", IMG="../bilder/", EXTRAS=0, DOMSUM="Alle vier Inlandflüge";
+var GF="https://www.google.com/travel/flights?q=Flights+to+CEB+from+ZRH+on+2027-05-01+through+2027-05-22+for+2+adults&curr=CHF&hl=de&gl=ch";
+var LONG=[
+ {id:"cx",title:"Cathay Pacific und SWISS via Hongkong",flex:2228,pick:true,u:GF,
+  route:"Hin Sa 1.5.: Zürich 13:30 → Hongkong → Cebu So 10:50.<br>Zurück Sa 22.5.: Cebu 19:20 → Hongkong → Zürich So 07:30.",
+  note:"Ein Stopp. Hin 1 Std. Umsteigezeit in Hongkong, zurück 2 Std. 10 Min."}
+];
+var DOM=[
+ {d:"So 2. Mai",r:"Cebu → Coron (Busuanga)",f:"Cebgo · 13:40–15:20 · direkt",p:86,u:gf("CEB","USU","2027-05-02")},
+ {d:"Fr 7. Mai",r:"Coron → El Nido",f:"Cebgo · 13:20–14:00 · direkt",p:106,u:gf("USU","ENI","2027-05-07")},
+ {d:"Fr 14. Mai",r:"El Nido → Siargao",f:"Cebgo · 06:50–11:30 · via Cebu",p:298,u:gf("ENI","IAO","2027-05-14")},
+ {d:"Sa 22. Mai",r:"Siargao → Cebu",f:"Cebgo · 12:35–13:35 · direkt",p:84,u:gf("IAO","CEB","2027-05-22")}
+];
+var ST=[
+ {id:"coron",no:1,name:"Coron",dates:"So 2. – Fr 7. Mai",nights:5,tag:"Lagunen, Wracks, Kalkfelsen",
+  facts:[["Anreise","Busuanga an So 15:20, dann rund 40 Min. Fahrt"],["Weiterreise","Fr 7. Mai, Flug 13:20 nach El Nido"],["Tipp","Bootstouren früh starten, vor den Gruppen"]],
+  todo:[["Kayangan Lake und Twin Lagoon","Die bekannteste Inseltour. Mit eigenem Boot früh los, bevor die Gruppenboote ankommen."],["Wracks und Riffe","Japanische Wracks aus dem Zweiten Weltkrieg, das Skeleton Wreck auch mit Schnorchel."],["Mount Tapyas und heisse Quellen","Sonnenuntergang über der Bucht, danach in den Salzwasserquellen von Maquinit baden."]],
+  hotels:[
+   {id:"funnylion",label:"Boutique",name:"The Funny Lion",pick:true,url:bk("the-funny-lion-inn","2027-05-02","2027-05-07","ph"),
+    vars:[{n:"Zimmer Cub (zwei Betten)",flex:845,nr:480},{n:"Zimmer Pride mit King-Bett",flex:1014,def:true},{n:"Zimmer Mara",flex:1352}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 2. April 2027","Booking-Note 9,1. Pool, am Rand von Coron-Stadt, wo die Bootstouren starten"]},
+   {id:"corto",label:"Preis-Leistung",name:"Corto del Mar",url:bk("corto-del-mar","2027-05-02","2027-05-07","ph"),
+    vars:[{n:"Standard",flex:397},{n:"Superior",flex:436},{n:"Deluxe",flex:460,def:true},{n:"Junior Suite",flex:502}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 11. April 2027","Booking-Note 8,9. Mitten in Coron-Stadt, Pool im Innenhof"]},
+   {id:"discovery",label:"Insel",name:"Discovery Coron",url:bk("club-paradise-resort-palawan","2027-05-02","2027-05-07","ph"),
+    vars:[{n:"Gartensuite",flex:1362,nr:1206,def:true},{n:"Suite mit Meerblick",flex:1564,nr:1385},{n:"Sunset Villa",flex:1650}],
+    pts:["Frühstück und Transfer inklusive (Gartensuite)","Kostenlos stornierbar bis 18. April 2027","Ehemals Club Paradise. Eigene Insel Dimakya mit 700 m Strand, abseits von Coron-Stadt"]},
+   {id:"twoseasons",label:"Luxus",name:"Two Seasons Coron Island",url:bk("two-seasons-palawan","2027-05-02","2027-05-07","ph"),
+    vars:[{n:"Bungalow mit Bergblick",flex:2046,nr:1851,def:true},{n:"Bungalow mit Meerblick",flex:2889},{n:"Strandbungalow",flex:3451}],
+    pts:["Frühstück und Transfer inklusive","Kostenlos stornierbar nur bis 3. März 2027","Booking-Note 8,8. Resort auf einer eigenen Insel mit Hausriff"]}
+  ],
+  reco:["The Funny Lion, Zimmer Pride",["In Coron dreht sich alles um die Bootstouren, und die starten im Ort. Vom Funny Lion seid ihr in wenigen Minuten am Hafen und abends in den Restaurants.","Die Inselresorts sind traumhaft, aber für jeden Ausflug geht viel Zeit für die Anfahrt drauf. Wer es ruhiger will, nimmt Discovery Coron: Transfer inklusive und ein langer Strand vor der Tür."]]},
+ {id:"elnido",no:2,name:"El Nido",dates:"Fr 7. – Fr 14. Mai",nights:7,tag:"Bacuit-Bucht, Lagunen, Strände",
+  facts:[["Anreise","El Nido an Fr 14:00, kurze Fahrt zum Hotel"],["Weiterreise","Fr 14. Mai, Flug 06:50 via Cebu"],["Alternative","Fähre ab Coron, 06:00–09:30"]],
+  todo:[["Inselhüpfen in der Bacuit-Bucht","Tour A mit Big und Small Lagoon, Tour C mit Hidden und Secret Beach. Für die Lagunen gibt es Tageskontingente, früh buchen."],["Nacpan Beach","Langer, ruhiger Sandstrand im Norden, mit Roller oder Tricycle erreichbar."],["Sonnenuntergang","Las Cabanas Beach mit Bars am Wasser und Blick über die Inseln."]],
+  hotels:[
+   {id:"lastfrontier",label:"Nur Erwachsene",name:"Last Frontier Beach Resort",pick:true,url:bk("last-frontier-beach-resort-el-nido","2027-05-07","2027-05-14","ph"),
+    vars:[{n:"Deluxe Cottage Gartenblick",flex:1204,def:true},{n:"Suite",flex:1434}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 30. April 2027","Booking-Note 9,6. Am Strand von Corong Corong, kurz vor El Nido-Stadt"]},
+   {id:"cadlao",label:"Am Strand",name:"Cadlao Resort",url:bk("cadlao-resort-and-restaurant","2027-05-07","2027-05-14","ph"),
+    vars:[{n:"Standard Cottage",flex:1144,def:true},{n:"Deluxe Cottage",flex:1463},{n:"Seaview Cottage",flex:1911}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 30. April 2027","Booking-Note 9,3. Caalan Beach am Rand von El Nido-Stadt, Pool und Restaurant"]},
+   {id:"dryft",label:"Inselcamp",name:"Dryft Darocotan Island",url:bk("dryft-darocotan","2027-05-07","2027-05-14","ph"),
+    vars:[{n:"Glamping-Zelt",flex:770,def:true},{n:"Glamping-Hütte",flex:865},{n:"Zimmer Kubo",flex:1054}],
+    pts:["Frühstück mit Genius inklusive","Kostenlos stornierbar bis 23. April 2027","Booking-Note 9,3. Zelte am Strand der Insel Darocotan, weit weg vom Trubel","Anreise und Verpflegung vorab mit der Unterkunft klären"]},
+   {id:"pangulasian",label:"Luxus",name:"Pangulasian Island",url:bk("el-nido-resorts-pangulasian-island","2027-05-07","2027-05-14","ph"),
+    vars:[{n:"Canopy Villa Waldblick",flex:11447,def:true},{n:"Villa mit Meerblick",flex:12696}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 7. April 2027","Booking-Note 9,8. Eigene Insel in der Bacuit-Bucht","Als Partnerangebot mit Vorauszahlung ab CHF 9'266"]}
+  ],
+  reco:["Last Frontier, Deluxe Cottage",["Für sieben Nächte wollt ihr Ruhe und trotzdem kurze Wege: Last Frontier liegt direkt am Strand, ist nur für Erwachsene und ihr seid mit dem Tricycle schnell in der Stadt.","Cadlao ist die gleichwertige Alternative an einem anderen Strand. Wer zwei oder drei Nächte Abenteuer will, teilt den Aufenthalt und schläft im Zelt auf Darocotan."]]},
+ {id:"siargao",no:3,name:"Siargao",dates:"Fr 14. – Sa 22. Mai",nights:8,tag:"Surfen, Palmen, Inselhüpfen",
+  facts:[["Anreise","Siargao an Fr 11:30, dann rund 45 Min. nach General Luna"],["Rückflug","Sa 22. Mai, 12:35 nach Cebu, 19:20 heim"],["Puffer","Bis zum Abend fliegen mehrere Maschinen nach Cebu"]],
+  todo:[["Inselhüpfen","Naked Island, Daku und Guyam an einem Vormittag."],["Surfen","Cloud 9 zum Zuschauen; Kurse für Anfänger in General Luna."],["Rollertour","Felsenpools von Magpupungko bei Ebbe, Palmenstrasse und Aussichtspunkte im Inselinnern."]],
+  hotels:[
+   {id:"kalima",label:"Am Strand",name:"Kalima Villas",pick:true,url:bk("kalima-villas","2027-05-14","2027-05-22","ph"),
+    vars:[{n:"Villa mit privatem Pool",flex:1114,nr:937,def:true}],
+    pts:["Ohne Frühstück","Kostenlos stornierbar bis 14. April 2027","Booking-Note 9,8. Villa mit eigenem Pool, direkter Zugang zum Strand in General Luna"]},
+   {id:"nala",label:"Privatpool",name:"Nala Villas",url:bk("nala-villas","2027-05-14","2027-05-22","ph"),
+    vars:[{n:"Villa mit privatem Pool",flex:1330,nr:1290,def:true}],
+    pts:["Ohne Frühstück","Kostenlos stornierbar bis 14. April 2027","Booking-Note 9,9. Kleine Anlage in General Luna, Velos gratis"]},
+   {id:"manao",label:"Boutique",name:"Manao Villas",url:bk("villa-manao-general-luna1","2027-05-14","2027-05-22","ph"),
+    vars:[{n:"Villa mit Pool, ohne Frühstück",flex:1547},{n:"Villa mit Pool und Frühstück",flex:1752,def:true}],
+    pts:["Kostenlos stornierbar bis 14. April 2027","Booking-Note 9,7. Eigener Strandbereich, Santa Fe bei General Luna"]},
+   {id:"kaimana",label:"Preis-Leistung",name:"Kaimana Resort",url:bk("kaimana","2027-05-14","2027-05-22","ph"),
+    vars:[{n:"Queen-Zimmer mit Balkon",flex:618},{n:"Villa mit Pool",flex:1118,nr:883,def:true}],
+    pts:["Ohne Frühstück","Kostenlos stornierbar bis 14. April 2027","Booking-Note 9,3. An der Tourism Road, 30 m vom Strand"]}
+  ],
+  reco:["Kalima Villas",["Eigener Pool und der Strand vor der Tür, dazu günstiger als Nala und Manao. Frühstück braucht ihr nicht im Hotel: General Luna hat viele gute Cafés.","Wenn ihr lieber alles inklusive habt, nehmt Manao mit Frühstück. Kaimana ist die Sparvariante, mit dem Queen-Zimmer für CHF 618 für acht Nächte."]]}
+];
+
+// ---------- Zustand
+
+var state={long:(LONG.filter(function(l){return l.pick;})[0]||LONG[0]).id,nr:false,extras:false,h:{},v:{}};
+ST.forEach(function(s){
+  s.hotels.forEach(function(h){
+    if(h.pick) state.h[s.id]=h.id;
+    h.vars.forEach(function(v,i){ if(v.def) state.v[h.id]=i; });
+  });
+});
+try{
+  var saved=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(saved && saved.h && saved.v){
+    if(LONG.some(function(l){return l.id===saved.long;})) state.long=saved.long;
+    state.nr=!!saved.nr; state.extras=!!saved.extras;
+    ST.forEach(function(s){
+      var hid=saved.h[s.id];
+      if(s.hotels.some(function(h){return h.id===hid;})) state.h[s.id]=hid;
+      s.hotels.forEach(function(h){ var vi=saved.v[h.id]; if(typeof vi==="number" && h.vars[vi]) state.v[h.id]=vi; });
+    });
+  }
+}catch(e){}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+
+function chf(n){ return "CHF "+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"'"); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function vprice(v){ return (state.nr && v.nr) ? v.nr : v.flex; }
+function hsel(s){ return s.hotels.filter(function(h){return h.id===state.h[s.id];})[0]; }
+function vsel(h){ return h.vars[state.v[h.id]]; }
+function totals(){
+  var lh=LONG.filter(function(l){return l.id===state.long;})[0].flex;
+  var dom=DOM.reduce(function(a,d){return a+d.p;},0);
+  var hot=ST.reduce(function(a,s){return a+vprice(vsel(hsel(s)));},0);
+  var ex=(state.extras&&EXTRAS)?EXTRAS:0;
+  return {lh:lh,dom:dom,hot:hot,ex:ex,all:lh+dom+hot+ex};
+}
+
+// ---------- Aufbau
+function renderLong(){
+  document.getElementById("longhaul").innerHTML=LONG.map(function(l){
+    var on=state.long===l.id;
+    return '<label class="opt fl'+(on?' sel':'')+'" for="long-'+l.id+'"><input class="pick" type="radio" name="long" id="long-'+l.id+'" value="'+l.id+'"'+(on?' checked':'')+'>'+
+      '<div class="ob"><div class="otop"><span class="olabel">Langstrecke</span>'+(l.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
+      '<h3>'+esc(l.title)+'</h3><div class="route">'+l.route+'</div><div class="room">'+esc(l.note)+'</div>'+
+      '<div class="price"><b>'+chf(l.flex)+'</b><span>für 2 · '+chf(l.flex/2)+' pro Person</span></div>'+
+      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(l.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></div></div></label>';
+  }).join("");
+}
+function renderDom(){
+  var sum=DOM.reduce(function(a,d){return a+d.p;},0);
+  document.getElementById("domestic").innerHTML=DOM.map(function(d){
+    return '<tr><td><b>'+d.d+'</b></td><td>'+d.r+'</td><td>'+d.f+'</td><td class="n"><b>'+d.p+'</b></td><td class="n"><a class="tlink" href="'+esc(d.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></td></tr>';
+  }).join("")+'<tr><td></td><td><b>'+DOMSUM+'</b></td><td></td><td class="n"><b>'+sum+'</b></td><td></td></tr>';
+}
+function hotelCard(s,h){
+  var on=state.h[s.id]===h.id, v=vsel(h), p=vprice(v);
+  var vars=h.vars.length>1 ? '<div class="vars" role="radiogroup" aria-label="Zimmerkategorie '+esc(h.name)+'">'+h.vars.map(function(x,i){
+      return '<label for="v-'+h.id+'-'+i+'"><input type="radio" name="v-'+h.id+'" id="v-'+h.id+'-'+i+'" data-h="'+h.id+'" data-s="'+s.id+'" value="'+i+'"'+(state.v[h.id]===i?' checked':'')+'>'+esc(x.n)+'</label>';
+    }).join("")+'</div>' : '';
+  var other = v.nr ? (state.nr ? 'Flexibel: '+chf(v.flex) : 'Nicht erstattbar: '+chf(v.nr)) : '';
+  return '<label class="opt'+(on?' sel':'')+'" for="h-'+h.id+'"><input class="pick" type="radio" name="h-'+s.id+'" id="h-'+h.id+'" data-s="'+s.id+'" value="'+h.id+'"'+(on?' checked':'')+'>'+
+    '<div class="ph"><figure><img src="'+IMG+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
+    '<figure><img src="'+IMG+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
+    '<div class="ob"><div class="otop"><span class="olabel">'+esc(h.label)+'</span>'+(h.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
+    '<h3>'+esc(h.name)+'</h3><div class="room">'+esc(v.n)+'</div>'+vars+
+    '<div class="price"><b>'+(h.approx?'ca. ':'')+chf(p)+'</b><span>≈ '+chf(p/s.nights).replace("CHF ","")+' pro Nacht</span></div>'+
+    '<ul>'+h.pts.map(function(t){return '<li>'+esc(t)+'</li>';}).join("")+(other?'<li>'+other+'</li>':'')+'</ul>'+
+    '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(h.url)+'" target="_blank" rel="noopener">'+(h.btn||'Preis für eure Daten')+' ↗</a></div></div></label>';
+}
+function renderStations(){
+  document.getElementById("stations").innerHTML=ST.map(function(s){
+    return '<div class="ikat" aria-hidden="true"></div><section id="'+s.id+'"><div class="wrap">'+
+      '<div class="st-head"><div class="st-no" aria-hidden="true">'+s.no+'</div><div><div class="eyebrow">Station '+s.no+' von '+ST.length+'</div><h2>'+esc(s.name)+'</h2>'+
+      '<div class="st-meta"><b>'+s.dates+'</b> · '+s.nights+' Nächte · '+esc(s.tag)+'</div></div></div>'+
+      '<ul class="facts">'+s.facts.map(function(f){return '<li><b>'+f[0]+'</b>'+esc(f[1])+'</li>';}).join("")+'</ul>'+
+      '<div class="todo">'+s.todo.map(function(t){return '<div><b>'+esc(t[0])+'</b>'+esc(t[1])+'</div>';}).join("")+'</div>'+
+      '<div class="opts" role="radiogroup" aria-label="Unterkunft '+esc(s.name)+'">'+s.hotels.map(function(h){return hotelCard(s,h);}).join("")+'</div>'+
+      '<div class="reco"><div><div class="eyebrow">Meine Empfehlung</div><h3>'+esc(s.reco[0])+'</h3></div><div>'+s.reco[1].map(function(p){return '<p>'+esc(p)+'</p>';}).join("")+'</div></div>'+
+      '</div></section>';
+  }).join("");
+}
+function renderSum(){
+  var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
+  var rows='<tr><td>Langstrecke</td><td>'+esc(l.title)+'</td><td class="n">'+chf(t.lh).replace("CHF ","")+'</td></tr>'+
+           '<tr><td>Inselflüge</td><td>'+DOM.length+' Flüge</td><td class="n">'+t.dom+'</td></tr>';
+  ST.forEach(function(s){ var h=hsel(s), v=vsel(h);
+    rows+='<tr><td>'+s.no+' · '+esc(s.name)+'</td><td>'+esc(h.name)+', '+esc(v.n)+((state.nr&&v.nr)?' (nicht erstattbar)':'')+'</td><td class="n">'+chf(vprice(v)).replace("CHF ","")+'</td></tr>'; });
+  if(state.extras&&EXTRAS) rows+='<tr><td>Transfers und Ausflüge</td><td>Schätzung aus dem Dossier</td><td class="n">'+EXTRAS+'</td></tr>';
+  rows+='<tr class="tot"><td colspan="2">Total für 2 Personen</td><td class="n">'+chf(t.all)+'</td></tr>'+
+        '<tr class="pp"><td colspan="2">Pro Person</td><td class="n">'+chf(t.all/2)+'</td></tr>';
+  document.getElementById("sumrows").innerHTML=rows;
+  document.getElementById("bar-total").textContent=chf(t.all);
+  document.getElementById("bar-pp").textContent="für 2 · "+chf(t.all/2)+" pro Person";
+  document.getElementById("rate-nr").checked=state.nr;
+  var exb=document.getElementById("extras"); if(exb) exb.checked=state.extras;
+}
+function renderAll(){ renderLong(); renderStations(); renderSum(); }
+
+document.addEventListener("change",function(e){
+  var el=e.target; if(!el) return; var nm=el.name||"";
+  if(el.id==="rate-nr"){ state.nr=el.checked; rerenderStation(); }
+  else if(el.id==="extras"){ state.extras=el.checked; }
+  else if(nm==="long"){ state.long=el.value; renderLong(); }
+  else if(nm.indexOf("v-")===0){ state.v[el.dataset.h]=Number(el.value); state.h[el.dataset.s]=el.dataset.h; rerenderStation(); }
+  else if(nm.indexOf("h-")===0){ state.h[el.dataset.s]=el.value; rerenderStation(); }
+  else return;
+  renderSum(); save();
+});
+function rerenderStation(){ var y=window.scrollY; renderStations(); window.scrollTo(0,y); }
+// Links in den Karten sollen die Karte nicht auswählen
+document.addEventListener("click",function(e){ var a=e.target.closest && e.target.closest("a.btn"); if(a) e.stopPropagation(); });
+
+document.getElementById("copy").addEventListener("click",function(){
+  var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
+  var lines=[TITLE+" – unsere Auswahl","Langstrecke: "+l.title+" – "+chf(t.lh),"Inselflüge: "+chf(t.dom)];
+  ST.forEach(function(s){ var h=hsel(s), v=vsel(h); lines.push(s.name+" ("+s.dates+"): "+h.name+", "+v.n+((state.nr&&v.nr)?", nicht erstattbar":"")+" – "+chf(vprice(v))); });
+  if(state.extras&&EXTRAS) lines.push("Transfers und Ausflüge (Schätzung): "+chf(EXTRAS));
+  lines.push("Total für 2: "+chf(t.all)+" · pro Person: "+chf(t.all/2));
+  var out=document.getElementById("copied"), text=lines.join("\n");
+  var done=function(){ out.textContent="Kopiert. Füg die Auswahl im Chat ein, dann mache ich daraus das A4-Dossier."; };
+  try{ navigator.clipboard.writeText(text).then(done,function(){ out.textContent=text; }); }catch(err){ out.textContent=text; }
+});
+
+renderDom(); renderAll();
+window.__totals=totals;
+})();
+</script>
+</body>
+</html>
