@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indonesien 2027 Reiseplaner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Boho, Indonesien: Sandpapier, Terrakotta, Ocker, Oliv, Indigo wie Batik. Eine Spalte, Fotos in Bogenform. */
+  --sand:#F4EADB; --paper:#FBF6EC; --ink:#3B2A21; --soft:#6E5A4C; --line:#DFCFB6;
+  --terra:#A9482A; --terra-soft:#F1D9C7; --ochre:#D7A23D; --olive:#646B3F; --indigo:#2C3F5B;
+  --display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --body:'Karla', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+img{max-width:100%;display:block}
+a{color:var(--terra)}
+a:hover{color:#7E3219}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--terra)}
+.kawung{height:26px;background-color:var(--indigo);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='26' viewBox='0 0 52 26'%3E%3Cg fill='none' stroke='%23E8C98A' stroke-width='1.4'%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(45 13 13)'/%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(-45 13 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(45 39 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(-45 39 13)'/%3E%3C/g%3E%3Cg fill='%23E8C98A'%3E%3Ccircle cx='13' cy='13' r='1.6'/%3E%3Ccircle cx='39' cy='13' r='1.6'/%3E%3Ccircle cx='26' cy='13' r='1.1'/%3E%3Ccircle cx='0' cy='13' r='1.1'/%3E%3Ccircle cx='52' cy='13' r='1.1'/%3E%3C/g%3E%3C/svg%3E");background-size:52px 26px}
+.ikat{height:14px;margin:0 auto;max-width:220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 7 L7 1 L14 7 L7 13 Z' fill='none' stroke='%23A9482A' stroke-width='1.3'/%3E%3Cpath d='M14 7 L21 1 L28 7 L21 13 Z' fill='none' stroke='%23D7A23D' stroke-width='1.3'/%3E%3Ccircle cx='7' cy='7' r='1.4' fill='%23A9482A'/%3E%3Ccircle cx='21' cy='7' r='1.4' fill='%23D7A23D'/%3E%3C/svg%3E");background-size:28px 14px}
+
+/* Kopf */
+.hero{padding:44px 0 34px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:center}
+.hero h1{font-size:clamp(46px,8vw,84px);line-height:.98;letter-spacing:-.02em;margin:10px 0 14px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero p{margin:0;max-width:52ch;color:var(--soft);font-size:17px}
+.arch{border-radius:999px 999px 18px 18px;overflow:hidden;border:6px solid var(--paper);box-shadow:0 0 0 1.5px var(--line);aspect-ratio:4/5;background:var(--line)}
+.arch img{width:100%;height:100%;object-fit:cover}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:24px}
+.stat b{display:block;font-family:var(--display);font-weight:500;font-size:26px;line-height:1.1}
+.stat span{font-size:13.5px;color:var(--soft)}
+
+/* Karte */
+.panel{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:22px}
+.mapbox{overflow-x:auto}
+.map{display:block;width:100%;min-width:560px;height:auto;background:#E9E0CC;border-radius:14px}
+.map .isl{fill:#C9C39A;stroke:#9A9A68;stroke-width:1;stroke-linejoin:round}
+.map .isn{font:600 10px var(--body);letter-spacing:1.4px;fill:#6B6B43;text-anchor:middle}
+.map .sea{font:italic 11px var(--display);fill:#8D8266;text-anchor:middle}
+.map .rt{fill:none;stroke:var(--terra);stroke-width:2;stroke-dasharray:2 6;stroke-linecap:round}
+.map .dot{fill:var(--terra);stroke:var(--paper);stroke-width:2.5}
+.map .dn{font:700 12px var(--body);fill:#FFF;text-anchor:middle}
+.map .sn{font:700 12.5px var(--body);fill:var(--ink)}
+.map .sm{font:10.5px var(--body);fill:var(--soft)}
+.legs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.legs li{font-size:14px;border-top:1.5px solid var(--line);padding-top:8px}
+.legs b{display:block}
+.legs span{color:var(--soft)}
+
+section{padding:34px 0}
+.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.sec-head h2{font-size:clamp(30px,5vw,42px);line-height:1.05;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--soft);max-width:66ch}
+
+/* Station */
+.st-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;margin-bottom:18px}
+.st-no{width:74px;height:92px;border-radius:999px 999px 12px 12px;background:var(--terra);color:#FFF;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;font-family:var(--display);font-size:38px;line-height:1}
+.st-head h2{font-size:clamp(32px,5.4vw,46px);line-height:1.02}
+.st-meta{color:var(--soft);font-size:15.5px;margin-top:4px}
+.st-meta b{color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 18px;padding:0;list-style:none}
+.facts li{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14.5px}
+.facts b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--olive)}
+.todo{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:0 0 22px}
+.todo div{border-top:2px solid var(--ink);padding-top:9px;font-size:14.5px;color:var(--soft)}
+.todo b{display:block;font-family:var(--display);font-weight:500;font-size:18px;color:var(--ink);margin-bottom:2px}
+
+/* Optionskarten */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.opt{position:relative;display:flex;flex-direction:column;background:var(--paper);border:1.5px solid var(--line);border-radius:26px 26px 18px 18px;overflow:hidden;cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.opt:hover{border-color:var(--ochre)}
+.opt.sel{border-color:var(--terra);box-shadow:0 0 0 2.5px var(--terra)}
+.opt input.pick{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input.pick:focus-visible){outline:3px solid var(--indigo);outline-offset:2px}
+.ph{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:3px;height:176px;background:var(--line)}
+.ph figure{margin:0;position:relative;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:8px;bottom:8px;background:var(--paper);color:var(--ink);font-size:12px;font-weight:600;padding:2px 9px;border-radius:10px}
+.ob{padding:15px 17px 17px;display:flex;flex-direction:column;gap:9px;flex-grow:1}
+.otop{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:24px}
+.olabel{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--soft)}
+.badge{font-size:12px;font-weight:700;background:var(--ochre);color:var(--ink);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.opt h3{font-size:24px;line-height:1.1}
+.room{font-size:14.5px;color:var(--soft)}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font-family:var(--display);font-weight:500;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.price span{font-size:13.5px;color:var(--soft)}
+.opt ul{margin:0;padding-left:18px;font-size:14px}
+.opt li{margin-bottom:2px}
+.vars{display:flex;flex-wrap:wrap;gap:6px}
+.vars label{font-size:13px;border:1.5px solid var(--line);border-radius:14px;padding:4px 10px;cursor:pointer;background:#FFF9EE}
+.vars input{position:absolute;opacity:0;pointer-events:none}
+.vars label:has(input:checked){background:var(--indigo);border-color:var(--indigo);color:#FFF}
+.vars label:has(input:focus-visible){outline:3px solid var(--indigo);outline-offset:2px}
+.ofoot{margin-top:auto;padding-top:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.state{font-size:13.5px;font-weight:700;color:var(--soft)}
+.opt.sel .state{color:var(--terra)}
+.btn{display:inline-block;background:var(--ink);color:#FFF;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:18px;text-decoration:none}
+.btn:hover{background:var(--terra);color:#FFF}
+.tlink{font-size:13.5px;font-weight:600}
+.reco{margin-top:18px;background:var(--terra-soft);border-radius:18px;padding:16px 18px;display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 22px}
+.reco h3{font-size:21px;line-height:1.15}
+.reco p{margin:0 0 7px;font-size:14.5px}
+.reco p:last-child{margin-bottom:0}
+
+/* Flüge */
+.flights{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.fl .ob{gap:7px}
+.fl h3{font-size:21px}
+.route{font-size:14.5px}
+.tblwrap{overflow-x:auto;margin-top:18px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--soft);border-bottom:2px solid var(--ink);padding:7px 8px}
+td{border-bottom:1.5px solid var(--line);padding:8px;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+
+/* Zusammenfassung */
+.sum{background:var(--indigo);color:#FFF;border-radius:22px;padding:24px}
+.sum h2{color:#FFF}
+.sum table{min-width:0;color:#FFF}
+.sum th{color:#C9D3E2;border-bottom-color:#C9D3E2}
+.sum td{border-bottom-color:#4A5D7A}
+.sum .tot td{border-bottom:0;font-family:var(--display);font-size:24px;padding-top:14px}
+.sum .pp td{border-bottom:0;color:#E8C98A;padding-top:0}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:16px 0 4px;font-size:14.5px}
+.ctrl label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ctrl input{width:18px;height:18px;accent-color:var(--ochre)}
+.copy{background:var(--ochre);color:var(--ink);border:0;font:700 14.5px var(--body);padding:10px 16px;border-radius:20px;cursor:pointer}
+.copy:hover{background:#E6B552}
+.copied{font-size:14px;color:#E8C98A}
+.notes{font-size:14px;color:var(--soft);display:grid;gap:8px;margin-top:18px}
+.notes p{margin:0}
+
+/* Leiste unten */
+.bar{position:sticky;bottom:0;background:var(--ink);color:#FFF;z-index:5}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.bar b{font-family:var(--display);font-weight:500;font-size:22px;font-variant-numeric:tabular-nums}
+.bar span{font-size:13.5px;color:#DCCDB8}
+.bar a{color:#FFF;font-size:13.5px;font-weight:600}
+
+@media (max-width:720px){
+  .hero-grid{grid-template-columns:1fr}
+  .arch{max-width:300px}
+  .reco{grid-template-columns:1fr}
+  .ph{height:150px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.opt{transition:none}}
+</style>
+</head>
+<body>
+<div class="kawung" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Manuel &amp; Vera · 1.–23. Mai 2027</div>
+      <h1>Indonesien, <em>Insel für Insel</em></h1>
+      <p>Vier Stationen, je fünf Nächte: Bali, Sumba, Lombok und zurück nach Bali. Klickt pro Station euer Hotel und eure Zimmerkategorie an, die Summe rechnet mit.</p>
+      <div class="stats">
+        <div class="stat"><b>23 Tage</b><span>ab und bis Zürich</span></div>
+        <div class="stat"><b>20 Nächte</b><span>an 4 Stationen</span></div>
+        <div class="stat"><b>3 Inselflüge</b><span>zwei davon direkt</span></div>
+      </div>
+    </div>
+    <div class="arch"><img src="images/nihi_hotel.jpg" alt="Küste von West-Sumba"></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="panel">
+    <div class="mapbox"><svg viewBox="0 0 698 240" role="img" aria-label="Karte der Route: Ubud, West-Sumba, Süd-Lombok, Uluwatu" class="map"><polygon points="0.0,0.0 26.7,0.0 27.7,2.0 18.5,26.8 20.5,46.6 41.1,67.4 35.9,79.3 15.4,73.4 0.0,61.5" class="isl"></polygon><polygon points="23.6,18.8 43.1,13.9 91.4,7.9 128.3,13.9 155.0,35.7 143.7,51.6 128.3,58.5 108.8,70.4 105.7,81.3 99.6,86.3 91.4,85.3 95.5,79.3 99.6,73.4 91.4,63.5 66.7,48.6 43.1,41.7 27.7,26.8" class="isl"></polygon><polygon points="128.3,70.4 141.7,68.4 146.8,77.4 138.6,83.3 129.3,79.3" class="isl"></polygon><polygon points="189.9,37.7 207.3,25.8 227.9,22.8 256.6,34.7 260.7,61.5 248.4,85.3 233.0,94.2 213.5,92.2 189.9,89.3 169.4,84.3 168.3,75.4 189.9,75.4 191.9,58.5" class="isl"></polygon><polygon points="262.8,56.5 287.4,41.7 338.7,39.7 364.4,16.9 390.1,11.9 420.9,25.8 395.2,47.6 364.4,59.5 410.6,67.4 453.7,31.7 492.7,33.7 513.2,48.6 500.9,76.4 441.4,86.3 390.1,91.2 318.2,106.1 273.0,104.1 260.7,83.3" class="isl"></polygon><polygon points="531.7,46.6 546.1,48.6 549.2,63.5 538.9,73.4 531.7,61.5" class="isl"></polygon><polygon points="556.3,61.5 570.7,63.5 572.8,77.4 560.5,79.3" class="isl"></polygon><polygon points="576.9,47.6 595.4,35.7 646.7,28.8 698.0,43.6 698.0,93.2 646.7,85.3 595.4,83.3 581.0,75.4 574.8,61.5" class="isl"></polygon><polygon points="485.5,156.7 513.2,138.8 559.4,133.9 590.2,128.9 615.9,147.8 626.1,165.6 651.8,172.6 679.5,202.3 669.3,220.2 641.5,231.1 610.8,223.1 580.0,197.4 554.3,180.5 528.6,178.5 503.0,172.6" class="isl"></polygon><text x="2.1" y="36.7" class="isn">JAVA</text><text x="390.1" y="73.4" class="isn">SUMBAWA</text><text x="651.8" y="75.4" class="isn">FLORES</text><text x="610.8" y="180.5" class="isn">SUMBA</text><text x="318.2" y="185.5" class="sea">Indischer Ozean</text><path d="M 108.8 48.6 Q 319.8 204.6 530.7 170.6" class="rt"></path><path d="M 530.7 170.6 Q 372.1 142.9 213.5 87.3" class="rt"></path><path d="M 213.5 87.3 Q 153.4 110.3 93.4 81.3" class="rt"></path><circle cx="108.8" cy="48.6" r="11.5" class="dot"></circle><text x="108.8" y="52.6" class="dn">1</text><text x="92.8" y="39.6" text-anchor="end" class="sn">Ubud</text><text x="92.8" y="52.6" text-anchor="end" class="sm">5 Nächte</text><circle cx="530.7" cy="170.6" r="11.5" class="dot"></circle><text x="530.7" y="174.6" class="dn">2</text><text x="514.7" y="188.6" text-anchor="end" class="sn">West-Sumba</text><text x="514.7" y="201.6" text-anchor="end" class="sm">5 Nächte</text><circle cx="213.5" cy="87.3" r="11.5" class="dot"></circle><text x="213.5" y="91.3" class="dn">3</text><text x="211.5" y="55.3" text-anchor="start" class="sn">Süd-Lombok</text><text x="211.5" y="68.3" text-anchor="start" class="sm">5 Nächte</text><circle cx="93.4" cy="81.3" r="11.5" class="dot"></circle><text x="93.4" y="85.3" class="dn">4</text><text x="77.4" y="99.3" text-anchor="end" class="sn">Uluwatu</text><text x="77.4" y="112.3" text-anchor="end" class="sm">5 Nächte</text></svg></div>
+    <ul class="legs">
+      <li><b>1 · Ubud</b><span>So 2. – Fr 7. Mai</span></li>
+      <li><b>2 · West-Sumba</b><span>Fr 7. – Mi 12. Mai</span></li>
+      <li><b>3 · Süd-Lombok</b><span>Mi 12. – Mo 17. Mai</span></li>
+      <li><b>4 · Uluwatu</b><span>Mo 17. – Sa 22. Mai</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="fluege">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Anreise und Inselwechsel</div>
+      <h2>Flüge</h2>
+      <p>Ihr landet in Bali und fliegt von dort wieder heim. Dazwischen liegen drei Inselflüge; nur von Sumba nach Lombok geht es mit Umsteigen in Bali. Jeder Link öffnet die Suche mit euren Daten.</p>
+    </div>
+    <div class="flights" id="longhaul" role="radiogroup" aria-label="Langstreckenflug"></div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Datum</th><th>Strecke</th><th>Flug</th><th class="n">CHF für 2</th><th></th></tr></thead>
+        <tbody id="domestic"></tbody>
+      </table>
+    </div>
+    <div class="reco">
+      <div><div class="eyebrow">Meine Empfehlung</div><h3>Abends heimfliegen</h3></div>
+      <div>
+        <p>Der Abendflug schenkt euch den ganzen letzten Tag in Uluwatu und hat in Singapur nur gut eine Stunde Umsteigezeit. Der Mittagsflug spart CHF 70, kostet aber den Tag und neun Stunden Wartezeit.</p>
+        <p>Sumba–Lombok unbedingt als ein Ticket buchen (Batik Air und Wings Air gehören zusammen), damit der Anschluss in Bali garantiert ist. Bei Wings Air und TransNusa beim Buchen 20 kg Gepäck dazunehmen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="stations"></div>
+
+<section id="auswahl">
+  <div class="wrap">
+    <div class="sum">
+      <div class="eyebrow" style="color:#E8C98A">Eure Auswahl</div>
+      <h2 style="font-size:clamp(30px,5vw,42px);margin:4px 0 6px">Was die Reise kostet</h2>
+      <div class="ctrl">
+        <label for="rate-nr"><input type="checkbox" id="rate-nr"> Mit den günstigeren, nicht erstattbaren Raten rechnen</label>
+        <label for="extras"><input type="checkbox" id="extras"> Transfers und Ausflüge dazurechnen (Schätzung aus dem Dossier: CHF 780)</label>
+      </div>
+      <div class="tblwrap" style="margin-top:8px">
+        <table>
+          <thead><tr><th>Posten</th><th>Auswahl</th><th class="n">CHF für 2</th></tr></thead>
+          <tbody id="sumrows"></tbody>
+        </table>
+      </div>
+      <div class="ctrl">
+        <button type="button" class="copy" id="copy">Auswahl kopieren</button>
+        <span class="copied" id="copied" role="status"></span>
+      </div>
+    </div>
+    <div class="notes">
+      <p>Alle Preise gelten für 2 Erwachsene und den ganzen Aufenthalt, inklusive Steuern und Gebühren. Live geprüft am 14.11.2026; Preise und Verfügbarkeit ändern sich täglich. Die Booking-Preise wurden mit angemeldetem Konto abgerufen und können Konto-Rabatte enthalten.</p>
+      <p>Nicht eingerechnet: Essen ausser Frühstück, Visum (e-VoA, rund CHF 30 pro Person), Touristenabgabe für Bali. Auf Sumba esst ihr fast immer im Resort.</p>
+      <p>Fotos: die jeweiligen Hotels. Sie zeigen ein Zimmer des Hauses, nicht immer genau die gewählte Kategorie.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="bar" aria-live="polite">
+  <div class="wrap">
+    <div><b id="bar-total"></b> <span id="bar-pp"></span></div>
+    <a href="#auswahl">Zur Aufstellung</a>
+  </div>
+</div>
+
+<div class="kawung" aria-hidden="true"></div>
+
+<script>
+(function(){
+"use strict";
+var bk=function(slug,ci,co){return "https://www.booking.com/hotel/id/"+slug+".de.html?checkin="+ci+"&checkout="+co+"&group_adults=2&no_rooms=1&group_children=0&selected_currency=CHF";};
+var gf=function(a,b,d){return "https://www.google.com/travel/flights?q=Flights+from+"+a+"+to+"+b+"+on+"+d+"+one+way+for+2+adults&curr=CHF&hl=de&gl=ch";};
+var KAYAK="https://www.kayak.ch/flights/ZRH-DPS/2027-05-01/2027-05-22/2adults?sort=bestflight_a&fs=airlines=SQ";
+
+var LONG=[
+ {id:"abend",title:"Singapore Airlines, Rückflug am Abend",flex:2167,pick:true,
+  route:"Hin Sa 1.5.: Zürich 11:40 → Singapur → Bali So 11:00.<br>Zurück Sa 22.5.: Bali 21:40 → Singapur → Zürich So 08:15.",
+  note:"Ein Stopp, 1 Std. 10 Min. Umsteigezeit auf dem Rückweg."},
+ {id:"mittag",title:"Singapore Airlines, Rückflug am Mittag",flex:2097,
+  route:"Hin wie oben.<br>Zurück Sa 22.5.: Bali 13:20 → Singapur → Zürich So 08:15.",
+  note:"CHF 70 günstiger, dafür 9 Std. 20 Min. Aufenthalt in Singapur."}
+];
+var DOM=[
+ {d:"Fr 7. Mai",r:"Bali → Sumba (Tambolaka)",f:"Batik Air · 09:10–10:20 · direkt",p:128,u:gf("DPS","TMC","2027-05-07")},
+ {d:"Mi 12. Mai",r:"Sumba → Lombok",f:"Batik Air + Wings Air · 11:05–16:30 · via Bali",p:202,u:gf("TMC","LOP","2027-05-12")},
+ {d:"Mo 17. Mai",r:"Lombok → Bali",f:"TransNusa · 11:30–12:10 · direkt",p:82,u:gf("LOP","DPS","2027-05-17")}
+];
+var ST=[
+ {id:"ubud",no:1,name:"Ubud",dates:"So 2. – Fr 7. Mai",nights:5,tag:"Reisfelder, Vulkan, gutes Essen",
+  facts:[["Anreise","Bali an So 11:00, dann 1,5 Std. Fahrt"],["Weiterreise","Fr 7. Mai, Abfahrt 06:00, Flug 09:10"],["Tipp","Batur nicht auf den letzten Morgen legen"]],
+  todo:[["Sonnenaufgang am Vulkan","Früh auf den Mount Batur oder den ruhigeren Mount Abang durch Bergwald."],["Reisterrassen und Tempel","Spaziergang durch Subak Juwuk Manis, Wassertempel Tirta Empul, ein Nachmittag im Spa."],["Essen","Locavore NXT, Hujan Locale, Desserts im Room4Dessert. Früh reservieren."]],
+  hotels:[
+   {id:"adiwana",label:"Preis-Leistung",name:"Adiwana Bisma",pick:true,url:bk("adiwana-bisma-suites","2027-05-02","2027-05-07"),
+    vars:[{n:"Zimmer Bisma",flex:807,nr:679},{n:"Reisfeldblick",flex:865,nr:727},{n:"Dschungelblick",flex:968,nr:814,def:true}],
+    pts:["Frühstück und kurze Massage inklusive","Kostenlos stornierbar bis 27. April 2027","Dachpool über den Baumwipfeln, 10 Minuten zu Fuss ins Zentrum"]},
+   {id:"bisma8",label:"Design",name:"Bisma Eight",url:bk("bisma-eight","2027-05-02","2027-05-07"),
+    vars:[{n:"Suite Canopy",flex:1094,def:true},{n:"Garten-Suite",flex:1111},{n:"Forest Suite",flex:1207},{n:"Villa",flex:1570}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 18. April 2027","Booking-Note 9,3. Infinity-Pool über dem Dschungel, gleiche Strasse wie das Adiwana"]},
+   {id:"alila",label:"Im Tal",name:"Alila Ubud",url:bk("alila-ubud","2027-05-02","2027-05-07"),
+    vars:[{n:"Zimmer King",flex:914,nr:763,def:true},{n:"Deluxe",flex:1058,nr:897}],
+    pts:["Kostenlos stornierbar bis 25. April 2027","Booking-Note 9,0. Berühmter Pool über dem Ayung-Tal","Rund 15 Minuten ausserhalb von Ubud, sehr ruhig"]},
+   {id:"komaneka",label:"Erste Liga",name:"Komaneka at Bisma",url:bk("komaneka-at-bisma","2027-05-02","2027-05-07"),
+    vars:[{n:"Suite Bisma",flex:2242,nr:1903,def:true},{n:"Pool-Villa",flex:4810,nr:4083}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 18. April 2027","Eines der besten Häuser Ubuds, langer Pool, sehr ruhig"]}
+  ],
+  reco:["Adiwana Bisma, Zimmer mit Dschungelblick",["Bisma Eight ist die stilvollere Variante an derselben Strasse und kostet CHF 126 mehr; wer Wert auf Design legt, nimmt die Suite Canopy. Alila Ubud ist das ruhigste Haus, dafür seid ihr für jedes Abendessen auf den Shuttle angewiesen.","Komaneka bleibt das schönste Haus, kostet für fünf Nächte aber gut CHF 1'270 mehr als das Adiwana, und tagsüber seid ihr meist unterwegs."]]},
+ {id:"sumba",no:2,name:"West-Sumba",dates:"Fr 7. – Mi 12. Mai",nights:5,tag:"Leerer Strand, Dörfer, Lagunen",
+  facts:[["Anreise","Tambolaka an 10:20, dann 2 Std. Fahrt"],["Weiterreise","Mi 12. Mai, Abfahrt gegen 08:00, Flug 11:05"],["Transfers","Über das Resort buchen"]],
+  todo:[["Tagestour Nordwest","Salzwasserlagune Weekuri und das Megalith-Dorf Ratenggaro."],["Tagestour Inland","Wanderung zum Lapopu-Wasserfall, Hügeldorf Praijing."],["Dazwischen","Surfen, Stand-up-Paddling, Ausritt am Strand bei Ebbe."]],
+  hotels:[
+   {id:"sanubari",label:"Euer Favorit",name:"The Sanubari",pick:true,url:"https://live.ipms247.com/booking/book-rooms-thesanubari",btn:"Direkt buchen",approx:true,
+    vars:[{n:"Garden Studio Pool Villa",flex:1577,def:true}],
+    pts:["Nur noch 1 Villa frei, Strandvillen ausgebucht","Frühstück inklusive","Rp 35'090'000, umgerechnet zum Kurs 22'250","Daten 7.–12. Mai im Buchungssystem selbst eingeben"]},
+   {id:"lelewatu",label:"Klippe",name:"Lelewatu Resort",url:bk("lelewatu-resort-sumba","2027-05-07","2027-05-12"),
+    vars:[{n:"Pool-Villa mit Frühstück",flex:1504,nr:1289,def:true},{n:"Pool-Villa mit Vollpension",flex:3331,nr:2855}],
+    pts:["Villa mit eigenem Pool und Meerblick","Kostenlos stornierbar bis 7. April 2027"]},
+   {id:"ketanu",label:"Bambus",name:"Ketanu Bamboo Lodge",url:bk("ketanu","2027-05-07","2027-05-12"),
+    vars:[{n:"Doppelzimmer mit Meerblick",flex:1756,nr:1490,def:true}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 30. April 2027","Booking-Note 9,8. Kleine Bambus-Lodge in Wanokaka an der Südküste"]},
+   {id:"maringi",label:"Mit Sinn",name:"Maringi Sumba",url:bk("maringi-eco-resort-by-shf","2027-05-07","2027-05-12"),
+    vars:[{n:"King mit Gartenblick",flex:761,nr:634,def:true},{n:"Deluxe",flex:902,nr:752}],
+    pts:["Vollpension inklusive","Erstattbar bis 3. Mai 2027","Booking-Note 9,2. Bambus-Pavillons der Sumba Hospitality Foundation, die Einheimische ausbildet","Nahe am Flughafen Tambolaka, nicht direkt am Strand"]},
+   {id:"nihi",label:"Luxus",name:"NIHI Sumba",url:bk("nihi-sumba","2027-05-07","2027-05-12"),
+    vars:[{n:"Kasambi Suite",flex:12427,nr:8237,def:true},{n:"Villa Kanatar mit Pool",flex:13441,nr:8947}],
+    pts:["Vollpension inklusive","Kostenlos stornierbar nur bis 8. März 2027"]}
+  ],
+  reco:["The Sanubari, und zwar als Erstes buchen",["In eurer Kategorie ist für den 7. bis 12. Mai genau eine Villa übrig; die Strandvillen sind ausgebucht. Lasst euch vor der Zahlung die Stornobedingungen bestätigen.","Maringi ist mit Vollpension für CHF 761 die mit Abstand günstigste Lösung und ein schönes Projekt, liegt aber nicht am Meer. Ketanu ist klein und persönlich mit Blick über die Bucht von Wanokaka. Lelewatu bleibt der solide Plan B, NIHI kostet selbst nicht erstattbar gut das Fünffache.","Rechnet ausser bei Maringi und NIHI das Essen dazu: Ausserhalb der Resorts gibt es kaum Restaurants."]]},
+ {id:"lombok",no:3,name:"Süd-Lombok",dates:"Mi 12. – Mo 17. Mai",nights:5,tag:"Buchten, Surfen, Ausspannen",
+  facts:[["Anreise","Lombok an Mi 16:30, dann 30 Min. Fahrt"],["Weiterreise","Mo 17. Mai, Flug 11:30 nach Bali"],["Unterwegs","Roller oder Fahrer"]],
+  todo:[["Surfen in Selong Belanak","Sichelförmige Sandbucht mit sanften Wellen auf Sandboden, ideal für entspannte Surfstunden."],["Mawun und Tanjung Aan","Ruhige Badebuchten. Zum Sonnenuntergang auf die Grashügel von Bukit Merese."],["Essen in Kuta","El Bazar, Ashtari mit Panoramablick, KRNK."]],
+  hotels:[
+   {id:"somewhere",label:"Aussicht",name:"Somewhere Lombok",pick:true,url:bk("somewhere-lombok","2027-05-12","2027-05-17"),
+    vars:[{n:"Villa mit Tauchbecken",flex:1175,nr:1038,def:true}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 28. April 2027","Am Hang über der Surfbucht Are Guling, 10 Minuten ausserhalb von Kuta"]},
+   {id:"rascals",label:"Nur Erwachsene",name:"Rascals Hotel",url:bk("rascals","2027-05-12","2027-05-17"),
+    vars:[{n:"Zimmer mit Terrasse",flex:459},{n:"Deluxe mit Balkon",flex:483},{n:"Superior Suite",flex:506,def:true}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 28. April 2027","Booking-Note 9,6. Boutique-Hotel nur für Erwachsene in Kuta"]},
+   {id:"origin",label:"Garten",name:"Origin Lombok",url:bk("origin-resort","2027-05-12","2027-05-17"),
+    vars:[{n:"Signature Garten",flex:414,nr:322},{n:"Garden Pavilion",flex:478,nr:372},{n:"Pool Access Pavilion",flex:557,nr:434,def:true}],
+    pts:["Kostenlos stornierbar bis 28. April 2027","Booking-Note 9,3. Pavillons um einen langen Pool, vom Zimmer direkt ins Wasser"]},
+   {id:"jivana",label:"Mittendrin",name:"Jivana Resort",url:bk("jivana-resort","2027-05-12","2027-05-17"),
+    vars:[{n:"Deluxe Suite",flex:414,def:true}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar","Die Villa mit privatem Pool ist für diese Daten nicht mehr frei","Ruhige Gartenanlage in Kuta, Cafés und Restaurants zu Fuss"]}
+  ],
+  reco:["Somewhere Lombok, flexible Rate",["Blick über die Bucht, eigenes Becken, Restaurant im Haus. Vorher klären: Booking beschreibt die Villa mit 51 m² und Garten- oder Bergblick. Fragt nach einer Villa in der oberen Reihe.","Rascals ist die beste Alternative, wenn ihr abends zu Fuss essen gehen wollt: sehr gut bewertet und fast CHF 670 günstiger. Origin lohnt sich wegen der Zimmer mit direktem Poolzugang."]]},
+ {id:"uluwatu",no:4,name:"Uluwatu",dates:"Mo 17. – Sa 22. Mai",nights:5,tag:"Klippen, Buchten, Ausklang",
+  facts:[["Anreise","Bali an Mo 12:10, dann 1 Std. Fahrt"],["Rückflug","Sa 22. Mai, 21:40"],["Letzter Tag","Late Check-out vorab anfragen"]],
+  todo:[["Buchten","Bingin Beach, Thomas Beach und das weite Nyang Nyang; Surfer beobachten von den Klippen."],["Uluwatu-Tempel","Am späten Nachmittag. Taschen und Brillen vor den Affen sichern."],["Essen","The Loft, frischer Fisch am Strand von Bingin, zum Abschluss Mason oder Yuki."]],
+  hotels:[
+   {id:"svanata",label:"Klippe",name:"Svanata Uluwatu",pick:true,url:bk("anantara-bali-uluwatu-resort","2027-05-17","2027-05-22"),
+    vars:[{n:"Suite mit Meerblick",flex:1440,def:true},{n:"Pool-Suite Gartenblick",flex:1920},{n:"Suite am Meer",flex:2559}],
+    pts:["Ehemals Anantara Uluwatu","Frühstück inklusive","Kostenlos stornierbar bis 17. April 2027","Infinity-Pool an der Klippenkante über Impossibles"]},
+   {id:"seascape",label:"Neu und gross",name:"Seascape Resort Uluwatu",url:bk("seascape-luxury-resort-amp-spa-uluwatu-by-ini-vie-hospitality","2027-05-17","2027-05-22"),
+    vars:[{n:"Suite",flex:986,nr:484,def:true},{n:"Grand Suite",flex:1171,nr:574},{n:"Loft Cabana mit Infinity-Pool",flex:1787,nr:877}],
+    pts:["Kostenlos stornierbar bis 26. April 2027","Nicht erstattbar nur rund die Hälfte","Resort mit mehreren Lagunenpools"]},
+   {id:"gravity",label:"Nur Erwachsene",name:"Gravity Eco Boutique Hotel",url:bk("gravity","2027-05-17","2027-05-22"),
+    vars:[{n:"Standard Bungalow",flex:526,nr:427},{n:"Superior Bungalow",flex:569,nr:462,def:true},{n:"Premier Bungalow",flex:595,nr:483}],
+    pts:["Kostenlos stornierbar bis 17. April 2027","Bungalows mit Strohdach, nur für Erwachsene","Ruhige Lage, Strände und Restaurants per Roller oder Fahrer"]},
+   {id:"mulemalu",label:"Gästehaus",name:"Mule Malu Tropical Stay",url:"https://hotels.cloudbeds.com/en/reservation/mPJ8wD?checkin=2027-05-17&checkout=2027-05-22&currency=chf",
+    vars:[{n:"Queen Double",flex:560},{n:"King Double",flex:622,def:true}],
+    pts:["Direktpreis des Hauses","Frühstück und Storno beim Buchen prüfen","Bingin, Salzwasserpool im Garten, 10 Minuten zu Fuss zum Strand"]}
+  ],
+  reco:["Svanata Uluwatu, Suite mit Meerblick",["Für den Ausklang lohnt sich die Klippe: Sonnenuntergang von der Suite aus. Das Resort trägt den neuen Namen erst seit September 2026; lest vor der Reise Bewertungen aus der Zeit danach.","Bei fünf Nächten fällt der Preis stärker ins Gewicht. Gravity ist die charmante, günstige Variante für CHF 569. Seascape ist nicht erstattbar ab CHF 484 ein Schnäppchen, flexibel aber doppelt so teuer. Mule Malu ist sympathisch, aber ein einfaches Zimmer ohne eigenen Pool."]]}
+];
+
+
+// ---------- Zustand
+var KEY="indonesien2027-auswahl-v3";
+var state={long:"abend",nr:false,extras:false,h:{},v:{}};
+ST.forEach(function(s){
+  s.hotels.forEach(function(h){
+    if(h.pick) state.h[s.id]=h.id;
+    h.vars.forEach(function(v,i){ if(v.def) state.v[h.id]=i; });
+  });
+});
+try{
+  var saved=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(saved && saved.h && saved.v){
+    if(LONG.some(function(l){return l.id===saved.long;})) state.long=saved.long;
+    state.nr=!!saved.nr; state.extras=!!saved.extras;
+    ST.forEach(function(s){
+      var hid=saved.h[s.id];
+      if(s.hotels.some(function(h){return h.id===hid;})) state.h[s.id]=hid;
+      s.hotels.forEach(function(h){ var vi=saved.v[h.id]; if(typeof vi==="number" && h.vars[vi]) state.v[h.id]=vi; });
+    });
+  }
+}catch(e){}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+
+function chf(n){ return "CHF "+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"'"); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function vprice(v){ return (state.nr && v.nr) ? v.nr : v.flex; }
+function hsel(s){ return s.hotels.filter(function(h){return h.id===state.h[s.id];})[0]; }
+function vsel(h){ return h.vars[state.v[h.id]]; }
+function totals(){
+  var lh=LONG.filter(function(l){return l.id===state.long;})[0].flex;
+  var dom=DOM.reduce(function(a,d){return a+d.p;},0);
+  var hot=ST.reduce(function(a,s){return a+vprice(vsel(hsel(s)));},0);
+  var ex=state.extras?780:0;
+  return {lh:lh,dom:dom,hot:hot,ex:ex,all:lh+dom+hot+ex};
+}
+
+// ---------- Aufbau
+function renderLong(){
+  document.getElementById("longhaul").innerHTML=LONG.map(function(l){
+    var on=state.long===l.id;
+    return '<label class="opt fl'+(on?' sel':'')+'" for="long-'+l.id+'"><input class="pick" type="radio" name="long" id="long-'+l.id+'" value="'+l.id+'"'+(on?' checked':'')+'>'+
+      '<div class="ob"><div class="otop"><span class="olabel">Langstrecke</span>'+(l.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
+      '<h3>'+esc(l.title)+'</h3><div class="route">'+l.route+'</div><div class="room">'+esc(l.note)+'</div>'+
+      '<div class="price"><b>'+chf(l.flex)+'</b><span>für 2 · '+chf(l.flex/2)+' pro Person</span></div>'+
+      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(KAYAK)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></div></div></label>';
+  }).join("");
+}
+function renderDom(){
+  var sum=DOM.reduce(function(a,d){return a+d.p;},0);
+  document.getElementById("domestic").innerHTML=DOM.map(function(d){
+    return '<tr><td><b>'+d.d+'</b></td><td>'+d.r+'</td><td>'+d.f+'</td><td class="n"><b>'+d.p+'</b></td><td class="n"><a class="tlink" href="'+esc(d.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></td></tr>';
+  }).join("")+'<tr><td></td><td><b>Alle drei Inselflüge</b></td><td></td><td class="n"><b>'+sum+'</b></td><td></td></tr>';
+}
+function hotelCard(s,h){
+  var on=state.h[s.id]===h.id, v=vsel(h), p=vprice(v);
+  var vars=h.vars.length>1 ? '<div class="vars" role="radiogroup" aria-label="Zimmerkategorie '+esc(h.name)+'">'+h.vars.map(function(x,i){
+      return '<label for="v-'+h.id+'-'+i+'"><input type="radio" name="v-'+h.id+'" id="v-'+h.id+'-'+i+'" data-h="'+h.id+'" data-s="'+s.id+'" value="'+i+'"'+(state.v[h.id]===i?' checked':'')+'>'+esc(x.n)+'</label>';
+    }).join("")+'</div>' : '';
+  var other = v.nr ? (state.nr ? 'Flexibel: '+chf(v.flex) : 'Nicht erstattbar: '+chf(v.nr)) : '';
+  return '<label class="opt'+(on?' sel':'')+'" for="h-'+h.id+'"><input class="pick" type="radio" name="h-'+s.id+'" id="h-'+h.id+'" data-s="'+s.id+'" value="'+h.id+'"'+(on?' checked':'')+'>'+
+    '<div class="ph"><figure><img src="images/'+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
+    '<figure><img src="images/'+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
+    '<div class="ob"><div class="otop"><span class="olabel">'+esc(h.label)+'</span>'+(h.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
+    '<h3>'+esc(h.name)+'</h3><div class="room">'+esc(v.n)+'</div>'+vars+
+    '<div class="price"><b>'+(h.approx?'ca. ':'')+chf(p)+'</b><span>≈ '+chf(p/s.nights).replace("CHF ","")+' pro Nacht</span></div>'+
+    '<ul>'+h.pts.map(function(t){return '<li>'+esc(t)+'</li>';}).join("")+(other?'<li>'+other+'</li>':'')+'</ul>'+
+    '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(h.url)+'" target="_blank" rel="noopener">'+(h.btn||'Preis für eure Daten')+' ↗</a></div></div></label>';
+}
+function renderStations(){
+  document.getElementById("stations").innerHTML=ST.map(function(s){
+    return '<div class="ikat" aria-hidden="true"></div><section id="'+s.id+'"><div class="wrap">'+
+      '<div class="st-head"><div class="st-no" aria-hidden="true">'+s.no+'</div><div><div class="eyebrow">Station '+s.no+' von 5</div><h2>'+esc(s.name)+'</h2>'+
+      '<div class="st-meta"><b>'+s.dates+'</b> · '+s.nights+' Nächte · '+esc(s.tag)+'</div></div></div>'+
+      '<ul class="facts">'+s.facts.map(function(f){return '<li><b>'+f[0]+'</b>'+esc(f[1])+'</li>';}).join("")+'</ul>'+
+      '<div class="todo">'+s.todo.map(function(t){return '<div><b>'+esc(t[0])+'</b>'+esc(t[1])+'</div>';}).join("")+'</div>'+
+      '<div class="opts" role="radiogroup" aria-label="Unterkunft '+esc(s.name)+'">'+s.hotels.map(function(h){return hotelCard(s,h);}).join("")+'</div>'+
+      '<div class="reco"><div><div class="eyebrow">Meine Empfehlung</div><h3>'+esc(s.reco[0])+'</h3></div><div>'+s.reco[1].map(function(p){return '<p>'+esc(p)+'</p>';}).join("")+'</div></div>'+
+      '</div></section>';
+  }).join("");
+}
+function renderSum(){
+  var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
+  var rows='<tr><td>Langstrecke</td><td>'+esc(l.title)+'</td><td class="n">'+chf(t.lh).replace("CHF ","")+'</td></tr>'+
+           '<tr><td>Inselflüge</td><td>3 Flüge</td><td class="n">'+t.dom+'</td></tr>';
+  ST.forEach(function(s){ var h=hsel(s), v=vsel(h);
+    rows+='<tr><td>'+s.no+' · '+esc(s.name)+'</td><td>'+esc(h.name)+', '+esc(v.n)+((state.nr&&v.nr)?' (nicht erstattbar)':'')+'</td><td class="n">'+chf(vprice(v)).replace("CHF ","")+'</td></tr>'; });
+  if(state.extras) rows+='<tr><td>Transfers und Ausflüge</td><td>Schätzung aus dem Dossier</td><td class="n">780</td></tr>';
+  rows+='<tr class="tot"><td colspan="2">Total für 2 Personen</td><td class="n">'+chf(t.all)+'</td></tr>'+
+        '<tr class="pp"><td colspan="2">Pro Person</td><td class="n">'+chf(t.all/2)+'</td></tr>';
+  document.getElementById("sumrows").innerHTML=rows;
+  document.getElementById("bar-total").textContent=chf(t.all);
+  document.getElementById("bar-pp").textContent="für 2 · "+chf(t.all/2)+" pro Person";
+  document.getElementById("rate-nr").checked=state.nr;
+  document.getElementById("extras").checked=state.extras;
+}
+function renderAll(){ renderLong(); renderStations(); renderSum(); }
+
+document.addEventListener("change",function(e){
+  var el=e.target; if(!el) return; var nm=el.name||"";
+  if(el.id==="rate-nr"){ state.nr=el.checked; rerenderStation(); }
+  else if(el.id==="extras"){ state.extras=el.checked; }
+  else if(nm==="long"){ state.long=el.value; renderLong(); }
+  else if(nm.indexOf("v-")===0){ state.v[el.dataset.h]=Number(el.value); state.h[el.dataset.s]=el.dataset.h; rerenderStation(); }
+  else if(nm.indexOf("h-")===0){ state.h[el.dataset.s]=el.value; rerenderStation(); }
+  else return;
+  renderSum(); save();
+});
+function rerenderStation(){ var y=window.scrollY; renderStations(); window.scrollTo(0,y); }
+// Links in den Karten sollen die Karte nicht auswählen
+document.addEventListener("click",function(e){ var a=e.target.closest && e.target.closest("a.btn"); if(a) e.stopPropagation(); });
+
+document.getElementById("copy").addEventListener("click",function(){
+  var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
+  var lines=["Indonesien 2027 – unsere Auswahl","Langstrecke: "+l.title+" – "+chf(t.lh),"Inselflüge: "+chf(t.dom)];
+  ST.forEach(function(s){ var h=hsel(s), v=vsel(h); lines.push(s.name+" ("+s.dates+"): "+h.name+", "+v.n+((state.nr&&v.nr)?", nicht erstattbar":"")+" – "+chf(vprice(v))); });
+  if(state.extras) lines.push("Transfers und Ausflüge (Schätzung): CHF 780");
+  lines.push("Total für 2: "+chf(t.all)+" · pro Person: "+chf(t.all/2));
+  var out=document.getElementById("copied"), text=lines.join("\n");
+  var done=function(){ out.textContent="Kopiert. Füg die Auswahl im Chat ein, dann mache ich daraus das A4-Dossier."; };
+  try{ navigator.clipboard.writeText(text).then(done,function(){ out.textContent=text; }); }catch(err){ out.textContent=text; }
+});
+
+renderDom(); renderAll();
+window.__totals=totals;
+})();
+</script>
+</body>
+</html>
