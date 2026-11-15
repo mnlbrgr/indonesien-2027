@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réunion & Mauritius 2027 Reiseplaner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Boho, Indonesien: Sandpapier, Terrakotta, Ocker, Oliv, Indigo wie Batik. Eine Spalte, Fotos in Bogenform. */
+  --sand:#F4EADB; --paper:#FBF6EC; --ink:#3B2A21; --soft:#6E5A4C; --line:#DFCFB6;
+  --terra:#A9482A; --terra-soft:#F1D9C7; --ochre:#D7A23D; --olive:#646B3F; --indigo:#2C3F5B;
+  --display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --body:'Karla', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+img{max-width:100%;display:block}
+a{color:var(--terra)}
+a:hover{color:#7E3219}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--terra)}
+.kawung{height:26px;background-color:var(--indigo);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='26' viewBox='0 0 52 26'%3E%3Cg fill='none' stroke='%23E8C98A' stroke-width='1.4'%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(45 13 13)'/%3E%3Cellipse cx='13' cy='13' rx='11' ry='5.5' transform='rotate(-45 13 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(45 39 13)'/%3E%3Cellipse cx='39' cy='13' rx='11' ry='5.5' transform='rotate(-45 39 13)'/%3E%3C/g%3E%3Cg fill='%23E8C98A'%3E%3Ccircle cx='13' cy='13' r='1.6'/%3E%3Ccircle cx='39' cy='13' r='1.6'/%3E%3Ccircle cx='26' cy='13' r='1.1'/%3E%3Ccircle cx='0' cy='13' r='1.1'/%3E%3Ccircle cx='52' cy='13' r='1.1'/%3E%3C/g%3E%3C/svg%3E");background-size:52px 26px}
+.ikat{height:14px;margin:0 auto;max-width:220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 7 L7 1 L14 7 L7 13 Z' fill='none' stroke='%23A9482A' stroke-width='1.3'/%3E%3Cpath d='M14 7 L21 1 L28 7 L21 13 Z' fill='none' stroke='%23D7A23D' stroke-width='1.3'/%3E%3Ccircle cx='7' cy='7' r='1.4' fill='%23A9482A'/%3E%3Ccircle cx='21' cy='7' r='1.4' fill='%23D7A23D'/%3E%3C/svg%3E");background-size:28px 14px}
+
+/* Umschalter */
+.switch{display:flex;gap:8px;padding-top:18px}
+.switch a{font-weight:700;font-size:14px;text-decoration:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink);background:var(--paper)}
+.switch a[aria-current]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.map .hub{fill:var(--paper);stroke:var(--terra);stroke-width:2}
+.map .hn{font:600 11px var(--body);fill:var(--soft)}
+
+/* Kopf */
+.hero{padding:44px 0 34px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:center}
+.hero h1{font-size:clamp(46px,8vw,84px);line-height:.98;letter-spacing:-.02em;margin:10px 0 14px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero p{margin:0;max-width:52ch;color:var(--soft);font-size:17px}
+.arch{border-radius:999px 999px 18px 18px;overflow:hidden;border:6px solid var(--paper);box-shadow:0 0 0 1.5px var(--line);aspect-ratio:4/5;background:var(--line)}
+.arch img{width:100%;height:100%;object-fit:cover}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:24px}
+.stat b{display:block;font-family:var(--display);font-weight:500;font-size:26px;line-height:1.1}
+.stat span{font-size:13.5px;color:var(--soft)}
+
+/* Karte */
+.panel{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:22px}
+.mapbox{overflow-x:auto}
+.map{display:block;width:100%;min-width:560px;height:auto;background:#E9E0CC;border-radius:14px}
+.map .isl{fill:#C9C39A;stroke:#9A9A68;stroke-width:1;stroke-linejoin:round}
+.map .isn{font:600 10px var(--body);letter-spacing:1.4px;fill:#6B6B43;text-anchor:middle}
+.map .sea{font:italic 11px var(--display);fill:#8D8266;text-anchor:middle}
+.map .rt{fill:none;stroke:var(--terra);stroke-width:2;stroke-dasharray:2 6;stroke-linecap:round}
+.map .dot{fill:var(--terra);stroke:var(--paper);stroke-width:2.5}
+.map .dn{font:700 12px var(--body);fill:#FFF;text-anchor:middle}
+.map .sn{font:700 12.5px var(--body);fill:var(--ink)}
+.map .sm{font:10.5px var(--body);fill:var(--soft)}
+.legs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.legs li{font-size:14px;border-top:1.5px solid var(--line);padding-top:8px}
+.legs b{display:block}
+.legs span{color:var(--soft)}
+
+section{padding:34px 0}
+.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.sec-head h2{font-size:clamp(30px,5vw,42px);line-height:1.05;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--soft);max-width:66ch}
+
+/* Station */
+.st-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;margin-bottom:18px}
+.st-no{width:74px;height:92px;border-radius:999px 999px 12px 12px;background:var(--terra);color:#FFF;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;font-family:var(--display);font-size:38px;line-height:1}
+.st-head h2{font-size:clamp(32px,5.4vw,46px);line-height:1.02}
+.st-meta{color:var(--soft);font-size:15.5px;margin-top:4px}
+.st-meta b{color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 18px;padding:0;list-style:none}
+.facts li{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14.5px}
+.facts b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--olive)}
+.todo{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:0 0 22px}
+.todo div{border-top:2px solid var(--ink);padding-top:9px;font-size:14.5px;color:var(--soft)}
+.todo b{display:block;font-family:var(--display);font-weight:500;font-size:18px;color:var(--ink);margin-bottom:2px}
+
+/* Optionskarten */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.opt{position:relative;display:flex;flex-direction:column;background:var(--paper);border:1.5px solid var(--line);border-radius:26px 26px 18px 18px;overflow:hidden;cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.opt:hover{border-color:var(--ochre)}
+.opt.sel{border-color:var(--terra);box-shadow:0 0 0 2.5px var(--terra)}
+.opt input.pick{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input.pick:focus-visible){outline:3px solid var(--indigo);outline-offset:2px}
+.ph{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:3px;height:176px;background:var(--line)}
+.ph figure{margin:0;position:relative;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:8px;bottom:8px;background:var(--paper);color:var(--ink);font-size:12px;font-weight:600;padding:2px 9px;border-radius:10px}
+.ob{padding:15px 17px 17px;display:flex;flex-direction:column;gap:9px;flex-grow:1}
+.otop{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:24px}
+.olabel{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--soft)}
+.badge{font-size:12px;font-weight:700;background:var(--ochre);color:var(--ink);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.opt h3{font-size:24px;line-height:1.1}
+.room{font-size:14.5px;color:var(--soft)}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font-family:var(--display);font-weight:500;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.price span{font-size:13.5px;color:var(--soft)}
+.opt ul{margin:0;padding-left:18px;font-size:14px}
+.opt li{margin-bottom:2px}
+.vars{display:flex;flex-wrap:wrap;gap:6px}
+.vars label{font-size:13px;border:1.5px solid var(--line);border-radius:14px;padding:4px 10px;cursor:pointer;background:#FFF9EE}
+.vars input{position:absolute;opacity:0;pointer-events:none}
+.vars label:has(input:checked){background:var(--indigo);border-color:var(--indigo);color:#FFF}
+.vars label:has(input:focus-visible){outline:3px solid var(--indigo);outline-offset:2px}
+.ofoot{margin-top:auto;padding-top:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.state{font-size:13.5px;font-weight:700;color:var(--soft)}
+.opt.sel .state{color:var(--terra)}
+.btn{display:inline-block;background:var(--ink);color:#FFF;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:18px;text-decoration:none}
+.btn:hover{background:var(--terra);color:#FFF}
+.tlink{font-size:13.5px;font-weight:600}
+.reco{margin-top:18px;background:var(--terra-soft);border-radius:18px;padding:16px 18px;display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 22px}
+.reco h3{font-size:21px;line-height:1.15}
+.reco p{margin:0 0 7px;font-size:14.5px}
+.reco p:last-child{margin-bottom:0}
+
+/* Flüge */
+.flights{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.fl .ob{gap:7px}
+.fl h3{font-size:21px}
+.route{font-size:14.5px}
+.tblwrap{overflow-x:auto;margin-top:18px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--soft);border-bottom:2px solid var(--ink);padding:7px 8px}
+td{border-bottom:1.5px solid var(--line);padding:8px;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+
+/* Zusammenfassung */
+.sum{background:var(--indigo);color:#FFF;border-radius:22px;padding:24px}
+.sum h2{color:#FFF}
+.sum table{min-width:0;color:#FFF}
+.sum th{color:#C9D3E2;border-bottom-color:#C9D3E2}
+.sum td{border-bottom-color:#4A5D7A}
+.sum .tot td{border-bottom:0;font-family:var(--display);font-size:24px;padding-top:14px}
+.sum .pp td{border-bottom:0;color:#E8C98A;padding-top:0}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:16px 0 4px;font-size:14.5px}
+.ctrl label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ctrl input{width:18px;height:18px;accent-color:var(--ochre)}
+.copy{background:var(--ochre);color:var(--ink);border:0;font:700 14.5px var(--body);padding:10px 16px;border-radius:20px;cursor:pointer}
+.copy:hover{background:#E6B552}
+.copied{font-size:14px;color:#E8C98A}
+.notes{font-size:14px;color:var(--soft);display:grid;gap:8px;margin-top:18px}
+.notes p{margin:0}
+
+/* Leiste unten */
+.bar{position:sticky;bottom:0;background:var(--ink);color:#FFF;z-index:5}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.bar b{font-family:var(--display);font-weight:500;font-size:22px;font-variant-numeric:tabular-nums}
+.bar span{font-size:13.5px;color:#DCCDB8}
+.bar a{color:#FFF;font-size:13.5px;font-weight:600}
+
+@media (max-width:720px){
+  .hero-grid{grid-template-columns:1fr}
+  .arch{max-width:300px}
+  .reco{grid-template-columns:1fr}
+  .ph{height:150px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.opt{transition:none}}
+</style>
+</head>
+<body>
+<div class="kawung" aria-hidden="true"></div>
+
+<nav class="switch wrap" aria-label="Reisevarianten"><a href="../">Indonesien</a><a href="../philippinen/">Philippinen</a><a href="./" aria-current="page">Réunion &amp; Mauritius</a></nav>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Manuel &amp; Vera · 1.–23. Mai 2027</div>
+      <h1>Vulkan, Lagune <em>und fünf Golfrunden</em></h1>
+      <p>Erst wandert ihr durch die wilden Talkessel von La Réunion, dann hüpft ihr in 50 Minuten nach Mauritius: Golf, Strand und Meer. Klickt pro Station euer Hotel und eure Zimmerkategorie an, die Summe rechnet mit.</p>
+      <div class="stats">
+        <div class="stat"><b>23 Tage</b><span>ab und bis Zürich</span></div>
+        <div class="stat"><b>20 Nächte</b><span>8 Réunion, 12 Mauritius</span></div>
+        <div class="stat"><b>5 Golfrunden</b><span>4 davon ohne Green Fee</span></div>
+      </div>
+    </div>
+    <div class="arch"><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/103936927.jpg?k=4359e0ffb1488039c903fe933039029796adbc970fcff6ce369ba933e4e24c68" alt="Strand von Belle Mare auf Mauritius"></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="panel">
+    <div class="mapbox"><svg viewBox="0 0 698 400" role="img" aria-label="Karte der Route: La Réunion mit Hell-Bourg, Cilaos und Saint-Gilles, dann Mauritius mit Bel Ombre und Belle Mare" class="map"><polygon points="132.3,270.6 145.1,254.1 174.5,240.0 202.1,242.4 224.1,258.8 242.5,289.4 246.1,317.6 238.8,348.2 220.4,360.0 192.9,360.0 165.3,348.2 143.3,322.4 132.3,294.1" class="isl"></polygon><polygon points="560.2,30.6 578.6,40.0 597.0,63.5 606.2,94.1 593.3,129.4 584.1,148.2 560.2,157.6 532.7,152.9 518.0,141.2 519.8,105.9 532.7,70.6 547.4,47.1" class="isl"></polygon><text x="189.2" y="381.2" class="isn">LA RÉUNION</text><text x="562.1" y="185.9" class="isn">MAURITIUS</text><text x="376.6" y="317.6" class="sea">Indischer Ozean</text><path d="M 185.5 244.7 Q 186.4 264.7 187.4 284.7" class="rt"></path><path d="M 187.4 284.7 Q 182.8 294.1 178.2 303.5" class="rt"></path><path d="M 178.2 303.5 Q 156.1 292.9 134.1 282.4" class="rt"></path><path d="M 134.1 282.4 Q 159.8 253.5 185.5 244.7" class="rt"></path><path d="M 185.5 244.7 Q 384.8 120.6 584.1 136.5" class="rt"></path><path d="M 584.1 136.5 Q 560.2 144.7 536.4 152.9" class="rt"></path><path d="M 536.4 152.9 Q 568.5 116.5 600.6 80.0" class="rt"></path><path d="M 600.6 80.0 Q 592.4 108.2 584.1 136.5" class="rt"></path><circle cx="185.5" cy="244.7" r="6" class="hub"></circle><text x="185.5" y="232.7" text-anchor="middle" class="hn">Flughafen Réunion</text><circle cx="584.1" cy="136.5" r="6" class="hub"></circle><text x="594.1" y="160.5" text-anchor="middle" class="hn">Flughafen Mauritius</text><circle cx="187.4" cy="284.7" r="11.5" class="dot"></circle><text x="187.4" y="288.7" class="dn">1</text><text x="203.4" y="288.7" text-anchor="start" class="sn">Hell-Bourg</text><text x="203.4" y="301.7" text-anchor="start" class="sm">2 Nächte</text><circle cx="178.2" cy="303.5" r="11.5" class="dot"></circle><text x="178.2" y="307.5" class="dn">2</text><text x="194.2" y="321.5" text-anchor="start" class="sn">Cilaos</text><text x="194.2" y="334.5" text-anchor="start" class="sm">2 Nächte</text><circle cx="134.1" cy="282.4" r="11.5" class="dot"></circle><text x="134.1" y="286.4" class="dn">3</text><text x="118.1" y="286.4" text-anchor="end" class="sn">Saint-Gilles</text><text x="118.1" y="299.4" text-anchor="end" class="sm">4 Nächte</text><circle cx="536.4" cy="152.9" r="11.5" class="dot"></circle><text x="536.4" y="156.9" class="dn">4</text><text x="520.4" y="170.9" text-anchor="end" class="sn">Bel Ombre</text><text x="520.4" y="183.9" text-anchor="end" class="sm">5 Nächte</text><circle cx="600.6" cy="80.0" r="11.5" class="dot"></circle><text x="600.6" y="84.0" class="dn">5</text><text x="616.6" y="66.0" text-anchor="start" class="sn">Belle Mare</text><text x="616.6" y="79.0" text-anchor="start" class="sm">7 Nächte</text></svg></div>
+    <ul class="legs">
+      <li><b>1 · Hell-Bourg</b><span>So 2. – Di 4. Mai</span></li>
+      <li><b>2 · Cilaos</b><span>Di 4. – Do 6. Mai</span></li>
+      <li><b>3 · Saint-Gilles</b><span>Do 6. – Mo 10. Mai</span></li>
+      <li><b>4 · Bel Ombre</b><span>Mo 10. – Sa 15. Mai</span></li>
+      <li><b>5 · Belle Mare</b><span>Sa 15. – Sa 22. Mai</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="fluege">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Anreise und Inselwechsel</div>
+      <h2>Flüge</h2>
+      <p>Hin nach La Réunion, zurück ab Mauritius, dazwischen ein kurzer Inselhüpfer. So fliegt ihr keine Strecke doppelt. Jeder Link öffnet die Suche mit euren Daten.</p>
+    </div>
+    <div class="flights" id="longhaul" role="radiogroup" aria-label="Langstreckenflug"></div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Datum</th><th>Strecke</th><th>Flug</th><th class="n">CHF für 2</th><th></th></tr></thead>
+        <tbody id="domestic"></tbody>
+      </table>
+    </div>
+    <div class="reco">
+      <div><div class="eyebrow">Meine Empfehlung</div><h3>Air France hin, Emirates zurück</h3></div>
+      <div>
+        <p>Mit Air France seid ihr am Sonntag um halb sieben auf La Réunion und habt den ganzen Tag. Zurück fliegt ihr am Samstagabend ab Mauritius und seid am Sonntagmittag in Zürich: Der letzte Tag am Strand ist noch ganz euer.</p>
+        <p>Achtung: Das sind getrennte Tickets. Golftaschen kosten bei den meisten Airlines extra oder zählen als Gepäckstück; vor der Buchung prüfen. Auf La Réunion braucht ihr ein Mietauto, auf Mauritius reichen Hoteltransfers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="stations"></div>
+<section id="golf">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Für die Golfer</div>
+      <h2>Eure Golfrunden</h2>
+      <p>Die beiden Mauritius-Hotels sind nach Golf ausgewählt: Im Heritage Le Telfair und im Constance Belle Mare Plage zahlen Hausgäste keine Green Fees, nur Buggy und Bälle. Startzeiten gleich nach der Buchung reservieren.</p>
+    </div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Platz</th><th>Wo</th><th>Format</th><th>Green Fee</th><th>Vorschlag</th></tr></thead>
+        <tbody><tr><td><b>Golf du Bassin Bleu</b></td><td>Réunion, Saint-Gilles</td><td>18 Loch</td><td>ca. € 60 p. P.</td><td>Station 3, Fr 7. oder Sa 8. Mai</td></tr><tr><td><b>Heritage Golf Club</b></td><td>Mauritius, Bel Ombre</td><td>18 Loch</td><td>inklusive ab Telfair</td><td>Station 4, Di 11. Mai</td></tr><tr><td><b>La Réserve Golf Links</b></td><td>Mauritius, Bel Ombre</td><td>18 Loch, Links</td><td>inklusive ab Telfair</td><td>Station 4, Do 13. Mai</td></tr><tr><td><b>The Legend</b></td><td>Mauritius, Belle Mare</td><td>18 Loch</td><td>inklusive ab Constance</td><td>Station 5, So 16. Mai</td></tr><tr><td><b>The Links</b></td><td>Mauritius, Belle Mare</td><td>18 Loch</td><td>inklusive ab Constance</td><td>Station 5, Di 18. Mai</td></tr><tr><td><b>Île aux Cerfs</b></td><td>Mauritius, Insel vor der Ostküste</td><td>18 Loch</td><td>extra, beim Platz anfragen</td><td>Kür, wenn noch Lust bleibt</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="auswahl">
+  <div class="wrap">
+    <div class="sum">
+      <div class="eyebrow" style="color:#E8C98A">Eure Auswahl</div>
+      <h2 style="font-size:clamp(30px,5vw,42px);margin:4px 0 6px">Was die Reise kostet</h2>
+      <div class="ctrl">
+        <label for="rate-nr"><input type="checkbox" id="rate-nr"> Mit den günstigeren, nicht erstattbaren Raten rechnen</label>
+        <label for="extras"><input type="checkbox" id="extras"> Mietauto auf La Réunion, Transfers auf Mauritius und eine Runde in Bassin Bleu dazurechnen (Schätzung: CHF 900)</label>
+      </div>
+      <div class="tblwrap" style="margin-top:8px">
+        <table>
+          <thead><tr><th>Posten</th><th>Auswahl</th><th class="n">CHF für 2</th></tr></thead>
+          <tbody id="sumrows"></tbody>
+        </table>
+      </div>
+      <div class="ctrl">
+        <button type="button" class="copy" id="copy">Auswahl kopieren</button>
+        <span class="copied" id="copied" role="status"></span>
+      </div>
+    </div>
+    <div class="notes">
+      <p>Alle Hotelpreise gelten für 2 Erwachsene und den ganzen Aufenthalt, inklusive Steuern und Gebühren. Live geprüft am 15.11.2026 mit eurem Booking-Konto (Genius-Stufe 2); Preise und Verfügbarkeit ändern sich täglich. Flugpreise von Google Flüge, für 2 Personen.</p>
+      <p>Nicht eingerechnet: Essen, Buggys und Leihschläger, Vulkan- und Bootsausflüge. Die Green-Fee-Regeln der Hotels vor der Buchung noch einmal bestätigen lassen. La Réunion ist Frankreich: Euro und EU-Roaming.</p>
+      <p>Im Mai ist auf beiden Inseln Herbst: trocken, tagsüber 24 bis 27 °C, in Cilaos und Hell-Bourg nachts um 10 °C.</p>
+      <p>Fotos: die jeweiligen Hotels auf Booking. Sie zeigen ein Zimmer des Hauses, nicht immer genau die gewählte Kategorie.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="bar" aria-live="polite">
+  <div class="wrap">
+    <div><b id="bar-total"></b> <span id="bar-pp"></span></div>
+    <a href="#auswahl">Zur Aufstellung</a>
+  </div>
+</div>
+
+<div class="kawung" aria-hidden="true"></div>
+
+<script>
+(function(){
+"use strict";
+var bk=function(slug,ci,co,c){return "https://www.booking.com/hotel/"+(c||"id")+"/"+slug+".de.html?checkin="+ci+"&checkout="+co+"&group_adults=2&no_rooms=1&group_children=0&selected_currency=CHF";};
+var gf=function(a,b,d){return "https://www.google.com/travel/flights?q=Flights+from+"+a+"+to+"+b+"+on+"+d+"+one+way+for+2+adults&curr=CHF&hl=de&gl=ch";};
+var KEY="mauritius2027-auswahl-v1", TITLE="Réunion & Mauritius 2027", IMG="../bilder/", EXTRAS=900, DOMSUM="Inselhüpfer Réunion → Mauritius", DOMLBL="Inselhüpfer";
+var EXL=["Mietauto, Transfers, Golf auf Réunion","Schätzung"];
+var B="https://cf.bstatic.com/xdata/images/hotel/max1024x768/";
+var LONG=[
+ {id:"afek",title:"Air France hin, Emirates zurück",flex:3094,pick:true,
+  u:gf("ZRH","RUN","2027-05-01"),u2:gf("MRU","ZRH","2027-05-22"),
+  route:"Hin Sa 1.5.: Zürich 14:50 → Paris → Réunion So 06:25 (CHF 1'955).<br>Zurück Sa 22.5.: Mauritius 21:50 → Dubai → Zürich So 13:20 (CHF 1'139).",
+  note:"Zwei einfache Tickets, je ein Stopp. Hin 1 Std. 15 Min. Umsteigen in Paris, zurück 4 Std. 15 Min. in Dubai."},
+ {id:"ektk",title:"Emirates hin, Turkish zurück",flex:3487,
+  u:gf("ZRH","RUN","2027-05-01"),u2:gf("MRU","ZRH","2027-05-22"),
+  route:"Hin Sa 1.5.: Zürich 22:00 → Dubai → Mauritius → Réunion So 17:15 (CHF 2'205).<br>Zurück Sa 22.5.: Mauritius 20:15 → Istanbul → Zürich So 09:35 (CHF 1'282).",
+  note:"Nachtflug hin, dafür kommt ihr erst am späten Nachmittag an. Zurück der schnellste Flug, 15 Std. 20 Min."}
+];
+var DOM=[
+ {d:"Mo 10. Mai",r:"Réunion → Mauritius",f:"Air Mauritius · 12:05–12:55 · direkt",p:456,u:gf("RUN","MRU","2027-05-10")}
+];
+var ST=[
+ {id:"salazie",no:1,name:"Hell-Bourg, Cirque de Salazie",dates:"So 2. – Di 4. Mai",nights:2,tag:"Wasserfälle, Kreolenhäuser, grüner Talkessel",
+  facts:[["Anreise","Landung So 06:25, Mietauto, rund 1 Std. 15 Min. Fahrt"],["Weiterreise","Di 4. Mai, rund 2 Std. 30 Min. nach Cilaos"],["Tipp","Am Ankunftstag nur kurze Wege, ihr kommt aus dem Nachtflug"]],
+  todo:[["Voile de la Mariée","Der «Brautschleier»-Wasserfall liegt direkt an der Strasse nach Hell-Bourg."],["Hell-Bourg","Eines der schönsten Dörfer Frankreichs: bunte Kreolenhäuser, die alten Thermen, Mittagessen mit Chouchou-Gratin."],["Trou de Fer von oben","Wer Lust hat: Helikopterflug über den Trou de Fer und die drei Talkessel, ab Saint-Gilles."]],
+  hotels:[
+   {id:"lodges",label:"Lodge",name:"Les Lodges de Salazie",pick:true,url:bk("les-lodges-de-salazie","2027-05-02","2027-05-04","re"),img:[B+"608635631.jpg?k=c54869225a07c14cf9867b9d32d17b2f61b48dd2eb02c005116c61cf4130d98c",B+"498707866.jpg?k=e1c40a04010f59d9947c1de363367aead5294002dd0f3cfded8a2e265da0a279"],
+    vars:[{n:"Lodge mit 2 Schlafzimmern",flex:408,nr:367,def:true}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 18. April 2027","Booking-Note 9,3. Eigenes Holzhaus mit Terrasse und Bergblick, Küche"]},
+   {id:"bordchene",label:"Preis-Leistung",name:"Le Bord Chêne",url:bk("le-bord-chene","2027-05-02","2027-05-04","re"),img:[B+"467709752.jpg?k=bc667853fb64b591a651e19d5af3b30ad1b0f32958e1129d9c2a36b1b1a68ef3",B+"467709768.jpg?k=b5065a2881f3a53b3b66893a9f9db645565c9dc8f8a1c080435952e4f6701960"],
+    vars:[{n:"Familienzimmer",flex:164,def:true}],
+    pts:["Frühstück gegen Aufpreis","Kostenlos stornierbar bis 18. April 2027","Booking-Note 9,8. Einfach, sehr herzlich, in Camp-Pierrot unterhalb von Hell-Bourg"]},
+   {id:"lacaze",label:"Apartment",name:"Lacaze Salazie",url:bk("lacaze-salazie","2027-05-02","2027-05-04","re"),img:[B+"873069983.jpg?k=41f07a6fc31c1fbd0f031dce0b75fcefb28673249752684005b7f17677db4e4d",B+"585265555.jpg?k=ac4bceb221cbe629002fc2c6f10fec10acfa16f7224b39bddc1ecb2fe1604e2b"],
+    vars:[{n:"Apartment mit 1 Schlafzimmer",flex:230,def:true}],
+    pts:["Ohne Frühstück","Kostenlos stornierbar bis 25. April 2027","Booking-Note 9,4. Modernes Apartment mit Terrasse"]}
+  ],
+  reco:["Les Lodges de Salazie",["Nach dem Nachtflug wollt ihr ankommen: ein eigenes Holzhaus mit Terrasse, Frühstück und Blick auf die Felswände. Für zwei Nächte gönnt man sich das.","Le Bord Chêne ist mit Note 9,8 der Liebling der Gäste und kostet weniger als die Hälfte, ist aber schlicht eingerichtet."]]},
+ {id:"cilaos",no:2,name:"Cilaos",dates:"Di 4. – Do 6. Mai",nights:2,tag:"Bergdorf, Linsen, Wein und Thermen",
+  facts:[["Anfahrt","Die Strasse hat rund 400 Kurven. Früh losfahren, nicht bei Dunkelheit"],["Weiterreise","Do 6. Mai, rund 1 Std. 45 Min. an die Westküste"],["Tipp","Nachts wird es im Mai kühl, um 10 °C: Pullover einpacken"]],
+  todo:[["Roche Merveilleuse","Aussichtspunkt über den ganzen Talkessel, mit dem Auto erreichbar."],["Wanderung","Sentier de la Chapelle zur Felsgrotte (rund 3 Std.) oder, für Ambitionierte, der Aufstieg Richtung Piton des Neiges."],["Thermen und Wein","Ein Bad in den Thermes de Cilaos, danach ein Glas Wein aus dem höchsten Weinberg Frankreichs."]],
+  hotels:[
+   {id:"kazuera",label:"Spa-Hotel",name:"La Villa Kazuera",pick:true,url:bk("villa-kazuera-amp-spa","2027-05-04","2027-05-06","re"),img:[B+"609229653.jpg?k=1afd0d71b58c1253e4a0404fc906b8456dcb0488c8d230631c0e572d91d66ef7",B+"610164731.jpg?k=1bcaa111745ad7f0706de4da1b31beca95825df6085e3e224912531e28740a5f"],
+    vars:[{n:"Chambre Cascade",flex:151},{n:"Zimmer mit Terrasse",flex:207},{n:"Piton des Neiges mit Balkon",flex:234,def:true},{n:"Piton de la Fournaise mit Terrasse",flex:281}],
+    pts:["Frühstück gegen Aufpreis","Kostenlos stornierbar bis 27. April 2027","Booking-Note 9,3. Kleines Hotel mit Spa und Garten, mitten im Dorf"]},
+   {id:"torii",label:"Gästehaus",name:"Le Torii",url:bk("le-torii-cilaos2","2027-05-04","2027-05-06","re"),img:[B+"710731789.jpg?k=8681f31cd9ffe13ab3d50c107bf39e0ede27fd0fce0c4bd52cb73d918309eebe",B+"858795136.jpg?k=4234b136ab5d05cf4e1074f4001d761fe112801c0de3f9c04857e11564206558"],
+    vars:[{n:"Doppelzimmer Bergblick",flex:209},{n:"Doppelzimmer Bergblick mit Frühstück",flex:220,def:true}],
+    pts:["Kostenlos stornierbar bis 3. Mai 2027","Booking-Note 9,6. Gästehaus mit Pool und Blick auf die Berge"]},
+   {id:"chalets",label:"Chalet",name:"Les 3 Chalets de Cilaos",url:bk("sarl-soul-piton","2027-05-04","2027-05-06","re"),img:[B+"650943795.jpg?k=fd646dfdc9535f04d8946945d95ff05822c10b5efb19bdf93d5b9fd52b2c77fa",B+"650946109.jpg?k=010eef3b0866914fadd5e6ca5d306865445e0098def63d875598985c24775426"],
+    vars:[{n:"Chalet mit 2 Schlafzimmern",flex:319,nr:287,def:true}],
+    pts:["Ohne Frühstück","Kostenlos stornierbar bis 29. April 2027","Booking-Note 9,6. Holzchalet im Garten, mit Küche"]}
+  ],
+  reco:["La Villa Kazuera, Piton des Neiges mit Balkon",["Nach den Kurven und einer Wanderung tut das Spa gut, und vom Balkon schaut ihr auf den höchsten Berg der Insel. Zu Fuss seid ihr in den Restaurants des Dorfs.","Le Torii ist gleich teuer, mit Frühstück und Pool, aber etwas ausserhalb."]]},
+ {id:"west",no:3,name:"Westküste, Saint-Gilles",dates:"Do 6. – Mo 10. Mai",nights:4,tag:"Lagune, Golf, Vulkan",
+  facts:[["Golf","Golf du Bassin Bleu, 18 Loch, rund 15 Min. vom Hotel"],["Weiterreise","Mo 10. Mai, Flug 12:05 ab Saint-Denis, rund 50 Min. Fahrt"],["Baden","Nur in der Lagune von L'Hermitage und La Saline, ausserhalb gilt Haigefahr"]],
+  todo:[["Golf du Bassin Bleu","Die erste Runde der Reise, hoch über Saint-Gilles mit Blick aufs Meer. Startzeit online buchen, rund € 60 pro Person."],["Piton de la Fournaise","Tagesausflug zum aktiven Vulkan: früh los über die Plaine des Sables, Wanderung an den Kraterrand."],["Maïdo bei Sonnenaufgang","Aussichtspunkt auf 2'200 m mit Blick in den Cirque de Mafate. Vor 7 Uhr oben sein, bevor die Wolken kommen."]],
+  hotels:[
+   {id:"maido",label:"Mit Aussicht",name:"Villa Maido",pick:true,url:bk("villa-maido","2027-05-06","2027-05-10","re"),img:[B+"292015054.jpg?k=109a99146eafd93cf0e2bf07dd05ed6373df76c0c8082417715de4a59a491a7c",B+"57132642.jpg?k=f2fb4d55018da8cf9403db3d9075af31e8a78540469b60bf15b4615560d9c3e6"],
+    vars:[{n:"Zimmer Layana mit Balkon",flex:755,def:true},{n:"Zimmer Elicia mit Balkon",flex:801},{n:"Deluxe Zimmer Jadeline",flex:875}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 1. Mai 2027","Booking-Note 9,7. Gästehaus mit Pool im Grünen über Saint-Gilles, 15 Min. zum Strand"]},
+   {id:"alexis",label:"Am Strand",name:"Le Saint Alexis Hotel & Spa",url:bk("le-saint-alexis","2027-05-06","2027-05-10","re"),img:[B+"267067215.jpg?k=b72191007ccc95b2e4c8b4cf9a65c6670420dee08b11e1e4b3c27a29d0a53f70",B+"476987396.jpg?k=9b03fd9f9302d5e1b3533835fc68baac6fedb36ccde14e4b512b410625f8c24d"],
+    vars:[{n:"Standard Doppelzimmer",flex:744},{n:"Superior Doppelzimmer",flex:913,def:true},{n:"Deluxe Doppelzimmer",flex:970},{n:"Junior Suite",flex:1083}],
+    pts:["Frühstück inklusive","Kostenlos stornierbar bis 22. April 2027","Booking-Note 8,1. Am Strand von Boucan Canot, zwei Pools und grosses Spa"]},
+   {id:"margouillat",label:"Luxus",name:"Blue Margouillat (Relais & Châteaux)",url:bk("blue-margouillat-seaview","2027-05-06","2027-05-10","re"),img:[B+"459874506.jpg?k=a76bdd276f673e0085df882a0e1a7dab7de5c3ff6f2e789c0decb1066ad9a446",B+"459879477.jpg?k=0fe9495d29b36efb1ad99de811b851ac534f9591487596859d404a46815a4d4d"],
+    vars:[{n:"Deluxe Zimmer mit Meerblick",flex:1524,def:true},{n:"Suite mit privatem Pool",flex:2963}],
+    pts:["Ohne Frühstück","Nur nicht erstattbar buchbar","Booking-Note 9,5. Boutique-Hotel über der Lagune von Saint-Leu, Gourmet-Restaurant"]}
+  ],
+  reco:["Villa Maido",["Note 9,7, Frühstück inklusive und ein Pool mit Blick aufs Meer, zum Preis eines Standardzimmers am Strand. Zum Golf in Bassin Bleu, auf den Maïdo und zur Lagune ist es von hier überall kurz.","Wer lieber direkt am Meer wohnt, nimmt Le Saint Alexis. Blue Margouillat ist das schönste Haus der Insel, aber nur nicht erstattbar zu haben."]]},
+ {id:"belombre",no:4,name:"Mauritius Süden, Bel Ombre",dates:"Mo 10. – Sa 15. Mai",nights:5,tag:"Golf, Wasserfälle, wilde Südküste",
+  facts:[["Anreise","Landung 12:55, rund 50 Min. Fahrt nach Bel Ombre"],["Weiterreise","Sa 15. Mai, rund 1 Std. 20 Min. an die Ostküste"],["Golf","Heritage Golf Club und La Réserve Golf Links für Hausgäste ohne Green Fee"]],
+  todo:[["Heritage Golf Club","Einer der besten Plätze im Indischen Ozean, direkt beim Hotel. Buggy kostet extra."],["La Réserve Golf Links","Der neue Links-Platz auf den Klippen über dem Meer, für Telfair-Gäste ebenfalls ohne Green Fee. Unbedingt einmal spielen."],["Chamarel und Le Morne","Siebenfarbige Erde, Wasserfall von Chamarel, Rhum-Degustation und zum Sonnenuntergang an den Strand von Le Morne."]],
+  hotels:[
+   {id:"telfair",label:"Golf ohne Green Fee",name:"Heritage Le Telfair",pick:true,url:bk("heritage-le-telfair-golf-spa-resort","2027-05-10","2027-05-15","mu"),img:[B+"260349558.jpg?k=ee58e501636dfef54da7c9d8a7134c4b37a452d18902490f63b6012296a51c8a",B+"147960232.jpg?k=f2a1399219fa85d57f057637bc8a1a986d5010927614ffe3952cb6e87021aa7b"],
+    vars:[{n:"Junior Suite Gartenblick, Frühstück",flex:2242,def:true},{n:"Deluxe Strandsuite, Frühstück",flex:2311},{n:"Junior Suite Gartenblick, Halbpension",flex:3076},{n:"Deluxe Strandsuite, Halbpension",flex:3149}],
+    pts:["Kostenlos stornierbar bis 3. Mai 2027","Booking-Note 8,5. Kolonialstil-Suiten am Fluss und am Strand","Green Fees auf beiden Heritage-Plätzen inklusive"]},
+   {id:"paradis",label:"Golf am Hotel",name:"Paradis Beachcomber",url:bk("paradis","2027-05-10","2027-05-15","mu"),img:[B+"268986083.jpg?k=b0f4edd4dcb418edb47d4baaa6fcd172c3e069394460335f851a86e5dd0e83dc",B+"187246964.jpg?k=a2084774889b1ece0b93a9a963fd1091e54d039d901b7d7020125e70ea95244d"],
+    vars:[{n:"Zimmer Buchtblick, Frühstück",flex:1967,def:true},{n:"Junior Suite, Frühstück",flex:1974},{n:"Zimmer Buchtblick, Halbpension",flex:2530}],
+    pts:["Kostenlos stornierbar bis 10. April 2027","Booking-Note 9,3. Auf der Halbinsel Le Morne, Golfplatz direkt am Hotel","Green Fees vergünstigt, Golfpaket beim Hotel anfragen"]},
+   {id:"dinarobin",label:"Nur Suiten",name:"Dinarobin Beachcomber",url:bk("dinarobin-golf","2027-05-10","2027-05-15","mu"),img:[B+"28670911.jpg?k=c4d9a4e5dd22e21fcbde33a56bd6337d93d10ae7a26437431250d464c57f6ccd",B+"268622264.jpg?k=f7e8ffd977696128b63eeb08e77fbc7c971813863d5b147e5ea99797779c8536"],
+    vars:[{n:"Zen Suite (nur Erwachsene), Frühstück",flex:2094,def:true},{n:"Zen Suite (nur Erwachsene), Halbpension",flex:2662}],
+    pts:["Kostenlos stornierbar bis 10. April 2027","Booking-Note 9,4. Ruhige Suiten unter dem Le Morne","Teilt den Golfplatz mit dem Paradis"]}
+  ],
+  reco:["Heritage Le Telfair, Junior Suite",["Für euch als Golfer der klare Favorit: zwei Top-Plätze ohne Green Fee. Wenn ihr in fünf Tagen drei Runden spielt, spart ihr zu zweit schnell mehrere hundert Franken.","Das Paradis hat die schönere Lage und bessere Noten. Nehmt es, wenn Strand wichtiger ist als Golf."]]},
+ {id:"bellemare",no:5,name:"Mauritius Osten, Belle Mare",dates:"Sa 15. – Sa 22. Mai",nights:7,tag:"Langer Sandstrand, zwei Golfplätze, Île aux Cerfs",
+  facts:[["Golf","Legend und Links, Green Fees für Hausgäste inklusive"],["Rückflug","Sa 22. Mai, 21:50 ab Mauritius, rund 1 Std. Fahrt zum Flughafen"],["Tipp","Late Check-out oder ein Day-Use-Zimmer für den letzten Tag anfragen"]],
+  todo:[["The Legend und The Links","Zwei 18-Loch-Plätze gleich gegenüber, Shuttle alle 30 Min. Der Legend gilt als bester Platz der Insel."],["Île aux Cerfs","Mit dem Boot auf die Insel: Sandbänke, Schnorcheln, und wer mag, der Bernhard-Langer-Platz."],["Wasserfall Grand River South East","Bootsfahrt durch die Mangroven bis zum Wasserfall, gut kombinierbar mit Île aux Cerfs."]],
+  hotels:[
+   {id:"constance",label:"Zwei Golfplätze",name:"Constance Belle Mare Plage",pick:true,url:bk("constance-belle-mare-plage","2027-05-15","2027-05-22","mu"),img:[B+"103936927.jpg?k=4359e0ffb1488039c903fe933039029796adbc970fcff6ce369ba933e4e24c68",B+"599147942.jpg?k=553ee79eb4380cfbfe2d5829195d9787ba8658bf318e341da775f722834036bb"],
+    vars:[{n:"Prestige Zimmer, Frühstück",flex:1529,def:true},{n:"Prestige Zimmer, Halbpension",flex:2070},{n:"Prestige Zimmer, All-inclusive",flex:3425}],
+    pts:["Kostenlos stornierbar bis 15. April 2027 (flexibler bis 8. Mai ab CHF 2'341)","Booking-Note 8,8. Zwei Kilometer Sandstrand, vier Pools","Green Fees auf Legend und Links inklusive"]},
+   {id:"luxbm",label:"Design",name:"LUX* Belle Mare",url:bk("lux-belle-mare-resort-amb-villas","2027-05-15","2027-05-22","mu"),img:[B+"505662709.jpg?k=95650561ab16d6e6396b1ca2887d004a7e7fcba33464f2f640acb154e3d7ce7b",B+"483884211.jpg?k=201b694ed210bff834df7f2cfe3defa833a2df631039a3badedceab025b99d01"],
+    vars:[{n:"Junior Suite, Frühstück",flex:2119,def:true},{n:"Wellness Junior Suite, Frühstück",flex:2314},{n:"Junior Suite, Halbpension",flex:2964}],
+    pts:["Kostenlos stornierbar bis 24. April 2027","Booking-Note 9,2. Hell, modern, grosser Pool am Strand","Zum Golf nach Belle Mare oder Île aux Cerfs, Green Fee extra"]},
+   {id:"salt",label:"Kreativ, nur Erwachsene",name:"SALT of Palmar",url:bk("salt-of-palmar-mauritius","2027-05-15","2027-05-22","mu"),img:[B+"172401284.jpg?k=a27c46821b25859661100c7a49a249ce4d48ad8e22e6a6b0ea54959a7cd24b41",B+"183807584.jpg?k=3b705cdcfca812bc513749562f00414793ab5d1f188d6f3fd66b2a466f3d6011"],
+    vars:[{n:"Zimmer Gartenblick, Frühstück",flex:1293},{n:"Zimmer Meerblick, Frühstück",flex:1425,def:true},{n:"Zimmer Meerblick, Vollpension",flex:2085}],
+    pts:["Kostenlos stornierbar bis 24. April 2027, Zahlung vor Anreise","Booking-Note 8,9. Farbenfrohes Design-Hotel, Dachterrasse, Kochkurse und Ausflüge zu lokalen Handwerkern","Golf in Belle Mare gegen Green Fee"]}
+  ],
+  reco:["Constance Belle Mare Plage, mit Frühstück",["Sieben Nächte für CHF 1'529 inklusive unbegrenzt Golf auf zwei Meisterschaftsplätzen: Das ist der beste Deal der ganzen Reise. Dazu einer der schönsten Strände der Insel.","Wenn ihr zum Schluss lieber etwas Kleines und Farbiges wollt: SALT of Palmar. Mit Halbpension im Constance kommt ihr auf CHF 2'070, das lohnt sich bei den Hotelpreisen fürs Abendessen."]]}
+];
+
+// ---------- Zustand
+
+var state={long:(LONG.filter(function(l){return l.pick;})[0]||LONG[0]).id,nr:false,extras:false,h:{},v:{}};
+ST.forEach(function(s){
+  s.hotels.forEach(function(h){
+    if(h.pick) state.h[s.id]=h.id;
+    h.vars.forEach(function(v,i){ if(v.def) state.v[h.id]=i; });
+  });
+});
+try{
+  var saved=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(saved && saved.h && saved.v){
+    if(LONG.some(function(l){return l.id===saved.long;})) state.long=saved.long;
+    state.nr=!!saved.nr; state.extras=!!saved.extras;
+    ST.forEach(function(s){
+      var hid=saved.h[s.id];
+      if(s.hotels.some(function(h){return h.id===hid;})) state.h[s.id]=hid;
+      s.hotels.forEach(function(h){ var vi=saved.v[h.id]; if(typeof vi==="number" && h.vars[vi]) state.v[h.id]=vi; });
+    });
+  }
+}catch(e){}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+
+function chf(n){ return "CHF "+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"'"); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function vprice(v){ return (state.nr && v.nr) ? v.nr : v.flex; }
+function hsel(s){ return s.hotels.filter(function(h){return h.id===state.h[s.id];})[0]; }
+function vsel(h){ return h.vars[state.v[h.id]]; }
+function totals(){
+  var lh=LONG.filter(function(l){return l.id===state.long;})[0].flex;
+  var dom=DOM.reduce(function(a,d){return a+d.p;},0);
+  var hot=ST.reduce(function(a,s){return a+vprice(vsel(hsel(s)));},0);
+  var ex=(state.extras&&EXTRAS)?EXTRAS:0;
+  return {lh:lh,dom:dom,hot:hot,ex:ex,all:lh+dom+hot+ex};
+}
+
+// ---------- Aufbau
+function renderLong(){
+  document.getElementById("longhaul").innerHTML=LONG.map(function(l){
+    var on=state.long===l.id;
+    return '<label class="opt fl'+(on?' sel':'')+'" for="long-'+l.id+'"><input class="pick" type="radio" name="long" id="long-'+l.id+'" value="'+l.id+'"'+(on?' checked':'')+'>'+
+      '<div class="ob"><div class="otop"><span class="olabel">Langstrecke</span>'+(l.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
+      '<h3>'+esc(l.title)+'</h3><div class="route">'+l.route+'</div><div class="room">'+esc(l.note)+'</div>'+
+      '<div class="price"><b>'+chf(l.flex)+'</b><span>für 2 · '+chf(l.flex/2)+' pro Person</span></div>'+
+      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(l.u)+'" target="_blank" rel="noopener">'+(l.u2?'Hinflug ↗':'Preis prüfen ↗')+'</a>'+(l.u2?' <a class="btn" href="'+esc(l.u2)+'" target="_blank" rel="noopener">Rückflug ↗</a>':'')+'</div></div></label>';
+  }).join("");
+}
+function renderDom(){
+  var sum=DOM.reduce(function(a,d){return a+d.p;},0);
+  document.getElementById("domestic").innerHTML=DOM.map(function(d){
+    return '<tr><td><b>'+d.d+'</b></td><td>'+d.r+'</td><td>'+d.f+'</td><td class="n"><b>'+d.p+'</b></td><td class="n"><a class="tlink" href="'+esc(d.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></td></tr>';
+  }).join("")+'<tr><td></td><td><b>'+DOMSUM+'</b></td><td></td><td class="n"><b>'+sum+'</b></td><td></td></tr>';
+}
+function hotelCard(s,h){
+  var on=state.h[s.id]===h.id, v=vsel(h), p=vprice(v);
+  var vars=h.vars.length>1 ? '<div class="vars" role="radiogroup" aria-label="Zimmerkategorie '+esc(h.name)+'">'+h.vars.map(function(x,i){
+      return '<label for="v-'+h.id+'-'+i+'"><input type="radio" name="v-'+h.id+'" id="v-'+h.id+'-'+i+'" data-h="'+h.id+'" data-s="'+s.id+'" value="'+i+'"'+(state.v[h.id]===i?' checked':'')+'>'+esc(x.n)+'</label>';
+    }).join("")+'</div>' : '';
+  var other = v.nr ? (state.nr ? 'Flexibel: '+chf(v.flex) : 'Nicht erstattbar: '+chf(v.nr)) : '';
+  return '<label class="opt'+(on?' sel':'')+'" for="h-'+h.id+'"><input class="pick" type="radio" name="h-'+s.id+'" id="h-'+h.id+'" data-s="'+s.id+'" value="'+h.id+'"'+(on?' checked':'')+'>'+
+    '<div class="ph"><figure><img src="'+(h.img?h.img[0]:IMG+h.id+'_hotel.jpg')+'" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
+    '<figure><img src="'+(h.img?h.img[1]:IMG+h.id+'_room.jpg')+'" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
+    '<div class="ob"><div class="otop"><span class="olabel">'+esc(h.label)+'</span>'+(h.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
+    '<h3>'+esc(h.name)+'</h3><div class="room">'+esc(v.n)+'</div>'+vars+
+    '<div class="price"><b>'+(h.approx?'ca. ':'')+chf(p)+'</b><span>≈ '+chf(p/s.nights).replace("CHF ","")+' pro Nacht</span></div>'+
+    '<ul>'+h.pts.map(function(t){return '<li>'+esc(t)+'</li>';}).join("")+(other?'<li>'+other+'</li>':'')+'</ul>'+
+    '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(h.url)+'" target="_blank" rel="noopener">'+(h.btn||'Preis für eure Daten')+' ↗</a></div></div></label>';
+}
+function renderStations(){
+  document.getElementById("stations").innerHTML=ST.map(function(s){
+    return '<div class="ikat" aria-hidden="true"></div><section id="'+s.id+'"><div class="wrap">'+
+      '<div class="st-head"><div class="st-no" aria-hidden="true">'+s.no+'</div><div><div class="eyebrow">Station '+s.no+' von '+ST.length+'</div><h2>'+esc(s.name)+'</h2>'+
+      '<div class="st-meta"><b>'+s.dates+'</b> · '+s.nights+' Nächte · '+esc(s.tag)+'</div></div></div>'+
+      '<ul class="facts">'+s.facts.map(function(f){return '<li><b>'+f[0]+'</b>'+esc(f[1])+'</li>';}).join("")+'</ul>'+
+      '<div class="todo">'+s.todo.map(function(t){return '<div><b>'+esc(t[0])+'</b>'+esc(t[1])+'</div>';}).join("")+'</div>'+
+      '<div class="opts" role="radiogroup" aria-label="Unterkunft '+esc(s.name)+'">'+s.hotels.map(function(h){return hotelCard(s,h);}).join("")+'</div>'+
+      '<div class="reco"><div><div class="eyebrow">Meine Empfehlung</div><h3>'+esc(s.reco[0])+'</h3></div><div>'+s.reco[1].map(function(p){return '<p>'+esc(p)+'</p>';}).join("")+'</div></div>'+
+      '</div></section>';
+  }).join("");
+}
+function renderSum(){
+  var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
+  var rows='<tr><td>Langstrecke</td><td>'+esc(l.title)+'</td><td class="n">'+chf(t.lh).replace("CHF ","")+'</td></tr>'+
+           '<tr><td>'+(typeof DOMLBL!=="undefined"?DOMLBL:"Inselflüge")+'</td><td>'+DOM.length+(DOM.length===1?' Flug':' Flüge')+'</td><td class="n">'+t.dom+'</td></tr>';
+  ST.forEach(function(s){ var h=hsel(s), v=vsel(h);
+    rows+='<tr><td>'+s.no+' · '+esc(s.name)+'</td><td>'+esc(h.name)+', '+esc(v.n)+((state.nr&&v.nr)?' (nicht erstattbar)':'')+'</td><td class="n">'+chf(vprice(v)).replace("CHF ","")+'</td></tr>'; });
+  if(state.extras&&EXTRAS) rows+='<tr><td>'+(typeof EXL!=="undefined"?EXL[0]:"Transfers und Ausflüge")+'</td><td>'+(typeof EXL!=="undefined"?EXL[1]:"Schätzung aus dem Dossier")+'</td><td class="n">'+EXTRAS+'</td></tr>';
+  rows+='<tr class="tot"><td colspan="2">Total für 2 Personen</td><td class="n">'+chf(t.all)+'</td></tr>'+
+        '<tr class="pp"><td colspan="2">Pro Person</td><td class="n">'+chf(t.all/2)+'</td></tr>';
+  document.getElementById("sumrows").innerHTML=rows;
+  document.getElementById("bar-total").textContent=chf(t.all);
+  document.getElementById("bar-pp").textContent="für 2 · "+chf(t.all/2)+" pro Person";
+  document.getElementById("rate-nr").checked=state.nr;
+  var exb=document.getElementById("extras"); if(exb) exb.checked=state.extras;
+}
+function renderAll(){ renderLong(); renderStations(); renderSum(); }
+
+document.addEventListener("change",function(e){
+  var el=e.target; if(!el) return; var nm=el.name||"";
+  if(el.id==="rate-nr"){ state.nr=el.checked; rerenderStation(); }
+  else if(el.id==="extras"){ state.extras=el.checked; }
+  else if(nm==="long"){ state.long=el.value; renderLong(); }
+  else if(nm.indexOf("v-")===0){ state.v[el.dataset.h]=Number(el.value); state.h[el.dataset.s]=el.dataset.h; rerenderStation(); }
+  else if(nm.indexOf("h-")===0){ state.h[el.dataset.s]=el.value; rerenderStation(); }
+  else return;
+  renderSum(); save();
+});
+function rerenderStation(){ var y=window.scrollY; renderStations(); window.scrollTo(0,y); }
+// Links in den Karten sollen die Karte nicht auswählen
+document.addEventListener("click",function(e){ var a=e.target.closest && e.target.closest("a.btn"); if(a) e.stopPropagation(); });
+
+document.getElementById("copy").addEventListener("click",function(){
+  var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
+  var lines=[TITLE+" – unsere Auswahl","Langstrecke: "+l.title+" – "+chf(t.lh),"Inselflüge: "+chf(t.dom)];
+  ST.forEach(function(s){ var h=hsel(s), v=vsel(h); lines.push(s.name+" ("+s.dates+"): "+h.name+", "+v.n+((state.nr&&v.nr)?", nicht erstattbar":"")+" – "+chf(vprice(v))); });
+  if(state.extras&&EXTRAS) lines.push("Transfers und Ausflüge (Schätzung): "+chf(EXTRAS));
+  lines.push("Total für 2: "+chf(t.all)+" · pro Person: "+chf(t.all/2));
+  var out=document.getElementById("copied"), text=lines.join("\n");
+  var done=function(){ out.textContent="Kopiert. Füg die Auswahl im Chat ein, dann mache ich daraus das A4-Dossier."; };
+  try{ navigator.clipboard.writeText(text).then(done,function(){ out.textContent=text; }); }catch(err){ out.textContent=text; }
+});
+
+renderDom(); renderAll();
+window.__totals=totals;
+})();
+</script>
+</body>
+</html>

@@ -168,7 +168,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 <body>
 <div class="kawung" aria-hidden="true"></div>
 
-<nav class="switch wrap" aria-label="Reisevarianten"><a href="../">Indonesien</a><a href="./" aria-current="page">Philippinen</a></nav>
+<nav class="switch wrap" aria-label="Reisevarianten"><a href="../">Indonesien</a><a href="./" aria-current="page">Philippinen</a><a href="../mauritius/">Réunion &amp; Mauritius</a></nav>
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -222,6 +222,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 </section>
 
 <div id="stations"></div>
+
 
 <section id="auswahl">
   <div class="wrap">
@@ -380,7 +381,7 @@ function renderLong(){
       '<div class="ob"><div class="otop"><span class="olabel">Langstrecke</span>'+(l.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
       '<h3>'+esc(l.title)+'</h3><div class="route">'+l.route+'</div><div class="room">'+esc(l.note)+'</div>'+
       '<div class="price"><b>'+chf(l.flex)+'</b><span>für 2 · '+chf(l.flex/2)+' pro Person</span></div>'+
-      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(l.u)+'" target="_blank" rel="noopener">Preis prüfen ↗</a></div></div></label>';
+      '<div class="ofoot"><span class="state">'+(on?'Ausgewählt':'Auswählen')+'</span><a class="btn" href="'+esc(l.u)+'" target="_blank" rel="noopener">'+(l.u2?'Hinflug ↗':'Preis prüfen ↗')+'</a>'+(l.u2?' <a class="btn" href="'+esc(l.u2)+'" target="_blank" rel="noopener">Rückflug ↗</a>':'')+'</div></div></label>';
   }).join("");
 }
 function renderDom(){
@@ -396,8 +397,8 @@ function hotelCard(s,h){
     }).join("")+'</div>' : '';
   var other = v.nr ? (state.nr ? 'Flexibel: '+chf(v.flex) : 'Nicht erstattbar: '+chf(v.nr)) : '';
   return '<label class="opt'+(on?' sel':'')+'" for="h-'+h.id+'"><input class="pick" type="radio" name="h-'+s.id+'" id="h-'+h.id+'" data-s="'+s.id+'" value="'+h.id+'"'+(on?' checked':'')+'>'+
-    '<div class="ph"><figure><img src="'+IMG+h.id+'_hotel.jpg" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
-    '<figure><img src="'+IMG+h.id+'_room.jpg" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
+    '<div class="ph"><figure><img src="'+(h.img?h.img[0]:IMG+h.id+'_hotel.jpg')+'" alt="'+esc(h.name)+'" loading="lazy"><figcaption>Hotel</figcaption></figure>'+
+    '<figure><img src="'+(h.img?h.img[1]:IMG+h.id+'_room.jpg')+'" alt="'+esc(h.name)+', Zimmer" loading="lazy"><figcaption>Zimmer</figcaption></figure></div>'+
     '<div class="ob"><div class="otop"><span class="olabel">'+esc(h.label)+'</span>'+(h.pick?'<span class="badge">Meine Wahl</span>':'')+'</div>'+
     '<h3>'+esc(h.name)+'</h3><div class="room">'+esc(v.n)+'</div>'+vars+
     '<div class="price"><b>'+(h.approx?'ca. ':'')+chf(p)+'</b><span>≈ '+chf(p/s.nights).replace("CHF ","")+' pro Nacht</span></div>'+
@@ -419,10 +420,10 @@ function renderStations(){
 function renderSum(){
   var t=totals(), l=LONG.filter(function(x){return x.id===state.long;})[0];
   var rows='<tr><td>Langstrecke</td><td>'+esc(l.title)+'</td><td class="n">'+chf(t.lh).replace("CHF ","")+'</td></tr>'+
-           '<tr><td>Inselflüge</td><td>'+DOM.length+' Flüge</td><td class="n">'+t.dom+'</td></tr>';
+           '<tr><td>'+(typeof DOMLBL!=="undefined"?DOMLBL:"Inselflüge")+'</td><td>'+DOM.length+(DOM.length===1?' Flug':' Flüge')+'</td><td class="n">'+t.dom+'</td></tr>';
   ST.forEach(function(s){ var h=hsel(s), v=vsel(h);
     rows+='<tr><td>'+s.no+' · '+esc(s.name)+'</td><td>'+esc(h.name)+', '+esc(v.n)+((state.nr&&v.nr)?' (nicht erstattbar)':'')+'</td><td class="n">'+chf(vprice(v)).replace("CHF ","")+'</td></tr>'; });
-  if(state.extras&&EXTRAS) rows+='<tr><td>Transfers und Ausflüge</td><td>Schätzung aus dem Dossier</td><td class="n">'+EXTRAS+'</td></tr>';
+  if(state.extras&&EXTRAS) rows+='<tr><td>'+(typeof EXL!=="undefined"?EXL[0]:"Transfers und Ausflüge")+'</td><td>'+(typeof EXL!=="undefined"?EXL[1]:"Schätzung aus dem Dossier")+'</td><td class="n">'+EXTRAS+'</td></tr>';
   rows+='<tr class="tot"><td colspan="2">Total für 2 Personen</td><td class="n">'+chf(t.all)+'</td></tr>'+
         '<tr class="pp"><td colspan="2">Pro Person</td><td class="n">'+chf(t.all/2)+'</td></tr>';
   document.getElementById("sumrows").innerHTML=rows;
