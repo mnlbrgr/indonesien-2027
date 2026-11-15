@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coast to Coast im Camper – Herbst 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f5efe3;--paper:#fbf8f1;--sand:#e7dcc4;--line:#d9cdb3;--ink:#23211d;--soft:#6b6457;--forest:#2f4a3a;--rust:#c2562b;--sky:#6e8fa6;
+--head:"Zilla Slab",Georgia,serif;--body:"Work Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.08;margin:0}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+section{padding:56px 0 8px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 28px;margin-bottom:22px}
+.sec-head h2{font-size:clamp(28px,3.6vw,40px);margin-top:8px}
+.sec-head p{margin:0;max-width:520px;color:var(--soft)}
+
+/* Kopf */
+.hero{background:var(--forest);color:#f3ecdc;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:auto -10% -1px -10%;height:120px;background:
+ linear-gradient(170deg,transparent 48%,#36553f 49%) ,linear-gradient(190deg,transparent 52%,#2a4234 53%);opacity:.9}
+.hero .wrap{position:relative;padding-top:54px;padding-bottom:84px}
+.hero .eyebrow{color:#e9a36d}
+.hero h1{font-size:clamp(40px,6.4vw,76px);margin:14px 0 14px;max-width:820px}
+.hero h1 em{font-style:normal;color:#f0b07a}
+.hero p.lead{max-width:640px;font-size:18px;color:#d9d3c2;margin:0}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:12px 16px;min-width:130px}
+.stat b{display:block;font:700 24px/1.1 var(--head);color:#fff}
+.stat span{font-size:13px;color:#cfc8b6}
+.badge-sun{position:absolute;right:6%;top:40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#f0b07a 0 55%,transparent 56%);opacity:.9}
+
+/* Karte */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px}
+.mapcard{padding:14px;position:relative}
+.map{width:100%;height:auto;display:block}
+.map .nation{fill:#e9dfc8;stroke:#c9b994;stroke-width:1.2}
+.map .borders{fill:none;stroke:#d3c5a4;stroke-width:.8}
+.map .seg{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.map .dot{cursor:pointer}
+.map .dot circle{stroke:#fff;stroke-width:1.6}
+.map .dot text{font:700 7.5px var(--body);fill:#fff;text-anchor:middle;pointer-events:none}
+.map .dot.on circle{stroke:var(--ink);stroke-width:2.4}
+.map .lbl{font:600 11px var(--body);fill:var(--ink);paint-order:stroke;stroke:#f3ecdc;stroke-width:3px;pointer-events:none}
+.map .end{font:700 10px var(--body);fill:var(--rust);paint-order:stroke;stroke:#f3ecdc;stroke-width:3px}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;border-radius:10px;padding:8px 11px;font-size:13px;line-height:1.35;max-width:240px;opacity:0;transform:translate(-50%,-110%);transition:opacity .12s}
+.tip b{font-family:var(--head);font-size:15px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 6px 4px;font-size:13px;color:var(--soft)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+
+/* Zeitstrahl */
+.tl{padding:22px 20px 18px;overflow-x:auto}
+.tl-inner{min-width:760px}
+.months{display:flex;font-size:12px;color:var(--soft);margin-bottom:6px}
+.months div{border-left:1px solid var(--line);padding-left:6px}
+.bar{display:flex;height:46px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.bar div{position:relative;border-right:1px solid rgba(255,255,255,.55);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font:700 11px var(--body);transition:filter .15s}
+.bar div:hover,.bar div.on{filter:brightness(1.15) saturate(1.1)}
+.bar .nyc{background:repeating-linear-gradient(45deg,#8b8576 0 6px,#9a9483 6px 12px)}
+.regbar{display:flex;margin-top:8px;font-size:12px;color:var(--soft)}
+.regbar div{padding:6px 6px 0;border-top:3px solid;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-note{font-size:13px;color:var(--soft);margin-top:14px}
+
+/* Etappen */
+.region{margin-top:34px}
+.region-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.region-head i{width:14px;height:14px;border-radius:5px}
+.region-head h3{font-size:24px}
+.region-head span{color:var(--soft);font-size:14px}
+.stops{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.stop{padding:18px 18px 16px;position:relative;scroll-margin-top:20px;transition:box-shadow .2s,border-color .2s}
+.stop.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.stop .no{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;color:#fff;font:700 13px/30px var(--body);text-align:center}
+.stop h4{font:700 22px/1.1 var(--head);margin:0 40px 4px 0}
+.stop .when{font-size:13.5px;color:var(--soft)}
+.stop .drive{display:inline-flex;gap:6px;align-items:center;margin-top:10px;font-size:12.5px;font-weight:600;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.cg{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.cg a{font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--rust)}
+.cg .meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--soft);margin-top:6px}
+.cg .meta b{color:var(--ink)}
+.stop p{margin:10px 0 0;font-size:14.5px}
+.stop .note{color:var(--soft);font-size:13.5px;margin-top:6px}
+
+/* Camper, Flüge, Kosten */
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:start}
+#camptab td{padding:5px 0;font-size:13.5px}
+.box{padding:22px}
+.box h3{font-size:26px;margin:6px 0 8px}
+.feat{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.feat span{font-size:12.5px;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.n{text-align:right;white-space:nowrap;padding-left:12px;font-variant-numeric:tabular-nums}
+tr.sum td{border-bottom:0;border-top:2px solid var(--ink);font-weight:700;padding-top:10px}
+.small{font-size:13px;color:var(--soft)}
+.fl{padding:20px;display:flex;flex-direction:column;gap:6px}
+.fl .date{font:700 20px var(--head)}
+.fl .price{font:700 26px var(--head);margin-top:4px}
+.btn{display:inline-block;margin-top:10px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:9px 14px;border-radius:999px;align-self:flex-start}
+.total{background:var(--forest);color:#f3ecdc;border-color:var(--forest);padding:24px}
+.total h3{color:#fff;font-size:28px}
+.total td{border-color:rgba(255,255,255,.18)}
+.total tr.sum td{border-top-color:#f0b07a}
+.big{font:700 clamp(34px,5vw,48px)/1 var(--head);color:#f0b07a;margin:10px 0 2px}
+.notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.notes .card{padding:18px}
+.notes h4{font:700 18px var(--head);margin:0 0 6px}
+.notes p{margin:0;font-size:14.5px}
+footer{padding:44px 0 60px;color:var(--soft);font-size:13px}
+@media (max-width:820px){.two{grid-template-columns:1fr}.badge-sun{display:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="badge-sun" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow">Camper-Reise · Herbst 2027</div>
+    <h1>Von New York nach <em>Los Angeles</em></h1>
+    <p class="lead">Elf Wochen quer durch die USA: Ostküste, Blue Ridge, Country-Musik, Rocky Mountains, die grossen Nationalparks im Südwesten und zum Schluss die Pazifikküste. Mit komfortablen Campingplätzen und nie mehr als viereinhalb Stunden Fahrt am Stück.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<main>
+<section id="karte">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Die Route</div><h2>29 Stationen, eine Linie</h2></div>
+      <p>Tippt auf einen Punkt, um die Station zu sehen. Die Farben zeigen die Regionen.</p></div>
+    <div class="card mapcard">
+      <svg class="map" id="map" viewBox="15 20 945 470" role="img" aria-label="Karte der USA mit der Camper-Route von New York nach Los Angeles">
+        <path class="nation" d="M780 466 781 470 783 476 785 482 787 485 790 491 793 496 795 500 801 508 805 511 806 514 805 517 806 520 808 524 812 529 814 534 815 537 818 541 820 544 822 549 823 554 823 557 823 561 823 565 824 571 824 575 821 576 821 580 821 582 824 578 822 585 818 592 819 589 820 586 815 587 812 587 807 590 805 588 805 585 804 582 802 580 799 578 797 576 793 574 790 573 789 571 788 566 785 563 783 561 780 559 781 555 780 552 780 556 777 558 775 554 773 551 769 546 766 543 768 539 770 536 771 533 769 532 765 530 765 532 767 534 765 537 763 535 762 530 761 526 762 529 763 526 764 521 764 517 762 514 761 512 760 508 759 505 755 505 753 503 750 500 746 498 745 495 743 494 740 491 737 489 734 488 730 487 727 487 726 490 725 492 720 494 716 497 712 498 714 500 718 498 714 501 710 499 707 500 706 496 707 499 707 494 704 493 702 491 698 490 693 487 689 486 686 486 681 486 675 487 671 488 668 489 664 490 661 491 658 492 657 488 655 486 655 483 652 483 652 486 652 489 649 489 646 489 644 490 640 491 636 490 633 491 629 492 627 494 625 495 622 497 619 499 621 501 624 502 626 499 628 500 631 500 629 502 630 505 627 507 623 508 624 511 626 513 630 514 634 516 637 517 634 520 630 523 631 520 630 517 627 517 624 516 620 515 616 519 613 521 611 517 608 515 606 517 604 520 601 522 598 520 595 520 592 519 594 517 592 514 590 515 587 512 584 510 582 508 579 509 580 506 577 506 574 508 575 511 572 513 565 512 562 511 558 509 554 508 550 508 542 509 537 511 535 511 525 516 523 518 524 516 528 514 523 514 524 511 521 509 519 511 517 514 519 516 520 519 516 523 520 520 523 519 517 523 515 525 513 527 510 530 502 534 496 537 494 538 490 541 485 544 482 547 480 548 478 551 475 555 474 558 472 562 470 566 470 570 470 574 472 580 472 583 473 587 474 592 473 588 472 582 470 576 470 569 470 564 472 560 473 557 475 554 476 551 480 546 483 545 486 542 489 541 486 541 484 540 482 543 479 546 475 546 477 547 474 553 471 552 469 552 470 555 471 559 470 561 469 564 467 565 469 566 469 572 468 576 468 580 469 583 472 588 471 592 474 593 472 595 470 598 467 597 464 593 461 593 458 593 454 593 450 591 447 589 443 588 442 586 439 585 436 584 434 581 433 578 431 574 429 572 428 568 428 565 428 559 426 557 423 555 420 552 419 549 417 546 414 543 412 541 411 538 410 535 409 533 408 530 407 527 405 522 403 519 399 516 396 513 395 511 392 508 390 506 386 506 383 505 379 505 377 503 373 503 370 504 366 505 365 508 363 514 362 516 359 517 357 520 355 521 351 520 348 517 345 516 343 514 340 513 337 511 335 508 333 506 330 504 329 500 328 498 327 495 328 492 327 489 325 487 325 483 323 480 320 478 316 475 313 472 312 469 309 468 308 465 305 462 302 460 300 458 299 454 296 452 279 450 264 448 263 458 247 456 229 454 220 452 208 450 176 432 172 429 142 412 143 409 145 407 99 402 99 398 98 395 99 390 99 388 97 382 95 379 92 376 90 374 88 371 85 371 82 369 83 365 81 362 78 361 74 360 72 358 70 357 69 354 68 352 65 349 62 349 59 348 57 346 52 345 49 344 46 340 48 338 49 335 50 330 48 327 46 325 47 321 45 319 44 317 42 313 41 311 40 308 40 305 38 302 36 298 35 295 36 291 38 289 40 286 39 283 35 281 33 276 32 273 32 269 33 263 35 261 35 265 36 267 38 269 39 265 36 262 37 259 39 256 38 253 35 256 35 259 32 257 29 255 27 254 28 251 28 249 28 245 25 241 23 236 21 232 20 229 21 222 22 218 24 214 24 212 23 208 22 204 20 201 18 197 19 194 20 191 25 186 27 184 27 181 29 177 31 173 32 166 32 162 32 158 31 155 31 152 34 146 33 143 33 140 35 137 37 134 38 131 41 128 43 126 45 121 48 114 50 110 51 107 53 103 54 99 57 92 58 90 59 86 61 81 62 78 63 75 64 72 64 69 66 71 69 71 67 69 65 67 65 63 66 60 65 63 65 66 66 63 67 60 70 59 67 59 66 56 69 54 67 51 66 53 67 50 67 45 67 39 68 34 66 31 65 28 66 25 68 21 72 23 75 25 79 28 82 29 85 31 89 31 90 33 92 36 95 33 95 36 95 39 93 40 91 43 88 43 85 46 86 49 88 48 85 48 88 44 92 43 94 41 96 38 96 43 95 46 94 48 92 52 89 52 89 55 88 52 88 55 91 55 93 52 96 52 96 49 97 46 98 43 99 41 101 39 100 35 100 32 100 36 98 34 99 32 100 29 97 26 101 27 102 24 102 22 99 19 100 16 110 17 115 19 122 21 130 23 140 25 153 29 166 32 184 36 198 39 210 42 223 44 233 46 243 48 265 52 273 53 285 55 303 57 314 59 326 60 340 62 353 63 364 65 377 66 387 67 404 68 421 69 431 69 445 70 455 70 469 71 479 71 492 71 508 71 511 71 511 62 514 62 516 68 518 73 519 76 522 77 524 77 528 79 531 80 534 81 536 80 540 78 544 79 548 80 551 82 553 87 555 84 558 84 560 87 563 87 566 89 569 90 572 88 575 86 578 87 581 88 588 88 590 90 594 90 596 90 593 93 590 94 586 96 583 97 579 99 575 103 573 106 570 109 568 111 565 114 563 116 559 119 561 122 567 120 573 117 575 116 578 115 579 118 578 120 577 123 580 122 583 122 585 123 589 121 593 119 595 117 597 117 601 116 603 114 605 112 608 111 610 108 613 106 615 103 619 101 622 100 624 100 622 102 619 106 618 108 617 111 615 115 619 112 623 113 627 113 629 115 631 118 633 121 637 121 641 122 644 121 644 119 647 118 652 115 656 114 660 114 665 112 668 111 669 115 670 118 673 118 676 117 678 117 682 116 684 120 682 123 686 124 688 126 690 125 693 124 695 126 692 127 689 127 685 127 682 128 679 128 676 127 675 129 673 130 669 128 666 127 663 127 661 130 657 131 653 131 650 135 648 138 645 139 646 136 647 133 644 135 643 138 640 136 638 140 637 142 636 145 634 149 632 152 632 156 629 157 628 160 627 162 626 166 630 164 633 159 635 157 638 153 640 150 642 148 641 152 639 155 638 158 637 162 635 165 635 170 635 174 633 176 632 181 633 183 632 188 632 190 631 195 632 199 633 202 634 206 634 210 634 212 634 217 636 221 638 226 640 230 645 231 650 229 654 226 657 219 659 216 660 210 660 205 659 200 658 195 656 191 654 187 652 184 653 182 653 177 653 173 654 170 655 166 655 163 655 160 657 158 657 155 660 154 662 151 664 148 665 151 664 154 664 157 666 154 665 157 668 153 668 149 667 146 670 143 672 143 671 140 671 137 673 134 675 133 679 134 683 135 686 137 690 138 693 139 697 140 699 142 700 145 698 147 700 150 702 153 702 157 702 162 700 164 699 169 695 171 694 176 696 179 699 180 701 177 702 173 705 171 708 169 712 168 714 171 716 174 716 177 718 181 719 186 720 189 722 191 721 195 721 200 719 202 719 199 716 199 715 203 715 207 712 210 713 213 711 217 708 220 710 223 712 223 715 224 718 225 721 224 723 227 727 226 730 225 733 223 738 223 740 221 742 218 744 216 748 213 756 209 759 207 762 205 765 202 768 200 772 196 775 193 777 191 779 187 778 182 777 180 775 176 778 174 782 173 788 171 792 170 796 170 800 172 806 169 809 169 811 168 814 165 817 162 819 161 819 158 818 155 819 152 817 152 815 149 816 146 819 142 822 140 825 132 829 128 831 126 833 124 836 123 842 122 845 121 849 120 858 118 865 116 874 114 886 111 887 108 888 103 891 104 892 101 894 103 895 100 897 99 895 97 896 94 899 90 899 87 900 85 898 83 898 80 898 77 899 74 899 67 906 48 909 48 909 50 912 52 915 50 917 48 920 46 923 46 926 48 930 50 933 60 935 67 937 74 938 77 939 80 942 81 945 80 945 83 947 85 948 89 951 88 954 90 955 92 957 95 955 99 951 100 951 103 950 106 947 105 945 108 944 110 941 113 939 114 938 111 937 114 936 117 937 120 936 118 935 115 932 114 932 111 929 113 930 115 929 118 930 121 928 125 926 126 923 127 922 130 920 132 917 133 915 135 913 138 913 142 911 145 911 148 909 153 911 159 914 158 911 162 910 165 910 167 913 168 915 170 917 173 919 174 920 177 923 178 926 177 929 175 928 172 926 170 924 170 927 170 930 174 931 177 931 180 927 179 923 181 920 183 918 186 916 188 918 186 920 183 919 180 917 182 915 185 913 186 910 184 911 187 910 184 907 181 907 184 908 187 908 191 904 193 900 193 897 195 893 197 891 198 887 198 885 198 883 201 881 202 878 205 875 208 873 210 873 213 875 211 877 209 882 208 884 206 889 205 893 202 895 200 897 201 900 202 902 200 900 202 896 206 893 208 890 210 886 213 883 214 878 217 874 218 872 219 870 217 868 220 867 222 871 222 872 229 873 234 873 237 871 245 870 247 867 251 866 254 865 257 863 259 863 255 860 254 858 253 854 251 852 250 850 248 850 244 848 247 849 249 852 252 854 255 855 258 857 261 860 263 862 266 864 270 864 273 863 279 861 284 859 286 858 291 858 295 857 298 857 301 855 304 853 301 853 298 853 292 854 289 856 286 855 283 852 285 852 283 850 280 850 275 849 278 848 276 848 279 844 278 841 274 842 271 845 271 843 270 840 270 841 266 839 262 842 260 839 259 840 256 841 254 843 251 841 250 839 254 837 257 833 258 837 260 838 263 837 265 836 269 838 272 839 275 841 277 841 280 843 282 841 282 837 281 833 279 830 278 827 280 825 278 827 274 825 278 826 281 829 280 832 282 834 283 838 283 840 285 844 286 846 289 846 292 843 293 840 291 836 289 838 291 841 294 844 295 847 296 848 299 845 299 846 301 847 304 849 305 847 309 844 307 842 304 838 304 840 306 843 308 846 309 849 310 853 309 856 312 858 314 861 320 862 323 864 325 868 332 866 328 863 324 861 322 860 319 857 318 859 320 862 325 859 323 855 323 857 326 853 326 850 326 853 328 851 330 848 330 846 328 846 325 845 328 847 331 850 332 853 331 856 330 859 330 859 333 860 337 860 334 860 331 862 329 865 332 866 335 865 337 862 340 861 343 858 344 853 345 851 342 852 345 848 345 845 344 850 346 853 346 853 349 850 355 846 353 848 355 852 354 855 351 857 353 857 356 856 359 853 360 856 361 857 358 860 354 862 350 858 357 857 361 853 361 847 363 844 365 842 366 840 368 838 370 836 374 834 377 833 383 829 383 825 384 823 386 820 388 816 392 815 395 813 399 813 402 813 405 811 408 808 408 806 410 805 412 803 415 801 418 798 420 795 423 792 423 793 427 790 429 789 431 786 433 787 436 785 439 783 442 782 446 781 451 781 454 780 456 780 459 780 464 780 466Z"/>
+        <path class="borders" d="M642 384 656 383 666 382 685 380 689 380M689 380 693 394 702 427 705 432 707 434 707 439 708 442 707 446 706 450 707 453 709 457 708 461 708 465 711 469M711 469 694 471 682 472 670 473 661 474 662 479 665 481 665 485 665 488 664 490M646 489 645 478 643 459 642 455 642 444 643 413 643 396 644 386 642 384M145 407 149 407 151 404 149 401 148 397 147 394 150 391 152 389 154 386 154 382 156 379 159 377 162 375 160 370 159 366 157 362 157 356M157 356 159 353 159 349 158 345 159 341 159 338 160 333 163 331 167 331 168 335 172 332 173 327 175 321 176 313M176 313 185 315 203 318 223 322 239 324 254 327 265 328M265 328 259 365 258 378 253 413 251 424 247 456M277 237 286 238 301 240 321 243 325 243 333 244 348 245 361 247M361 247 371 247 382 248 395 249 394 272M394 272 392 300 391 317 391 327 390 341M390 341 378 340 372 339M372 339 349 338 337 336 315 334 303 333 292 332 279 330 265 328M265 328 266 319 266 316 268 302 270 289 271 280 276 249 277 237M711 469 713 473 741 473 748 473 766 471 766 475 770 476 770 471 769 466 773 465 778 466 780 466M689 380 693 379 701 378 713 377M713 377 726 375 735 374M735 374 733 377 731 380 734 383 737 385 741 385 744 389 746 392 748 396 753 398 756 402 759 403 762 406 764 409 766 412 770 414 772 417 774 420 775 424 779 426 781 430 781 433 785 435 786 435M652 228 669 226 686 224 686 225M686 225 688 247 690 257 691 268 693 284M693 284 693 288 694 292 688 295 683 294 684 298 681 301 679 305 676 308 676 312 672 312 670 309 666 310 666 313 663 316 661 313 657 316 655 319 651 316 647 315 647 318 643 318 639 320M639 320 639 316 640 312 640 308 643 305 645 300 647 297 646 293 644 289 644 286 644 273 643 258 641 239 640 230M394 272 405 273 422 273 432 274 443 274 454 275 465 275 480 275 495 275 510 275M510 275 513 278 516 278 517 281 514 285 516 288 517 291 520 294 522 307 523 322 523 326 523 344M523 344 507 344 489 344 472 344 459 344 443 343 433 343 428 343 414 342 402 341 390 341M910 150 907 147 905 145 903 140 901 135 898 123 895 114 891 102M871 168 884 165M884 165 892 163 903 161 905 157 908 155 909 155M913 186 912 183 911 183M910 182 907 178 899 178M899 178 883 181 879 182 871 184M871 184 871 168M560 121 556 122 556 136 554 138 550 140 549 143 547 146 551 150 550 154 550 158 550 162 549 166 553 169 557 170 559 173 564 175 566 179 570 182 575 185 575 191 576 193M576 193 568 194 549 194 534 195 516 195 502 195 491 195M491 195 491 168 491 154 488 152 486 149 485 146 488 144 489 140M489 140 489 137 489 131 487 128 486 123 486 120 485 117 485 112 485 108 485 102 483 98 482 94 481 89 481 85 481 81 481 77 479 71 479 71M850 244 851 241M851 241 855 239 858 234 861 231 857 228 854 226 852 223 850 221 852 216 851 212 853 209 854 204 855 204M855 204 862 207 870 209 869 216M869 217 867 220 867 221M849 246 849 246M756 334 761 333 764 333 771 332 780 331 794 329 812 326 840 320 859 316M823 386 807 375 798 368 795 369 778 371 774 365 760 366 753 367 749 367 746 368 742 371 735 374M713 377 713 371 716 370 717 367 719 364 726 362 729 359 732 356 735 355 736 352 740 348 743 349 746 346 751 346 752 341 756 340 755 335 756 334M489 140 477 140 460 139 443 139 432 138 412 137 404 137 392 136 379 135 371 134M371 134 372 124 374 103 375 91 377 66M523 344 523 355M523 355 524 360 527 381 527 393 526 421M526 421 523 420 520 418 517 416 514 414 509 416 506 414 503 415 499 415 496 416 494 418 490 418 486 416 482 416 479 414 478 417 475 414 472 417 470 414 467 413 464 416 462 413 459 410 455 409 452 411 449 408 444 408 440 407 435 401 432 402 428 402 426 399 426 354 416 353 406 353 396 352 385 352 372 351M372 351 372 339M768 200 769 206 783 204 788 203 800 201 812 198 815 198 825 196 835 194 841 192 843 195 846 196 848 200 850 202 853 203 855 204M851 241 847 242 845 245M845 245 837 246 825 249 816 251 798 254 782 257M782 257 776 258 765 260 761 239M761 239 756 209M369 156 370 148 371 134M491 195 489 200 490 203 490 208 488 212 490 217 491 218M491 218 487 217 485 214 482 212 478 211 475 210 470 210 467 210 464 212 461 209 457 207 448 206 434 205 422 205 404 204 391 203 376 202 365 201M365 201 366 188 367 175 369 156M526 421 529 423 532 422 535 435M535 435 535 458 538 460 540 464 540 467 541 470 543 473 544 477 546 480 545 483 544 486 543 490 543 493 543 497 543 500 541 504 539 507 541 510M296 452 294 449 318 449 327 450 339 451 350 452 363 453 365 430 367 408 370 361 371 351 372 351M365 201 361 247M277 237 269 236 253 234 244 232 247 210M247 210 249 198 250 193 256 154M256 154 256 150 258 142 262 143 271 144 278 145 289 147 298 148 320 151 334 152 339 153 358 155 369 156M899 178 901 186 902 191 902 193M874 208 876 203 873 194 871 184M502 262 521 262 531 262 540 261 545 261 553 261 565 260 571 260 574 263 576 265M576 265 575 268 576 273 577 276 578 280 581 282 584 286 588 288 591 294 591 297 595 296 598 297 601 300 600 303 598 308 597 312 599 314 602 316 604 319 608 321 611 323 614 326 615 330 614 333 617 338 620 339 621 340M621 340 621 344 621 347 617 349 617 351M617 351 616 351M616 351 615 352M615 352 615 355 612 357 614 360 612 363 612 363M612 363 600 364 603 361 605 357 604 354 586 353 565 354 550 355 536 355 523 355M510 275 508 272 506 269 503 265 502 262M733 295 736 294 738 290 739 287 740 283 741 280 743 282 746 279 745 275 748 273 750 269 754 269 756 266 758 263 758 260 759 257 759 252 760 248 760 245 759 241 761 239M782 257 784 269 787 266 789 263 792 262 794 257 799 259 801 257 805 253 808 255 811 256 813 260 814 260M814 260 813 265 803 259 802 264 801 270 799 273 797 277 793 279 792 283 787 285 784 283 784 287 782 290 780 294 780 297 777 302 777 306 777 309 774 312 770 313 767 315 763 317 758 316 755 320 751 319 748 317 747 313M747 313 743 312 740 309 737 306 735 303 734 299 733 295M576 265 577 261 579 259 582 256 583 252 584 248 581 245 582 241 585 240 588 239 591 238 593 234 596 231 596 227 596 224 592 222 590 218 587 216 587 215M587 215 596 215 610 214 618 214 629 213 634 212M639 320 637 323 639 326 636 328 632 330 633 334 632 337 628 336 624 334 621 337 621 340M612 363 612 366 610 369 608 373 607 377 605 381 606 384 603 386 603 387M603 387 601 391 598 393 599 397 597 401 594 404 592 407 592 411 590 413 589 417 588 420 590 423 590 428 589 431 589 433M589 433 575 434 569 434 548 434 535 435M33 160 40 162 46 164 50 165 58 167 62 168 68 170 84 175 96 178 100 179M100 179 94 204 92 212 89 224 85 241 83 246 95 263 101 273 117 296 132 319 144 338 157 356M864 270 858 272 853 273 846 248 845 245M826 267 830 267 828 270M828 270 826 267M576 193 578 197 577 202 578 205 580 211 586 212 587 215M502 262 500 259 501 255 500 250 499 246 499 242 496 240 496 236 495 232 493 228 492 225 491 221 491 218M693 284 696 285 701 285 703 288 706 290 710 290 714 293 717 291 721 292 723 290 727 288 728 292 733 294 733 295M747 313 741 320 738 322 735 325 733 328 732 331 729 333 726 335 722 337 720 339M720 339 714 340 704 341 699 341 696 341 687 342 681 343 677 343 672 343 668 344 658 345 652 345 645 346 641 345 642 348 627 350 619 351 617 351M616 351 615 352M850 285 849 285M863 280 856 283 855 284M827 274 828 270M826 267 822 265 818 264 817 261 814 260M708 222 693 224 686 225M632 153 630 149 627 147 628 143 628 139 625 138 623 135 618 134 615 134 611 133 607 131 590 128 588 124 585 123M603 387 619 386 630 385 642 384M625 495 622 493 621 489 619 487 618 483 619 478 606 478 594 479 583 479 583 475 585 472 584 467 586 463 587 460 590 458 591 455 593 452 594 449 593 446 593 442 590 439 591 436 589 433M256 154 254 151 253 148 249 150 246 151 241 150 238 150 235 151 230 149 228 151 225 149 224 145 224 142 221 141 219 137 219 133 217 129 217 126 216 123 215 118 212 121 208 123 205 120 207 116 209 114 208 110 208 106 211 103 212 99 213 96 209 96 207 92 205 88 203 85 202 82 200 79 195 74 197 71 196 67 194 62 198 39M884 165 882 162 883 159 881 153 881 148 881 143 882 139 882 135 882 131 884 127 886 125 887 121 886 117 887 113 886 111M858 118 858 122 859 127 861 131 862 134 861 140 863 143 864 149 867 150 868 156 870 166 871 168M71 70 73 73 76 73 80 77 80 82 79 87 83 90 86 91 92 91 98 91 103 93 107 95 111 94 115 96 119 95 123 95 127 95 134 95 138 95 152 98 171 102M171 102 172 107 175 109 176 112 173 115 171 118 169 122 167 124 164 129 160 133 158 136 158 140 161 141 160 144 159 148 149 191M149 191 139 189 125 185 122 185 113 182 105 180 100 179M720 339 727 338 737 337 751 335 756 333 756 334M198 201 228 206 240 208 247 210M176 313 180 291 183 280 191 236 192 230 197 204 198 201M184 36 180 50 178 59 175 76 171 92 171 98 171 102M198 201 189 199 185 198 181 198 177 197 160 193 149 191"/>
+        <g id="route"></g>
+      </svg>
+      <div class="tip" id="tip"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+</section>
+
+<section id="zeit">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Reisedauer</div><h2>77 Tage auf einen Blick</h2></div>
+      <p>Jedes Feld ist ein Aufenthalt, die Breite entspricht den Nächten. Grau sind die zwei Hotelnächte in New York.</p></div>
+    <div class="card tl"><div class="tl-inner">
+      <div class="months" id="months"></div>
+      <div class="bar" id="bar"></div>
+      <div class="regbar" id="regbar"></div>
+    </div>
+    <div class="tl-note" id="tlnote"></div></div>
+  </div>
+</section>
+
+<section id="etappen">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Etappen und Campingplätze</div><h2>Wo sie jede Nacht stehen</h2></div>
+      <p>Pro Station ein Campingplatz mit vollen Anschlüssen und guten Sanitäranlagen. Bewertung und zuletzt bezahlter Preis stammen von Campendium.</p></div>
+    <div id="regions"></div>
+  </div>
+</section>
+
+<section id="camper">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Das Fahrzeug</div><h2>Der Camper</h2></div>
+      <p>Einweg-Miete von New York nach Los Angeles bei Road Bear RV, einem 1980 von einem Schweizer gegründeten Vermieter mit deutschsprachigem Personal.</p></div>
+    <div class="two">
+      <div class="card box">
+        <div class="eyebrow">Meine Wahl</div>
+        <h3>Road Bear Class C 26–28 Fuss mit Slide-out</h3>
+        <p>Rund 8–8,5 Meter lang, für bis zu sechs Personen gebaut – zu zweit also sehr viel Platz. Der ausfahrbare Slide-out vergrössert den Wohnraum, sobald der Camper steht. Die Flotte ist höchstens zwei Jahre alt.</p>
+        <div class="feat"><span>Schlafplätze für 6</span><span>Dusche und WC</span><span>Küche mit Backofen</span><span>Klimaanlage und Heizung</span><span>Generator</span><span>Automatik</span></div>
+        <table>
+          <tr><td>Abholung</td><td class="n">Do 9. Sept., 13–16 Uhr</td></tr>
+          <tr><td colspan="2" class="small">Road Bear New York, 2019 NJ-35, South Amboy, New Jersey (rund 30 km ab Flughafen Newark)</td></tr>
+          <tr><td>Rückgabe</td><td class="n">Mo 22. Nov., 8–11 Uhr</td></tr>
+          <tr><td colspan="2" class="small">Road Bear Los Angeles, 28404 Roadside Dr, Agoura Hills (rund 55 km bis LAX)</td></tr>
+        </table>
+        <a class="btn" href="https://www.roadbearrv.com/rental-deals/early-bird">Road Bear Frühbucher-Angebot ↗</a>
+      </div>
+      <div class="card box">
+        <div class="eyebrow">Kosten Camper (Schätzung in USD)</div>
+        <table id="campertab"></table>
+        <p class="small">Die Nachtpreise für Herbst 2027 nennt Road Bear erst im Angebot; ich rechne mit rund $110 pro Nacht. Gebühren, Kits, Einweggebühr und Meilenpreise stammen aus der aktuellen Preisliste. Frühbucher: 10 % Rabatt bei Buchung bis 31. Dezember 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fluege">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Anreise</div><h2>Flüge und erste Nächte</h2></div>
+      <p>Preise für zwei Personen in Economy, geprüft am 15.11.2026 auf Google Flüge.</p></div>
+    <div class="two" id="flights"></div>
+  </div>
+</section>
+
+<section id="kosten">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Budget</div><h2>Was die Reise kostet</h2></div>
+      <p>Grobe Gesamtrechnung für zwei Personen ohne Essen, Eintritte und Ausflüge. Umrechnung 1 USD = 0.80 CHF.</p></div>
+    <div class="two">
+      <div class="card total"><div class="eyebrow" style="color:#f0b07a">Total ca.</div><div class="big" id="bigtotal"></div><div id="pp" style="color:#d9d3c2"></div>
+        <table id="costtab" style="margin-top:16px"></table></div>
+      <div class="card box"><div class="eyebrow">Campingplätze</div><h3>Nächte und Preise</h3>
+        <table id="camptab"></table></div>
+    </div>
+  </div>
+</section>
+
+<section id="hinweise">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Gut zu wissen</div><h2>Vor dem Buchen</h2></div></div>
+    <div class="notes">
+      <div class="card"><h4>Warum Herbst</h4><p>September bis November ist die angenehmste Zeit für diese Route: keine Sommerhitze in Utah und Arizona, Laubfärbung im Osten, goldene Espen in Colorado und nach den US-Sommerferien weniger Andrang in den Nationalparks.</p></div>
+      <div class="card"><h4>Früh reservieren</h4><p>Camper möglichst bis 31.12.2026 buchen (Frühbucher-Rabatt). Die Campingplätze öffnen ihre Reservationen unterschiedlich früh, viele 6 bis 12 Monate im Voraus. Zuerst die Engpässe sichern: Moab, Zion, Grand Canyon, Yosemite, Malibu.</p></div>
+      <div class="card"><h4>Fahrzeit</h4><p>Die längsten Etappen dauern rund 4½ Stunden reine Fahrzeit, die meisten 2–3½ Stunden. Zwischen den Fahrtagen liegen meist zwei bis fünf Ruhetage.</p></div>
+      <div class="card"><h4>Zion-Tunnel</h4><p>Für Camper dieser Grösse wird der Zion-Mount-Carmel-Tunnel nur einspurig mit Begleitung befahren. Dafür braucht es vor Ort eine Tunnelgenehmigung; Wartezeiten einplanen.</p></div>
+      <div class="card"><h4>Saisonende im Oktober</h4><p>Estes Park, Torrey und Bryce liegen hoch; dort schliessen manche Plätze im Oktober. Öffnungsdaten bei der Buchung bestätigen lassen. Die Trail Ridge Road kann ab Mitte Oktober wegen Schnee zu sein.</p></div>
+      <div class="card"><h4>Highway 1 und Sequoia</h4><p>Vor der Fahrt über Big Sur den Status von Highway 1 prüfen; bei Sperrungen über die US-101 ausweichen. Im Sequoia-Nationalpark für den Camper den Eingang über Kings Canyon nutzen.</p></div>
+      <div class="card"><h4>Nationalparks</h4><p>Der Jahrespass «America the Beautiful» lohnt sich bei mehr als zehn Nationalparks. Arches verlangt in der Saison teils ein Zeitfenster-Ticket – rechtzeitig auf recreation.gov schauen.</p></div>
+      <div class="card"><h4>Einreise</h4><p>ESTA vor der Reise beantragen. Der Schweizer Führerausweis gilt; ein internationaler Führerschein dazu ist empfohlen.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap" id="foot"></div></footer>
+
+<script>
+var D={"stops": [{"no": 1, "key": "clarks", "place": "Philadelphia", "st": "NJ", "reg": "ost", "n": 2, "h": 1.25, "km": 130, "cg": "Philadelphia South / Clarksboro KOA Holiday", "url": "https://maps.campendium.com/us/clarksboro-nj/camping-rv/philadelphia-south-clarksboro-koa-holiday", "rating": 3.9, "rate": 55, "rep": "12/2025", "hi": "Independence Hall und Liberty Bell; Philadelphia liegt 20–30 Minuten entfernt.", "note": "Ganzjährig offen, Plätze mit KOA-Patio.", "ci": "2027-09-09", "co": "2027-09-11", "xy": [854.1, 240.8], "cost": 110}, {"no": 2, "key": "dc", "place": "Washington D.C.", "st": "MD", "reg": "ost", "n": 3, "h": 2.5, "km": 210, "cg": "Cherry Hill Park", "url": "https://maps.campendium.com/us/college-park-md/camping-rv/cherry-hill-park-college-park-md--3", "rating": 4.3, "rate": 94, "rep": "Campendium", "hi": "National Mall, Capitol, Smithsonian-Museen (gratis).", "note": "Grosses Komfort-Resort mit Pool, Sauna, Fitness und Busverbindung zur Metro – ideal ohne Camper in die Stadt.", "ci": "2027-09-11", "co": "2027-09-14", "xy": [828.7, 264.2], "cost": 282}, {"no": 3, "key": "luray", "place": "Shenandoah", "st": "VA", "reg": "ost", "n": 3, "h": 2.0, "km": 170, "cg": "Luray RV Resort on Shenandoah River", "url": "https://maps.campendium.com/us/luray-va/camping-rv/luray-rv-resort-on-shenandoah-river-luray-va--0", "rating": 4.8, "rate": 115, "rep": "10/2024", "hi": "Skyline Drive im Shenandoah-Nationalpark, Luray Caverns.", "note": "Am Fluss, grosse Stellplätze, sehr gepflegte Sanitäranlagen.", "ci": "2027-09-14", "co": "2027-09-17", "xy": [803.4, 277.8], "cost": 345}, {"no": 4, "key": "wythe", "place": "Wytheville", "st": "VA", "reg": "blue", "n": 1, "h": 3.5, "km": 360, "cg": "Wytheville KOA Holiday", "url": "https://maps.campendium.com/us/wytheville-va/camping-rv/wytheville-koa-holiday", "rating": 4.1, "rate": 77, "rep": "05/2025", "hi": "Ruhetag-Etappe in den Bergen Virginias.", "note": "Zwischenstopp mit Patio-Plätzen.", "ci": "2027-09-17", "co": "2027-09-18", "xy": [764.9, 324.1], "cost": 77}, {"no": 5, "key": "ashe", "place": "Asheville", "st": "NC", "reg": "blue", "n": 3, "h": 2.5, "km": 270, "cg": "Asheville's Bear Creek RV Park", "url": "https://maps.campendium.com/us/asheville-nc/camping-rv/ashevilles-bear-creek-rv-park-asheville-nc", "rating": 3.9, "rate": 70, "rep": "04/2026", "hi": "Biltmore Estate, Blue Ridge Parkway, Kunst und Craft-Bier.", "note": "Ganzjährig offen, 3 Sanitärhäuser, 2 Waschküchen, asphaltierte Plätze.", "ci": "2027-09-18", "co": "2027-09-21", "xy": [742.3, 359.3], "cost": 210}, {"no": 6, "key": "towns", "place": "Great Smoky Mountains", "st": "TN", "reg": "blue", "n": 3, "h": 2.25, "km": 140, "cg": "Little Arrow Outdoor Resort", "url": "https://maps.campendium.com/us/townsend-tn/accommodation/little-arrow-outdoor-resort-townsend", "rating": 5.0, "rate": 105, "rep": "04/2023", "hi": "Cades Cove, Wildtiere und erste Herbstfarben.", "note": "Boutique-Resort in Townsend, ruhige Seite der Smokies.", "ci": "2027-09-21", "co": "2027-09-24", "xy": [721, 360.1], "cost": 315}, {"no": 7, "key": "nash", "place": "Nashville", "st": "TN", "reg": "mitte", "n": 4, "h": 3.5, "km": 330, "cg": "Nashville KOA Resort", "url": "https://maps.campendium.com/us/nashville-tn/camping-rv/nashville-koa-nashville-tn--0", "rating": 4.2, "rate": 97, "rep": "Campendium", "hi": "Grand Ole Opry gleich nebenan, Country Music Hall of Fame, Live-Musik am Broadway.", "note": "KOA-Resort (höchste KOA-Stufe), ganzjährig offen.", "ci": "2027-09-24", "co": "2027-09-28", "xy": [666.6, 353.8], "cost": 388}, {"no": 8, "key": "stl", "place": "St. Louis", "st": "MO", "reg": "mitte", "n": 2, "h": 4.5, "km": 480, "cg": "St. Louis West / Historic Route 66 KOA Holiday", "url": "https://maps.campendium.com/us/eureka-mo/camping-rv/st-louis-west-historic-route-66-koa-holiday-eureka", "rating": 4.1, "rate": 90, "rep": "06/2026", "hi": "Gateway Arch, Route 66.", "note": "In Eureka, rund 40 Minuten vor der Stadt.", "ci": "2027-09-28", "co": "2027-09-30", "xy": [592.4, 306.9], "cost": 180}, {"no": 9, "key": "law", "place": "Kansas City", "st": "KS", "reg": "mitte", "n": 2, "h": 4.25, "km": 440, "cg": "Kansas City West / Lawrence KOA", "url": "https://maps.campendium.com/us/lawrence-ks/camping-rv/kansas-city-west-lawrence-koa-lawrence", "rating": 3.8, "rate": 75, "rep": "11/2025", "hi": "Kansas-City-Barbecue und Jazz; Unistädtchen Lawrence.", "note": "Einfacher, aber gut gelegener Etappenplatz.", "ci": "2027-09-30", "co": "2027-10-02", "xy": [511.5, 298.1], "cost": 150}, {"no": 10, "key": "wak", "place": "WaKeeney", "st": "KS", "reg": "mitte", "n": 1, "h": 4.0, "km": 420, "cg": "WaKeeney KOA Journey", "url": "https://maps.campendium.com/us/wakeeney-ks/camping-rv/wakeeney-koa-journey-wakeeney", "rating": 4.5, "rate": 62, "rep": "07/2026", "hi": "Weite Prärie; Abstecher zu den Little Jerusalem Badlands möglich.", "note": "Sehr gut bewerteter Übernachtungsplatz.", "ci": "2027-10-02", "co": "2027-10-03", "xy": [430.3, 296.3], "cost": 62}, {"no": 11, "key": "den", "place": "Denver", "st": "CO", "reg": "rocky", "n": 2, "h": 4.5, "km": 460, "cg": "Cherry Creek State Park", "url": "https://maps.campendium.com/us/aurora-co/nature/cherry-creek-state-park-campground-aurora", "rating": 4.3, "rate": 43, "rep": "06/2026", "hi": "Red Rocks Amphitheatre, Downtown Denver.", "note": "State Park mit Stausee; zusätzlich Parkeintritt pro Tag.", "ci": "2027-10-03", "co": "2027-10-05", "xy": [345.2, 276.4], "cost": 86}, {"no": 12, "key": "estes", "place": "Estes Park", "st": "CO", "reg": "rocky", "n": 3, "h": 1.5, "km": 120, "cg": "Spruce Lake RV Park", "url": "https://maps.campendium.com/us/estes-park-co/camping-rv/spruce-lake-rv-park-estes-park-co", "rating": 3.9, "rate": 89, "rep": "05/2024", "hi": "Rocky-Mountain-Nationalpark, Trail Ridge Road, Elchbrunft und goldene Espen.", "note": "Saisonbetrieb: Öffnung Anfang Oktober vor der Buchung bestätigen.", "ci": "2027-10-05", "co": "2027-10-08", "xy": [335.2, 258.4], "cost": 267}, {"no": 13, "key": "glen", "place": "Glenwood Springs", "st": "CO", "reg": "rocky", "n": 2, "h": 3.5, "km": 240, "cg": "Glenwood Canyon Resort", "url": "https://maps.campendium.com/us/glenwood-springs-co/camping-rv/glenwood-canyon-resort-glenwood-springs-co--3", "rating": 4.0, "rate": 150, "rep": "10/2024", "hi": "Heisse Quellen, Glenwood Canyon.", "note": "Ganzjährig offen, Platinum-Plätze am Fluss mit Betonpatio.", "ci": "2027-10-08", "co": "2027-10-10", "xy": [303.2, 273.8], "cost": 300}, {"no": 14, "key": "moab", "place": "Moab", "st": "UT", "reg": "canyon", "n": 5, "h": 2.5, "km": 290, "cg": "Village Camp Moab", "url": "https://maps.campendium.com/us/moab-ut/camping-rv/village-camp-moab", "rating": 4.2, "rate": 80, "rep": "12/2025", "hi": "Arches und Canyonlands, Dead Horse Point.", "note": "Ehemals Portal RV Resort. Für Arches gilt in der Saison oft ein Zeitfenster-Ticket.", "ci": "2027-10-10", "co": "2027-10-15", "xy": [260.8, 291.1], "cost": 400}, {"no": 15, "key": "torrey", "place": "Capitol Reef", "st": "UT", "reg": "canyon", "n": 2, "h": 2.5, "km": 220, "cg": "Wonderland RV Park", "url": "https://maps.campendium.com/us/torrey-ut/camping-rv/wonderland-rv-park-torrey-ut--1", "rating": 4.8, "rate": 60, "rep": "06/2025", "hi": "Capitol-Reef-Nationalpark, Obstgärten von Fruita.", "note": "Klein und sehr gepflegt, Saisonbetrieb.", "ci": "2027-10-15", "co": "2027-10-17", "xy": [227.3, 292.2], "cost": 120}, {"no": 16, "key": "bryce", "place": "Bryce Canyon", "st": "UT", "reg": "canyon", "n": 2, "h": 2.5, "km": 130, "cg": "Ruby's Inn RV Park & Campground", "url": "https://maps.campendium.com/us/ut/camping-rv/rubys-inn-rv-park-campground-ut--0", "rating": 4.1, "rate": 82, "rep": "06/2026", "hi": "Hoodoos bei Sonnenaufgang; Anfahrt über die Panoramastrasse Highway 12.", "note": "Direkt am Parkeingang, Saison Frühling bis Herbst.", "ci": "2027-10-17", "co": "2027-10-19", "xy": [212, 304.3], "cost": 164}, {"no": 17, "key": "zion", "place": "Zion", "st": "UT", "reg": "canyon", "n": 4, "h": 2.0, "km": 160, "cg": "Zion River Resort", "url": "https://maps.campendium.com/us/virgin-ut/camping-rv/zion-river-resort", "rating": 4.2, "rate": 95, "rep": "07/2026", "hi": "Zion-Canyon per Shuttle, Riverside Walk.", "note": "Resort mit Pool am Virgin River, ca. 20 Minuten bis Springdale.", "ci": "2027-10-19", "co": "2027-10-23", "xy": [192.2, 311.7], "cost": 380}, {"no": 18, "key": "page", "place": "Lake Powell", "st": "AZ", "reg": "canyon", "n": 2, "h": 2.5, "km": 240, "cg": "Wahweap Campground & RV Park", "url": "https://maps.campendium.com/us/page-az/camping-rv/wahweap-campground-rv-park-page-az", "rating": 4.1, "rate": 64, "rep": "06/2026", "hi": "Horseshoe Bend, Antelope Canyon (nur mit Tour), Lake Powell.", "note": "Am See, volle Anschlüsse.", "ci": "2027-10-23", "co": "2027-10-25", "xy": [221.2, 321.6], "cost": 128}, {"no": 19, "key": "will", "place": "Grand Canyon", "st": "AZ", "reg": "canyon", "n": 3, "h": 3.0, "km": 310, "cg": "Grand Canyon Railway RV Park", "url": "https://maps.campendium.com/us/williams-az/accommodation/grand-canyon-railway-rv-park", "rating": 4.1, "rate": 71, "rep": "05/2026", "hi": "Mit dem historischen Zug zum South Rim; Anfahrt über Desert View.", "note": "Ganzjährig offen, direkt beim Bahnhof von Williams.", "ci": "2027-10-25", "co": "2027-10-28", "xy": [202.1, 358.8], "cost": 213}, {"no": 20, "key": "sed", "place": "Sedona", "st": "AZ", "reg": "canyon", "n": 4, "h": 1.0, "km": 70, "cg": "Rancho Sedona RV Park", "url": "https://maps.campendium.com/us/sedona-az/camping-rv/rancho-sedona-rv-park", "rating": 4.2, "rate": 92, "rep": "06/2026", "hi": "Rote Felsen, Jeep-Tour, Chapel of the Holy Cross.", "note": "Mitten im Ort am Oak Creek, ganzjährig offen.", "ci": "2027-10-28", "co": "2027-11-01", "xy": [207.8, 368.8], "cost": 368}, {"no": 21, "key": "lv", "place": "Las Vegas", "st": "NV", "reg": "wueste", "n": 3, "h": 4.5, "km": 410, "cg": "Oasis Las Vegas RV Resort", "url": "https://maps.campendium.com/us/las-vegas-nv/camping-rv/oasis-las-vegas-rv-resort-las-vegas-nv", "rating": 4.1, "rate": 81, "rep": "06/2026", "hi": "Shows, Strip, Hoover Dam.", "note": "Resort mit grossem Pool, nahe am Strip.", "ci": "2027-11-01", "co": "2027-11-04", "xy": [151.9, 330.9], "cost": 243}, {"no": 22, "key": "pah", "place": "Death Valley", "st": "NV", "reg": "wueste", "n": 2, "h": 1.0, "km": 90, "cg": "Preferred RV Resort", "url": "https://maps.campendium.com/us/pahrump-nv/camping-rv/preferred-rv-resort-pahrump-nv", "rating": 4.1, "rate": 49, "rep": "11/2023", "hi": "Tagesausflug ins Death Valley: Zabriskie Point, Badwater.", "note": "In Pahrump, 1 Std. bis Furnace Creek; Pool und Clubhaus.", "ci": "2027-11-04", "co": "2027-11-06", "xy": [138.1, 324.1], "cost": 98}, {"no": 23, "key": "lone", "place": "Lone Pine", "st": "CA", "reg": "wueste", "n": 1, "h": 3.5, "km": 280, "cg": "Boulder Creek RV Resort", "url": "https://maps.campendium.com/us/lone-pine-ca/camping-rv/boulder-creek-rv-resort", "rating": 4.0, "rate": 81, "rep": "04/2024", "hi": "Fahrt quer durchs Death Valley; Alabama Hills mit Blick auf Mount Whitney.", "note": "Ganzjährig offen.", "ci": "2027-11-06", "co": "2027-11-07", "xy": [103.6, 307.2], "cost": 81}, {"no": 24, "key": "three", "place": "Sequoia", "st": "CA", "reg": "wueste", "n": 2, "h": 4.25, "km": 330, "cg": "Sequoia RV Ranch", "url": "https://maps.campendium.com/us/three-rivers-ca/camping-rv/sequoia-rv-ranch", "rating": 4.3, "rate": 44, "rep": "04/2025", "hi": "Riesenmammutbäume, General Sherman Tree.", "note": "Am Fluss in Three Rivers. Im Park sind Fahrzeuge über 22 Fuss auf dem steilen Abschnitt ab Ash Mountain nicht empfohlen.", "ci": "2027-11-07", "co": "2027-11-09", "xy": [88, 307.2], "cost": 88}, {"no": 25, "key": "yos", "place": "Yosemite", "st": "CA", "reg": "wueste", "n": 3, "h": 2.5, "km": 160, "cg": "Yosemite RV Resort", "url": "https://maps.campendium.com/us/coarsegold-ca/camping-rv/yosemite-rv-resort", "rating": 3.7, "rate": 94, "rep": "08/2022", "hi": "Yosemite Valley, Mariposa Grove.", "note": "In Coarsegold, rund 1 Std. bis zum Südeingang.", "ci": "2027-11-09", "co": "2027-11-12", "xy": [78.6, 285.5], "cost": 282}, {"no": 26, "key": "peta", "place": "San Francisco", "st": "CA", "reg": "pazifik", "n": 3, "h": 3.5, "km": 370, "cg": "San Francisco North / Petaluma KOA Resort", "url": "https://maps.campendium.com/us/petaluma-ca/camping-rv/san-francisco-north-petaluma-koa-resort", "rating": 3.9, "rate": 135, "rep": "08/2024", "hi": "Mit der Fähre ab Larkspur nach San Francisco; Weingüter in Sonoma.", "note": "KOA-Resort mit Pool.", "ci": "2027-11-12", "co": "2027-11-15", "xy": [33.9, 249.8], "cost": 405}, {"no": 27, "key": "wats", "place": "Monterey", "st": "CA", "reg": "pazifik", "n": 2, "h": 2.5, "km": 220, "cg": "Santa Cruz / Monterey Bay KOA Holiday", "url": "https://maps.campendium.com/us/watsonville-ca/camping-rv/santa-cruz-monterey-bay-koa-holiday", "rating": 4.2, "rate": 88, "rep": "01/2025", "hi": "Monterey Bay Aquarium, 17-Mile Drive, Carmel.", "note": "Ganzjährig offen.", "ci": "2027-11-15", "co": "2027-11-17", "xy": [40.9, 283.5], "cost": 176}, {"no": 28, "key": "pismo", "place": "Pismo Beach", "st": "CA", "reg": "pazifik", "n": 2, "h": 4.5, "km": 300, "cg": "Pismo Coast Village RV Resort", "url": "https://maps.campendium.com/us/pismo-beach-ca/camping-rv/pismo-coast-village-rv-resort", "rating": 4.1, "rate": 125, "rep": "06/2025", "hi": "Unterwegs Big Sur mit Bixby Bridge; See-Elefanten bei San Simeon.", "note": "Direkt hinter den Dünen am Strand. Status von Highway 1 vor der Fahrt prüfen.", "ci": "2027-11-17", "co": "2027-11-19", "xy": [49.8, 328.2], "cost": 250}, {"no": 29, "key": "mal", "place": "Malibu", "st": "CA", "reg": "pazifik", "n": 3, "h": 3.0, "km": 290, "cg": "Malibu Beach RV Park", "url": "https://maps.campendium.com/us/malibu-ca/camping-rv/malibu-beach-rv-park-malibu-ca--0", "rating": 4.4, "rate": 170, "rep": "05/2025", "hi": "Getty Villa, Santa Monica – Abschluss mit Meerblick.", "note": "Auf der Klippe über dem Pazifik; 30 Min. bis zur Camper-Rückgabe.", "ci": "2027-11-19", "co": "2027-11-22", "xy": [79.9, 361.7], "cost": 510}], "regions": [{"id": "ost", "name": "Ostküste", "col": "#3f6f8f"}, {"id": "blue", "name": "Blue Ridge & Smokies", "col": "#4f7a4a"}, {"id": "mitte", "name": "Musik & Prärie", "col": "#b8862f"}, {"id": "rocky", "name": "Rocky Mountains", "col": "#5d6b8a"}, {"id": "canyon", "name": "Canyonland", "col": "#c2562b"}, {"id": "wueste", "name": "Wüste & Sierra", "col": "#9a5a3c"}, {"id": "pazifik", "name": "Pazifikküste", "col": "#2f7f86"}], "P": {"nyc": [869.8, 214.7], "amboy": [866.2, 222.1], "clarks": [854.1, 240.8], "dc": [828.7, 264.2], "luray": [803.4, 277.8], "wythe": [764.9, 324.1], "ashe": [742.3, 359.3], "towns": [721, 360.1], "nash": [666.6, 353.8], "stl": [592.4, 306.9], "law": [511.5, 298.1], "wak": [430.3, 296.3], "den": [345.2, 276.4], "estes": [335.2, 258.4], "glen": [303.2, 273.8], "moab": [260.8, 291.1], "torrey": [227.3, 292.2], "bryce": [212, 304.3], "zion": [192.2, 311.7], "page": [221.2, 321.6], "will": [202.1, 358.8], "sed": [207.8, 368.8], "lv": [151.9, 330.9], "pah": [138.1, 324.1], "lone": [103.6, 307.2], "three": [88, 307.2], "yos": [78.6, 285.5], "peta": [33.9, 249.8], "wats": [40.9, 283.5], "pismo": [49.8, 328.2], "mal": [79.9, 361.7], "agoura": [78, 358.7]}, "total_km": 7660, "last_km": 20, "nights": 74, "camp_usd": 6678, "camper": [["Fahrzeugmiete 74 Nächte (Richtwert ca. $110/Nacht)", 8140], ["Frühbucher-Rabatt 10 % (Buchung bis 31.12.2026)", -814], ["Meilenpakete 11 × 500 Meilen à $220", 2420], ["Einweggebühr New York → Los Angeles", 795], ["Bereitstellung (Abholung Di–Do)", 225], ["RV Essentials Kit (Küche, Haushalt, WLAN-Hotspot)", 150], ["Bettwäsche-Kits 2 × $75", 150], ["New-Jersey-Gebühr bei Abholung NY (max.)", 140], ["Steuern New Jersey 6,625 %", 733], ["VIP Plus ohne Selbstbehalt, 74 × $22.75 (empfohlen)", 1684]], "camper_usd": 13623, "fuel_usd": 2737, "fees_usd": 430, "miles": 5475, "packs": 11, "flights": {"out": {"date": "Di 7. Sept. 2027", "route": "Zürich → New York JFK", "f": "Delta · 13:35 – 17:09 · Nonstop · 9 Std. 34 Min.", "chf": 746, "u": "https://www.google.com/travel/flights?q=Flights+from+ZRH+to+JFK+on+2027-09-07+one+way+for+2+adults&curr=CHF&hl=de&gl=ch"}, "back": {"date": "Mo 22. Nov. 2027", "route": "Los Angeles → Zürich", "f": "Noch nicht buchbar. Richtwert: Aer Lingus via Dublin, 20:20 – 20:40 (+1)", "chf": 690, "u": "https://www.google.com/travel/flights?q=Flights+from+LAX+to+ZRH+on+2027-11-22+one+way+for+2+adults&curr=CHF&hl=de&gl=ch"}}, "hotel_chf": 700, "usd_chf": 0.8};
+(function(){
+var MO=["Jan.","Feb.","März","April","Mai","Juni","Juli","Aug.","Sept.","Okt.","Nov.","Dez."];
+var WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
+function d(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+function fd(s,wd){var x=d(s);return (wd?WD[x.getDay()]+" ":"")+x.getDate()+". "+MO[x.getMonth()];}
+function n(v){return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g,"'");}
+function h(v){var w=Math.floor(v),r=v-w;var s=r>=.7?"¾":r>=.45?"½":r>=.2?"¼":"";return (w?w:"")+s+(w||s?" Std.":"");}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var R={};D.regions.forEach(function(r){R[r.id]=r;});
+var S=D.stops;
+
+// Kennzahlen
+var tot=(D.camper_usd+D.camp_usd+D.fuel_usd+D.fees_usd)*D.usd_chf+D.flights.out.chf+D.flights.back.chf+D.hotel_chf;
+document.getElementById("stats").innerHTML=[
+ ["77 Tage","7. Sept. – 23. Nov. 2027"],["29 Stationen","74 Nächte im Camper"],["ca. "+n(Math.round(D.total_km/100)*100)+" km","ohne Ausflüge"],["max. 4½ Std.","Fahrt pro Etappe"],["ca. CHF "+n(tot/1000)+"'000","für zwei Personen"]
+].map(function(s){return '<div class="stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';}).join("");
+
+// Karte
+var g=document.getElementById("route"),svg="";
+var pts=[D.P.amboy].concat(S.map(function(s){return s.xy;})).concat([D.P.agoura]);
+for(var i=1;i<pts.length;i++){var reg=S[Math.min(i-1,S.length-1)].reg;
+  svg+='<path class="seg" stroke="'+R[reg].col+'" d="M'+pts[i-1][0]+' '+pts[i-1][1]+'L'+pts[i][0]+' '+pts[i][1]+'"/>';}
+svg+='<circle cx="'+D.P.amboy[0]+'" cy="'+D.P.amboy[1]+'" r="5" fill="#23211d"/><text class="end" x="'+(D.P.amboy[0]-6)+'" y="'+(D.P.amboy[1]-12)+'" text-anchor="end">Start New York</text>';
+svg+='<circle cx="'+D.P.agoura[0]+'" cy="'+D.P.agoura[1]+'" r="5" fill="#23211d"/><text class="end" x="'+(D.P.agoura[0]+6)+'" y="'+(D.P.agoura[1]+20)+'">Ziel Los Angeles</text>';
+var LBL={dc:[-10,4,"end"],nash:[0,-14,"middle"],stl:[0,-12,"middle"],den:[10,14,"start"],moab:[8,-10,"start"],zion:[-10,-8,"end"],will:[-10,6,"end"],lv:[2,17,"middle"],yos:[10,-6,"start"],peta:[10,-6,"start"],ashe:[0,18,"middle"],wak:[0,-12,"middle"],estes:[0,-12,"middle"],law:[0,-12,"middle"]};
+S.forEach(function(s){var c=R[s.reg].col;
+  svg+='<g class="dot" data-k="'+s.key+'" tabindex="0"><circle cx="'+s.xy[0]+'" cy="'+s.xy[1]+'" r="6.6" fill="'+c+'"/><text x="'+s.xy[0]+'" y="'+(s.xy[1]+2.6)+'">'+s.no+'</text></g>';
+  if(LBL[s.key]){var l=LBL[s.key];svg+='<text class="lbl" x="'+(s.xy[0]+l[0])+'" y="'+(s.xy[1]+l[1])+'" text-anchor="'+l[2]+'">'+esc(s.place)+'</text>';}
+});
+g.innerHTML=svg;
+document.getElementById("legend").innerHTML=D.regions.map(function(r){return '<span><i style="background:'+r.col+'"></i>'+r.name+'</span>';}).join("");
+var tip=document.getElementById("tip"),mapc=document.querySelector(".mapcard"),mapEl=document.getElementById("map");
+function byKey(k){for(var i=0;i<S.length;i++)if(S[i].key===k)return S[i];}
+function showTip(s){var pt=mapEl.createSVGPoint();pt.x=s.xy[0];pt.y=s.xy[1];var m=mapEl.getScreenCTM();var sp=pt.matrixTransform(m);var r=mapc.getBoundingClientRect();
+  tip.innerHTML='<b>'+s.no+' · '+esc(s.place)+'</b><br>'+fd(s.ci,1)+' – '+fd(s.co,1)+' · '+s.n+(s.n>1?' Nächte':' Nacht')+'<br><span style="color:#cfc8b6">'+esc(s.cg)+'</span>';
+  tip.style.left=(sp.x-r.left)+"px";tip.style.top=(sp.y-r.top-8)+"px";tip.style.opacity=1;}
+function hideTip(){tip.style.opacity=0;}
+function mark(k){document.querySelectorAll(".on").forEach(function(e){e.classList.remove("on");});
+  document.querySelectorAll('[data-k="'+k+'"]').forEach(function(e){e.classList.add("on");});}
+g.addEventListener("mouseover",function(e){var t=e.target.closest(".dot");if(t)showTip(byKey(t.getAttribute("data-k")));});
+g.addEventListener("mouseout",function(e){if(e.target.closest(".dot"))hideTip();});
+g.addEventListener("click",function(e){var t=e.target.closest(".dot");if(!t)return;var k=t.getAttribute("data-k");mark(k);showTip(byKey(k));
+  var c=document.getElementById("st-"+k);if(c)setTimeout(function(){c.scrollIntoView({behavior:"smooth",block:"center"});hideTip();},450);});
+
+// Zeitstrahl
+var start=d("2027-09-07"),days=77,bar="";
+bar+='<div class="nyc" style="flex:2" title="New York, 2 Hotelnächte">NY</div>';
+S.forEach(function(s){bar+='<div data-k="'+s.key+'" style="flex:'+s.n+';background:'+R[s.reg].col+'" title="'+esc(s.no+" · "+s.place+" · "+fd(s.ci)+" – "+fd(s.co)+" · "+s.n+" N.")+'">'+(s.n>=2?s.no:"")+'</div>';});
+bar+='<div class="nyc" style="flex:1" title="Rückgabe und Heimflug">✈</div>';
+document.getElementById("bar").innerHTML=bar;
+var mo=[["Sept.","2027-09-07","2027-10-01"],["Oktober","2027-10-01","2027-11-01"],["November","2027-11-01","2027-11-23"]];
+document.getElementById("months").innerHTML=mo.map(function(m){return '<div style="flex:'+((d(m[2])-d(m[1]))/864e5)+'">'+m[0]+'</div>';}).join("");
+var rb=[],cur=null;S.forEach(function(s){if(!cur||cur.reg!==s.reg){cur={reg:s.reg,n:0};rb.push(cur);}cur.n+=s.n;});
+document.getElementById("regbar").innerHTML='<div style="flex:2;border-color:#9a9483">NY</div>'+rb.map(function(r){return '<div style="flex:'+r.n+';border-color:'+R[r.reg].col+'">'+R[r.reg].name+' · '+r.n+' N.</div>';}).join("")+'<div style="flex:1;border-color:#9a9483"></div>';
+var drives=S.length+1,dh=S.reduce(function(a,s){return a+s.h;},0)+0.5;
+document.getElementById("tlnote").textContent=drives+" Fahrtage mit zusammen rund "+Math.round(dh)+" Stunden reiner Fahrzeit – im Schnitt "+h(dh/drives).replace(" Std.","")+" Stunden pro Fahrtag. An den übrigen "+(74-drives+1)+" Tagen bleibt der Camper stehen.";
+document.getElementById("bar").addEventListener("click",function(e){var t=e.target.closest("[data-k]");if(!t)return;var k=t.getAttribute("data-k");mark(k);var c=document.getElementById("st-"+k);if(c)c.scrollIntoView({behavior:"smooth",block:"center"});});
+
+// Etappen
+var out="",last=null;
+D.regions.forEach(function(r){var list=S.filter(function(s){return s.reg===r.id;});if(!list.length)return;
+  var nn=list.reduce(function(a,s){return a+s.n;},0);
+  out+='<div class="region"><div class="region-head"><i style="background:'+r.col+'"></i><h3>'+r.name+'</h3><span>'+fd(list[0].ci)+' – '+fd(list[list.length-1].co)+' · '+nn+' Nächte</span></div><div class="stops">';
+  list.forEach(function(s){
+    out+='<article class="card stop" id="st-'+s.key+'" data-k="'+s.key+'"><div class="no" style="background:'+r.col+'">'+s.no+'</div>'+
+    '<h4>'+esc(s.place)+' <span style="font:500 14px var(--body);color:var(--soft)">'+s.st+'</span></h4>'+
+    '<div class="when">'+fd(s.ci,1)+' – '+fd(s.co,1)+' · '+s.n+(s.n>1?' Nächte':' Nacht')+'</div>'+
+    '<div class="drive">🚐 Anfahrt '+h(s.h)+' · ca. '+n(s.km)+' km</div>'+
+    '<div class="cg"><a href="'+esc(s.url)+'">'+esc(s.cg)+'</a><div class="meta"><span>★ <b>'+s.rating.toFixed(1)+'</b> / 5</span><span>zuletzt <b>$'+s.rate+'</b>/Nacht ('+esc(s.rep)+')</span><span>≈ <b>$'+n(s.cost)+'</b> total</span></div></div>'+
+    '<p>'+esc(s.hi)+'</p><div class="note">'+esc(s.note)+'</div></article>';});
+  out+='</div></div>';});
+document.getElementById("regions").innerHTML=out;
+document.getElementById("regions").addEventListener("mouseover",function(e){var t=e.target.closest(".stop");if(t){var k=t.getAttribute("data-k");document.querySelectorAll(".dot.on").forEach(function(x){x.classList.remove("on");});var dd=document.querySelector('.dot[data-k="'+k+'"]');if(dd)dd.classList.add("on");}});
+
+// Camper
+document.getElementById("campertab").innerHTML=D.camper.map(function(c){return '<tr><td>'+esc(c[0])+'</td><td class="n">'+(c[1]<0?"− $"+n(-c[1]):"$"+n(c[1]))+'</td></tr>';}).join("")+'<tr class="sum"><td>Total Camper</td><td class="n">$'+n(D.camper_usd)+'</td></tr>';
+
+// Flüge
+var F=D.flights;
+function fl(t,f,est){return '<div class="card fl"><div class="eyebrow">'+t+'</div><div class="date">'+f.date+'</div><div><b>'+f.route+'</b></div><div class="small">'+f.f+'</div><div class="price">'+(est?"ca. ":"")+'CHF '+n(f.chf)+' <span class="small">für 2</span></div><a class="btn" href="'+f.u+'">Flüge ansehen ↗</a></div>';}
+document.getElementById("flights").innerHTML=fl("Hinflug",F.out)+fl("Rückflug",F.back,1)+
+ '<div class="card fl" style="grid-column:1/-1"><div class="eyebrow">New York</div><div class="date">Di 7. – Do 9. Sept. · 2 Hotelnächte</div><div class="small">Zum Ankommen und für Manhattan, bevor es mit dem Camper losgeht. Road Bear holt euch bei ausgewählten Hotels mit dem Shuttle ab – Hotel aus deren Liste wählen. Budget ca. CHF '+n(D.hotel_chf)+' für zwei Nächte.</div></div>';
+
+// Kosten
+var rows=[["Flüge Zürich – New York – Los Angeles – Zürich",F.out.chf+F.back.chf],["Hotel New York, 2 Nächte (Richtwert)",D.hotel_chf],["Camper inkl. Versicherung ohne Selbstbehalt",D.camper_usd*D.usd_chf],["Campingplätze, 74 Nächte",D.camp_usd*D.usd_chf],["Benzin, ca. "+n(D.miles)+" Meilen bei 8 Meilen/Gallone",D.fuel_usd*D.usd_chf],["Nationalpark-Jahrespass und Gebühren",D.fees_usd*D.usd_chf]];
+document.getElementById("costtab").innerHTML=rows.map(function(r){return '<tr><td>'+r[0]+'</td><td class="n">CHF '+n(r[1])+'</td></tr>';}).join("")+'<tr class="sum"><td>Total</td><td class="n">CHF '+n(tot)+'</td></tr>';
+document.getElementById("bigtotal").textContent="CHF "+n(Math.round(tot/100)*100);
+document.getElementById("pp").textContent="rund CHF "+n(Math.round(tot/2/100)*100)+" pro Person, ohne Essen und Ausflüge";
+document.getElementById("camptab").innerHTML=S.map(function(s){return '<tr><td>'+s.no+' · '+esc(s.place)+' <span class="small">'+s.n+' × $'+s.rate+'</span></td><td class="n">$'+n(s.cost)+'</td></tr>';}).join("")+'<tr class="sum"><td>Total ('+D.nights+' Nächte)</td><td class="n">$'+n(D.camp_usd)+'<br><span class="small" style="font-weight:400">≈ CHF '+n(D.camp_usd*D.usd_chf)+'</span></td></tr>';
+document.getElementById("foot").innerHTML="Stand 15.11.2026. Campingplatz-Preise: zuletzt von Gästen auf Campendium gemeldete Nachtpreise (Datum in Klammern); die Preise für Herbst 2027 können abweichen. Camper-Gebühren aus der Road-Bear-Preisliste 2026/27, Nachtpreis geschätzt. Flugpreise Google Flüge, der Rückflug ist noch nicht buchbar. Fahrzeiten und Distanzen sind Schätzungen.";
+})();
+</script>
+</body>
+</html>
